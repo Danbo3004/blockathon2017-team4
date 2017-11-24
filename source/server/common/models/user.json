@@ -1,0 +1,21 @@
+{
+  "name": "user",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "lastUpdated": false,
+    "realm": false,
+    "credentials": false,
+    "challenges": false,
+    "status": false,
+    "emailVerified": false,
+    "verificationToken": false
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
