@@ -39,5 +39,9 @@
   "user": {
     "dataSource": "mysql",
     "public": true
+  },
+  "util": {
+    "dataSource": "memory",
+    "public": true
   }
 }

@@ -1,0 +1,10 @@
+{
+  "name": "util",
+  "base": "PersistedModel",
+  "properties": {
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

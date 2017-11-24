@@ -1,4 +1,8 @@
 {
+  "memory": {
+    "name": "memory",
+    "connector": "memory"
+  },
   "mysql": {
     "host": "localhost",
     "port": 3306,
