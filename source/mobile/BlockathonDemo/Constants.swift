@@ -14,4 +14,5 @@ class Constants: NSObject {
 	static let baseApiUrl = "https://127.0.0.1:8080"
 	static let apiAppToken = "https://127.0.0.1:8080"
 	static let BCErrorKey = "errors"
+	static let TCMenuWidth : CGFloat = 256.0
 }

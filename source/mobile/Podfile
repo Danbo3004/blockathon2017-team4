@@ -11,4 +11,5 @@ target 'BlockathonDemo' do
   pod 'AlamofireNetworkActivityLogger', '~> 2.0'
   pod 'AlamofireJsonToObjects'
   pod 'SwiftyJSON'
+	pod 'SWRevealViewController'
 end

@@ -15,8 +15,13 @@
 		652D27561FC8840E00E8B1C1 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D27551FC8840E00E8B1C1 /* BaseModel.swift */; };
 		652D275A1FC8894400E8B1C1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D27591FC8894400E8B1C1 /* Constants.swift */; };
 		652D275C1FC889D000E8B1C1 /* NSError+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D275B1FC889D000E8B1C1 /* NSError+Extension.swift */; };
+		652D275E1FC89F7300E8B1C1 /* LenderDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D275D1FC89F7300E8B1C1 /* LenderDashboardViewController.swift */; };
+		652D27641FC8A31A00E8B1C1 /* BorrowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D27631FC8A31A00E8B1C1 /* BorrowerCell.swift */; };
+		652D27661FC8A36A00E8B1C1 /* BorrowerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 652D27651FC8A36A00E8B1C1 /* BorrowerCell.xib */; };
+		652D27681FC8AFE900E8B1C1 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D27671FC8AFE900E8B1C1 /* MenuViewController.swift */; };
+		652D276A1FC8B74100E8B1C1 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D27691FC8B74100E8B1C1 /* MenuTableViewCell.swift */; };
 		654C37E91FC8149300F3D6EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C37E81FC8149300F3D6EB /* AppDelegate.swift */; };
-		654C37EB1FC8149300F3D6EB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C37EA1FC8149300F3D6EB /* ViewController.swift */; };
+		654C37EB1FC8149300F3D6EB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C37EA1FC8149300F3D6EB /* LoginViewController.swift */; };
 		654C37EE1FC8149300F3D6EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654C37EC1FC8149300F3D6EB /* Main.storyboard */; };
 		654C37F01FC8149300F3D6EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654C37EF1FC8149300F3D6EB /* Assets.xcassets */; };
 		654C37F31FC8149300F3D6EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654C37F11FC8149300F3D6EB /* LaunchScreen.storyboard */; };
@@ -34,9 +39,14 @@
 		652D27551FC8840E00E8B1C1 /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		652D27591FC8894400E8B1C1 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		652D275B1FC889D000E8B1C1 /* NSError+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Extension.swift"; sourceTree = "<group>"; };
+		652D275D1FC89F7300E8B1C1 /* LenderDashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LenderDashboardViewController.swift; sourceTree = "<group>"; };
+		652D27631FC8A31A00E8B1C1 /* BorrowerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorrowerCell.swift; sourceTree = "<group>"; };
+		652D27651FC8A36A00E8B1C1 /* BorrowerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BorrowerCell.xib; sourceTree = "<group>"; };
+		652D27671FC8AFE900E8B1C1 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		652D27691FC8B74100E8B1C1 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		654C37E51FC8149300F3D6EB /* BlockathonDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlockathonDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		654C37E81FC8149300F3D6EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		654C37EA1FC8149300F3D6EB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		654C37EA1FC8149300F3D6EB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		654C37ED1FC8149300F3D6EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		654C37EF1FC8149300F3D6EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		654C37F21FC8149300F3D6EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -56,6 +66,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		652D27601FC8A16200E8B1C1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				652D27631FC8A31A00E8B1C1 /* BorrowerCell.swift */,
+				652D27651FC8A36A00E8B1C1 /* BorrowerCell.xib */,
+				652D27691FC8B74100E8B1C1 /* MenuTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		654C37DC1FC8149300F3D6EB = {
 			isa = PBXGroup;
 			children = (
@@ -79,8 +99,11 @@
 			children = (
 				65CFCC9B1FC88187009BA9E7 /* Model */,
 				654C37FA1FC8186C00F3D6EB /* API */,
+				652D27601FC8A16200E8B1C1 /* Views */,
 				654C37E81FC8149300F3D6EB /* AppDelegate.swift */,
-				654C37EA1FC8149300F3D6EB /* ViewController.swift */,
+				654C37EA1FC8149300F3D6EB /* LoginViewController.swift */,
+				652D275D1FC89F7300E8B1C1 /* LenderDashboardViewController.swift */,
+				652D27671FC8AFE900E8B1C1 /* MenuViewController.swift */,
 				654C37EC1FC8149300F3D6EB /* Main.storyboard */,
 				654C37EF1FC8149300F3D6EB /* Assets.xcassets */,
 				654C37F11FC8149300F3D6EB /* LaunchScreen.storyboard */,
@@ -193,6 +216,7 @@
 				654C37F31FC8149300F3D6EB /* LaunchScreen.storyboard in Resources */,
 				654C37F01FC8149300F3D6EB /* Assets.xcassets in Resources */,
 				654C37EE1FC8149300F3D6EB /* Main.storyboard in Resources */,
+				652D27661FC8A36A00E8B1C1 /* BorrowerCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +249,7 @@
 				"${BUILT_PRODUCTS_DIR}/AlamofireJsonToObjects/AlamofireJsonToObjects.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger/AlamofireNetworkActivityLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/EVReflection/EVReflection.framework",
+				"${BUILT_PRODUCTS_DIR}/SWRevealViewController/SWRevealViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -233,6 +258,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireJsonToObjects.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EVReflection.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWRevealViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,15 +292,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				652D27511FC881B800E8B1C1 /* JSONParams.swift in Sources */,
-				654C37EB1FC8149300F3D6EB /* ViewController.swift in Sources */,
+				654C37EB1FC8149300F3D6EB /* LoginViewController.swift in Sources */,
+				652D276A1FC8B74100E8B1C1 /* MenuTableViewCell.swift in Sources */,
 				654C37E91FC8149300F3D6EB /* AppDelegate.swift in Sources */,
+				652D275E1FC89F7300E8B1C1 /* LenderDashboardViewController.swift in Sources */,
 				652D275C1FC889D000E8B1C1 /* NSError+Extension.swift in Sources */,
 				652D27501FC881B800E8B1C1 /* HttpClient.swift in Sources */,
 				652D27521FC881B800E8B1C1 /* Router.swift in Sources */,
+				652D27681FC8AFE900E8B1C1 /* MenuViewController.swift in Sources */,
 				652D274F1FC881B800E8B1C1 /* APIFoundation.swift in Sources */,
 				652D27561FC8840E00E8B1C1 /* BaseModel.swift in Sources */,
 				652D27541FC881EE00E8B1C1 /* User.swift in Sources */,
 				652D275A1FC8894400E8B1C1 /* Constants.swift in Sources */,
+				652D27641FC8A31A00E8B1C1 /* BorrowerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
