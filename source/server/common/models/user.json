@@ -6,6 +6,9 @@
     "validateUpsert": true
   },
   "properties": {
+    "userType": {
+      "type": "string"
+    },
     "lastUpdated": false,
     "realm": false,
     "credentials": false,
