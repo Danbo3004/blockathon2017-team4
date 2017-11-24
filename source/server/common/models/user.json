@@ -1,0 +1,34 @@
+{
+  "name": "user",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "userType": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string",
+      "index": true
+    },
+    "privateKey": {
+      "type": "string"
+    },
+    "entropy": {
+      "type": "string"
+    },
+    "lastUpdated": false,
+    "realm": false,
+    "credentials": false,
+    "challenges": false,
+    "status": false,
+    "emailVerified": false,
+    "verificationToken": false
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
