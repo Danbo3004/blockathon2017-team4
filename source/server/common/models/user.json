@@ -9,6 +9,16 @@
     "userType": {
       "type": "string"
     },
+    "address": {
+      "type": "string",
+      "index": true
+    },
+    "privateKey": {
+      "type": "string"
+    },
+    "entropy": {
+      "type": "string"
+    },
     "lastUpdated": false,
     "realm": false,
     "credentials": false,
