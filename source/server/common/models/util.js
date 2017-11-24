@@ -98,4 +98,42 @@ module.exports = function(Util) {
         })
     })
   }
+
+  Util.remoteMethod('callMethod', {
+    accepts: [
+      {arg: 'address', type: 'string', required: true},
+      {arg: 'contractName', type: 'string', required: true},
+      {arg: 'methodName', type: 'string', required: true},
+      {arg: 'args', type: 'array'}
+    ],
+    http: {
+      verb: 'get'
+    },
+    returns: {
+      root: true, type: 'object'
+    }
+  })
+  Util.callMethod = function(address, contractName, methodName, args, cb) {
+    if (!globals['eth-node'].web3.utils.isAddress(address)) {
+      let err = new Error('Address is not valid');
+      err.statusCode = 400;
+      cb(err);
+      return;
+    }
+    if (!globals['smart-contracts'][contractName]) {
+      let err = new Error('contract name not found');
+      err.statusCode = 404;
+      cb(err);
+      return;
+    }
+    const abi = globals['smart-contracts'][contractName].abi;
+    const contract = new globals['eth-node'].eth.Contract(abi, address);
+    if (!contract.methods[methodName]) {
+      let err = new Error('method name not found');
+      err.statusCode = 404;
+      cb(err);
+      return;
+    }
+    contract.methods[methodName].apply(contract.methods[methodName], args).call({}, cb);
+  }
 }
