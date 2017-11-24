@@ -1,6 +1,14 @@
 {
-  "db": {
-    "name": "db",
-    "connector": "memory"
+  "mysql": {
+    "host": "localhost",
+    "port": 3306,
+    "url": "",
+    "database": "blockathon2017",
+    "password": "",
+    "name": "mysql",
+    "user": "root",
+    "connector": "mysql",
+    "connectTimeout": 50000,
+    "acquireTimeout": 50000
   }
 }
