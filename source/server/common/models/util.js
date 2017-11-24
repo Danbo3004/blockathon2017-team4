@@ -142,6 +142,7 @@ module.exports = function(Util) {
     accepts: [
       {arg: 'to', type: 'address', required: true},
       {arg: 'wei', type: 'string', required: true},
+      {arg: 'req', type: 'object', 'http': {source: 'req'}}
     ],
     http: {
       verb: 'post'
@@ -150,13 +151,45 @@ module.exports = function(Util) {
       arg: 'transactionHash', type: 'string'
     }
   })
-  Util.transferEth = function(to, wei, cb) {
+  Util.transferEth = function(to, wei, req, cb) {
     if (!globals['eth-node'].web3.utils.isAddress(to)) {
       let err = new Error('Receiver address is not valid');
       err.statusCode = 400;
       cb(err);
       return;
     }
+    if (!req.accessToken) {
+      let err = new Error('Authentication is required');
+      err.statusCode = 401;
+      cb(err);
+      return;
+    }
+    async.auto({
+      getUser: function(callback) {
+        Util.app.models.user.findById(req.accessToken.userId, (err, user) => {
+          if (err) {
+            callback(err);
+            return;
+          }
+          if (!user) {
+            let err = new Error('No user found');
+            err.statusCode = 404;
+            callback(err);
+            return;
+          }
+          callback(null, user);
+        });
+      },
+      signTransaction: ['getUser', function(data, callback) {
+        Util.signTransaction(data['getUser'].privateKey, to, wei, null, callback);
+      }],
+      sendSignedTransaction: ['signTransaction', function(data, callback) {
+        globals['eth-node'].eth.sendSignedTransaction(data['signTransaction'], callback)
+          .once('receipt', receipt => console.log('Send ETH transaction hash: ' + receipt.transactionHash))
+      }]
+    }, (err, results) => {
+      cb(err, results['sendSignedTransaction']);
+    })
   }
 
   Util.remoteMethod('signTransaction', {
