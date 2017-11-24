@@ -23,6 +23,8 @@ contract Lending {
         uint blockNumberExpired;
         uint blockNumberTime;
         bool isPaid;
+        bool isLended;
+        address lender;
     }
 
     function balanceOf() constant returns(uint256){
@@ -32,9 +34,19 @@ contract Lending {
     event PickLending(address indexed  from, uint value ,uint tu, uint mau,address indexed  to,uint blockNumber);
 	event PayDebt(address indexed  from, uint value ,address indexed  to,uint blockNumber);
     event NewLoan(address indexed  from, uint value ,uint tu, uint mau,uint blockNumber,uint blockNumbeExpiredr,uint blockNumberTime);
+	
 	//Lender pick %
     function pickLending(address _from, uint _value ,uint _tu, uint _mau,address _to)  {
-	    require(msg.sender == tokenAddress);
+	    Loan storage loan = loans[_to];
+	    
+	    require(loan.value > 0 && loan.isLended ==false);
+	    require(loan.blockNumberExpired <= block.number);
+	    require(compareFraction(_tu,_mau,loan.tu,loan.mau)==false);
+	    
+	    loan.tu = _tu;
+	    loan.mau=_mau;
+	    
+	    loan.lender = _from;
 		PickLending( _from,  _value , _tu,  _mau,_to,block.number);        
 	}
     
@@ -47,17 +59,18 @@ contract Lending {
    
     function createLoan(address _from,uint _value,uint _tu, uint _mau,uint _blockNumberExpires,uint _blockNumberTime){
         Loan memory loan ;
+        address emptyAddress;
         require(loans[_from].value == 0 ||(loans[_from].value>0 && loans[_from].isPaid == true));
-         loan = Loan({value:_value,tu:_tu,mau:_mau,blockNumberExpired:_blockNumberExpires,blockNumberTime:_blockNumberTime,isPaid:false});
+         loan = Loan({value:_value,tu:_tu,mau:_mau,blockNumberExpired:_blockNumberExpires,blockNumberTime:_blockNumberTime,isPaid:false,isLended:false,lender:emptyAddress});
         loans[_from]= loan;
         NewLoan( _from, _value, _tu,  _mau,block.number, _blockNumberExpires, _blockNumberTime);
     }
     
-    function compareFraction(uint so1, uint so2,uint so3,uint so4) private constant returns(bool){
-        return (so1*so4 > so2 * so3);
+    function compareFraction(uint so1, uint so2,uint so3,uint so4) constant returns(bool){
+        return (so1*so4 >= so2 * so3);
     }
 	
-	function subFraction(uint so1, uint so2,uint so3,uint so4)private constant returns(uint){
+	function subFraction(uint so1, uint so2,uint so3,uint so4) constant returns(uint){
         return ((so1*so4 -so2 * so3)/(so4*so2));
     }
 }
