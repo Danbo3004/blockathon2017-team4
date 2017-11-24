@@ -53,5 +53,11 @@ contract Lending {
         NewLoan( _from, _value, _tu,  _mau,block.number, _blockNumberExpires, _blockNumberTime);
     }
     
-    
+    function compareFraction(uint so1, uint so2,uint so3,uint so4) private constant returns(bool){
+        return (so1*so4 > so2 * so3);
+    }
+	
+	function subFraction(uint so1, uint so2,uint so3,uint so4)private constant returns(uint){
+        return ((so1*so4 -so2 * so3)/(so4*so2));
+    }
 }
