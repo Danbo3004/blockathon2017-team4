@@ -11,6 +11,7 @@
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
+    "async": "^2.6.0",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
     "grunt": "^1.0.1",
@@ -21,6 +22,7 @@
     "loopback-connector-mysql": "^5.2.0",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^2.0.0",
+    "underscore": "^1.8.3",
     "web3": "^1.0.0-beta.26"
   },
   "devDependencies": {
