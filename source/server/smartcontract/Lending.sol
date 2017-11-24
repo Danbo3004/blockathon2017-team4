@@ -42,11 +42,16 @@ contract Lending {
 	    require(loan.value > 0 && loan.isLended ==false);
 	    require(loan.blockNumberExpired <= block.number);
 	    require(compareFraction(_tu,_mau,loan.tu,loan.mau)==false);
+	    require(loan.value <= _value);
 	    
 	    loan.tu = _tu;
-	    loan.mau=_mau;
-	    
+	    loan.mau = _mau;
 	    loan.lender = _from;
+	    
+	    if(loan.value < _value){
+	        tk.transfer(_from,_value - loan.value);
+	    }
+	    
 		PickLending( _from,  _value , _tu,  _mau,_to,block.number);        
 	}
     
