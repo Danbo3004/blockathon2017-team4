@@ -7,7 +7,9 @@
   },
   "properties": {
     "userType": {
-      "type": "string"
+      "type": "string",
+      "default": "borrower",
+      "description": "borrower | lender"
     },
     "address": {
       "type": "string",
