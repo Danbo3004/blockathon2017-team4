@@ -58,4 +58,7 @@ export class AuthenticationService {
   getUser(): object {
     return this.user;
   }
+  getUserId(): object {
+    return this.user.id;
+  }
 }

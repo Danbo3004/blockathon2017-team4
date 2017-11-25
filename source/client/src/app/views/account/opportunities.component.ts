@@ -9,10 +9,12 @@ export class OpportunitiesComponent implements OnInit {
 
   constructor(private creditService: CreditService) {
   }
+
   ngOnInit(): void {
+
     this.creditService.getCredits({
       where: {
-        status: 'created'//'readyToBid'
+        status: 'lending'
       }
     }, data => {
       this.listOpportunities = data;

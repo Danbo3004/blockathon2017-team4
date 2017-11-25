@@ -8,13 +8,10 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header">
-            <h4>Borrowers</h4>
-          </div>
           <div class="card-body">
-            <h2 *ngIf="!listOpportunities" class="text-center">There are no opportunity now!</h2>
+            <h2 *ngIf="listOpportunities?.length==0" class="text-center">There are no opportunity now!</h2>
 
-            <table class="table" *ngIf="listOpportunities">
+            <table class="table" *ngIf="listOpportunities?.length>0">
               <thead>
               <tr>
                 <th>Borrower</th>
