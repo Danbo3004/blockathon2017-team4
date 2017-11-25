@@ -27,7 +27,7 @@ module.exports = function(Util) {
   Util.disableRemoteMethodByName('replaceById');
   Util.disableRemoteMethodByName('exists');
 
-  Util.remoteMethod('checkBalance', {
+  Util.remoteMethod('checkEthBalance', {
     accepts: {arg: 'address', type: 'string', required: true},
     http: {
       verb: 'get'
@@ -36,7 +36,7 @@ module.exports = function(Util) {
       root: true, type: 'string'
     }
   })
-  Util.checkBalance = function(address, cb) {
+  Util.checkEthBalance = function(address, cb) {
     if (!globals['eth-node'].web3.utils.isAddress(address)) {
       let err = new Error('Address is not valid');
       err.statusCode = 400;
@@ -44,6 +44,26 @@ module.exports = function(Util) {
       return;
     }
     globals['eth-node'].eth.getBalance(address, cb);
+  }
+
+  Util.remoteMethod('checkTokenBalance', {
+    accepts: {arg: 'address', type: 'string', required: true},
+    http: {
+      verb: 'get'
+    },
+    returns: {
+      root: true, type: 'string'
+    }
+  })
+  Util.checkTokenBalance = function(address, cb) {
+    if (!globals['eth-node'].web3.utils.isAddress(address)) {
+      let err = new Error('Address is not valid');
+      err.statusCode = 400;
+      cb(err);
+      return;
+    }
+    const contract = globals['deployed-contracts'].token();
+    contract.methods['balanceOf'](address).call({}, cb);
   }
 
   Util.remoteMethod('deployContract', {
