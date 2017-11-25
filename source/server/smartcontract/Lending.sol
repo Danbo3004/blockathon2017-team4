@@ -40,18 +40,19 @@ contract Lending {
     
     
 
-    event PickLending(address indexed  from, uint value ,uint tu, uint mau,address indexed  to,uint blockNumber);
+    event BidLending(address indexed  from, uint value ,uint tu, uint mau,address indexed  to,uint blockNumber);
 	event PayDebt(address indexed  from, uint value ,address indexed  to,uint blockNumber);
     event NewLoan(address indexed  from, uint value ,uint tu, uint mau,uint blockNumber,uint blockNumbeExpiredr,uint blockNumberTime);
 	
-	//Lender pick %
-    function pickLending(address _from, uint _value ,uint _tu, uint _mau,address _to)  {
-	    Loan storage loan = loans[_to];
+	//Lender bid %
+    function bidLending(address _from, uint _value ,uint _tu, uint _mau,address _to)  {
+	    require(msg.sender == tokenAddress);
+		Loan storage loan = loans[_to];
 	    
 	    require(loan.value > 0 && loan.isLended ==false);
 	    require(loan.blockNumberExpired >= block.number);
 	    require(loan.value <= _value);
-	    require((loan.lender!=address(0)&& compareFraction(_tu,_mau,loan.tu,loan.mau)==-1) || (loan.lender==address(0)&& compareFraction(_tu,_mau,loan.tu,loan.mau)!=-1) );
+	    //require((loan.lender!=address(0)&& compareFraction(_tu,_mau,loan.tu,loan.mau)==-1) || (loan.lender==address(0)&& compareFraction(_tu,_mau,loan.tu,loan.mau)!=-1) );
 	    if(loan.lender!=address(0)){
 	        require(compareFraction(_tu,_mau,loan.tu,loan.mau)==-1);
 			tk.transfer(loan.lender,loan.value);
@@ -68,7 +69,7 @@ contract Lending {
 	        tk.transfer(_from,_value - loan.value);
 	    }
 	    
-		PickLending( _from,  _value , _tu,  _mau,_to,block.number);        
+		BidLending( _from,  _value , _tu,  _mau,_to,block.number);        
 	}
     
 	
@@ -93,7 +94,7 @@ contract Lending {
 	}
    
     function createLoan(address _from,uint _value,uint _tu, uint _mau,uint _blockNumberExpires,uint _blockNumberTime){
-        require(_value > minValue);
+        require(_value >= minValue);
         require(_blockNumberExpires >=block.number);
         require(_blockNumberTime > 0);
         Loan memory loan ;

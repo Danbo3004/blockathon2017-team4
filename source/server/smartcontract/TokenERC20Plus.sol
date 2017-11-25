@@ -4,12 +4,11 @@ interface tokenRecipient { function receiveApproval(address _from, uint256 _valu
 
 contract ContractReceiver {
 
-  
-
-    function tokenFallback(address _from, uint _value, uint tu,uint mau);
+    function bidLending(address _from, uint _value, uint tu,uint mau,address _to);
+    function transferPayDebt(address _to, uint _value) ;
 }
 
-contract TokenERC20 {
+contract TokenERC20Plus {
     // Public variables of the token
     string public name;
     string public symbol;
@@ -158,7 +157,7 @@ contract TokenERC20 {
         return true;
     }
     
-    function transferPickLending(address _to, uint _value, uint tu,uint mau, address pickTo)  returns (bool success) {
+    function transferBidLending(address _to, uint _value, uint tu,uint mau, address pickTo)  returns (bool success) {
     
      // Prevent transfer to 0x0 address. Use burn() instead
         require(_to != 0x0);
@@ -178,7 +177,7 @@ contract TokenERC20 {
     
     
     ContractReceiver receiver = ContractReceiver(_to);
-    receiver.pickLending(msg.sender, _value, tu,mau,pickTo);
+    receiver.bidLending(msg.sender, _value, tu,mau,pickTo);
     return true;
 	
 }
