@@ -241,4 +241,84 @@ module.exports = function(Util) {
       cb(null, '0x' + tx.serialize().toString('hex'));
     })
   }
+
+  Util.remoteMethod('sendMethod', {
+    accepts: [
+      {arg: 'address', type: 'string', required: true},
+      {arg: 'contractName', type: 'string', required: true},
+      {arg: 'methodName', type: 'string', required: true},
+      {arg: 'args', type: 'array'},
+      {arg: 'req', type: 'object', 'http': {source: 'req'}}
+    ],
+    http: {
+      verb: 'post'
+    },
+    returns: {
+      arg: 'transactionHash', type: 'string'
+    }
+  })
+  Util.sendMethod = function(address, contractName, methodName, args, req, cb) {
+    if (!globals['eth-node'].web3.utils.isAddress(address)) {
+      let err = new Error('Address is not valid');
+      err.statusCode = 400;
+      cb(err);
+      return;
+    }
+    if (!req.accessToken) {
+      let err = new Error('Authentication is required');
+      err.statusCode = 401;
+      cb(err);
+      return;
+    }
+    async.auto({
+      getUser: function(callback) {
+        Util.app.models.user.findById(req.accessToken.userId, (err, user) => {
+          if (err) {
+            callback(err);
+            return;
+          }
+          if (!user) {
+            let err = new Error('No user found');
+            err.statusCode = 404;
+            callback(err);
+            return;
+          }
+          callback(null, user);
+        });
+      },
+      signTransaction: ['getUser', function(data, callback) {
+        Util.signTransaction(data['getUser'].privateKey, address, 0, getSendMethodData(address, contractName, methodName, args), callback);
+      }],
+      sendSignedTransaction: ['signTransaction', function(data, callback) {
+        globals['eth-node'].eth.sendSignedTransaction(data['signTransaction'], callback)
+          .once('receipt', receipt => console.log('Send method transaction hash: ' + receipt.transactionHash))
+      }]
+    }, (err, results) => {
+      cb(err, results['sendSignedTransaction']);
+    })
+  }
+
+  function getSendMethodData(address, contractName, methodName, args) {
+    if (!globals['eth-node'].web3.utils.isAddress(address)) {
+      let err = new Error('Address is not valid');
+      err.statusCode = 400;
+      cb(err);
+      return;
+    }
+    if (!globals['smart-contracts'][contractName]) {
+      let err = new Error('contract name not found');
+      err.statusCode = 404;
+      cb(err);
+      return;
+    }
+    const abi = globals['smart-contracts'][contractName].abi;
+    const contract = new globals['eth-node'].eth.Contract(abi, address);
+    if (!contract.methods[methodName]) {
+      let err = new Error('method name not found');
+      err.statusCode = 404;
+      cb(err);
+      return;
+    }
+    return contract.methods[methodName].apply(contract.methods[methodName], args).encodeABI();
+  }
 }
