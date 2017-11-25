@@ -106,6 +106,4 @@ import {LalalendLayoutComponent} from './containers/lalalend-layout/lalalend-lay
     APP_SERVICES],
   bootstrap: [ AppComponent ]
 })
-export class AppModule {
-  constructor(private checkAccessTokenService: CheckAccessTokenService)
-}
+export class AppModule { }
