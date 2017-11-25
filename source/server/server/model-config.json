@@ -43,5 +43,9 @@
   "util": {
     "dataSource": "memory",
     "public": true
+  },
+  "credit": {
+    "dataSource": "mysql",
+    "public": true
   }
 }
