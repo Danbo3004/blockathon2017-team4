@@ -1,8 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+
+// Import services
+import {
+  GlobalsService,
+  AuthenticationService
+} from './services';
+const APP_SERVICES = [
+  GlobalsService,
+  AuthenticationService
+]
 
 // Import containers
 import {
@@ -77,7 +88,8 @@ import {LalalendLayoutComponent} from './containers/lalalend-layout/lalalend-lay
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    HttpClientModule
   ],
   declarations: [
     AppComponent,
@@ -88,7 +100,8 @@ import {LalalendLayoutComponent} from './containers/lalalend-layout/lalalend-lay
   providers: [{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  }],
+  },
+    APP_SERVICES],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
