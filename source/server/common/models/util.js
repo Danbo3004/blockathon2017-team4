@@ -235,7 +235,7 @@ module.exports = function(Util) {
         data: data
       };
       const tempTx = new EthereumTx(txData);
-      txData.gas = globals['eth-node'].web3.utils.toHex(tempTx.getBaseFee().toString());
+      txData.gas = globals['eth-node'].web3.utils.toHex(parseInt(tempTx.getBaseFee().toString()) + 21000);
       const tx = new EthereumTx(txData);
       tx.sign(privateKey);
       cb(null, '0x' + tx.serialize().toString('hex'));
@@ -298,8 +298,8 @@ module.exports = function(Util) {
     })
   }
 
-  function getSendMethodData(address, contractName, methodName, args) {
-    if (!globals['eth-node'].web3.utils.isAddress(address)) {
+  function getSendMethodData(contractAddress, contractName, methodName, args) {
+    if (!globals['eth-node'].web3.utils.isAddress(contractAddress)) {
       let err = new Error('Address is not valid');
       err.statusCode = 400;
       cb(err);
@@ -312,7 +312,7 @@ module.exports = function(Util) {
       return;
     }
     const abi = globals['smart-contracts'][contractName].abi;
-    const contract = new globals['eth-node'].eth.Contract(abi, address);
+    const contract = new globals['eth-node'].eth.Contract(abi, contractAddress);
     if (!contract.methods[methodName]) {
       let err = new Error('method name not found');
       err.statusCode = 404;
