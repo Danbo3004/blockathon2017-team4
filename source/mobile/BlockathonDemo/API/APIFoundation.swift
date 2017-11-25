@@ -24,14 +24,32 @@ class APIFoundation {
     }
   }
 
-	class func requestBalance(param: JSONParams, completion: ((JSON?, Error?) -> Void)?) {
-		HttpClient.request(url: Router.requestBalance(param: param)) { (response: JSON?, error: Error?) in
+	class func requestTokenBalance(param: JSONParams, completion: ((JSON?, Error?) -> Void)?) {
+		HttpClient.request(url: Router.requestTokenBalance(param: param)) { (response: JSON?, error: Error?) in
+			self.processRequestResponse(response: response, error: error, completion: completion)
+		}
+	}
+
+	class func requestEtherBalance(param: JSONParams, completion: ((JSON?, Error?) -> Void)?) {
+		HttpClient.request(url: Router.requestEtherBalance(param: param)) { (response: JSON?, error: Error?) in
 			self.processRequestResponse(response: response, error: error, completion: completion)
 		}
 	}
 
 	class func requestFetchHistory(completion: ((JSON?, Error?) -> Void)?) {
 		HttpClient.request(url: Router.fetchHistory()) { (response: JSON?, error: Error?) in
+			self.processRequestResponse(response: response, error: error, completion: completion)
+		}
+	}
+
+	class func requestFetchCredit(completion: ((JSON?, Error?) -> Void)?) {
+		HttpClient.request(url: Router.fetchCredit()) { (response: JSON?, error: Error?) in
+			self.processRequestResponse(response: response, error: error, completion: completion)
+		}
+	}
+
+	class func requestBidCredit(param: JSONParams, completion: ((JSON?, Error?) -> Void)?) {
+		HttpClient.request(url: Router.bidCredit(param: param)) { (response: JSON?, error: Error?) in
 			self.processRequestResponse(response: response, error: error, completion: completion)
 		}
 	}

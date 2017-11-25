@@ -24,13 +24,13 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 	}
 
 	var borrowerList: [User] = [];
+	var creditList: [Credit] = []
 	var user: User!
 	var currentLowestBid = 12.0
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		let appDelegate = UIApplication.shared.delegate as! AppDelegate
-		user = appDelegate.user
+		user = DataManager.shared.currentUser
 
 		self.initUI()
 	}
@@ -55,16 +55,32 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 	func reloadData() {
 		self.user.requestUserData { (user, error) in
 			self.user = user
-			self.user.requestUserBalance { (user, error) in
+			self.user.requestUserEtherBalance { (user, error) in
+				self.user = user
+				self.populateData()
+			}
+
+			self.user.requestUserTokenBalance { (user, error) in
 				self.user = user
 				self.populateData()
 			}
 		}
 		self.user.requestAllUser { (userList, error) in
+			DataManager.shared.userList = userList
 			self.borrowerList = userList.filter({ (user) -> Bool in
 				return user.userType == "borrower"
 			})
-			self.tableView.reloadData()
+
+			Credit.requestAllCredit(user: self.user, completion: { (creditList, error) in
+				DataManager.shared.creditList = creditList
+				for credit in creditList {
+					if (credit.expired == "false" && credit.status == "created" && credit.borrowerId != self.user.id) {
+						self.creditList.append(credit)
+					}
+				}
+				self.tableView.reloadData()
+			})
+
 		}
 	}
 
@@ -72,11 +88,15 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 		if !user.username.isEmpty {
 			self.nameLabel.text = user.username
 		}
-		if !(user.ETHBalance >= Double(0.0)) {
+		if (user.ETHBalance >= Double(0.0)) {
 			self.etherBalanceLabel.text = "\(user.ETHBalance) ETH"
+		} else {
+			self.etherBalanceLabel.text = "Loading..."
 		}
-		if !(user.tokenBalance >= Double(0.0)) {
+		if (user.tokenBalance >= Double(0.0)) {
 			self.tokenBalanceLabel.text = "\(user.tokenBalance) VNDT"
+		} else {
+			self.tokenBalanceLabel.text = "Loading..."
 		}
 	}
 
@@ -85,14 +105,18 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return borrowerList.count;
+		return creditList.count;
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if let cell = tableView.dequeueReusableCell(withIdentifier: "BorrowerCellIdentifier") as? BorrowerCell {
-			let borrower = self.borrowerList[indexPath.row]
+			let credit = self.creditList[indexPath.row]
 			cell.avatarImage.image = UIImage.init(named: "borrower\(indexPath.row)")
-			cell.nameLabel.text = borrower.username
+			if let borrower = credit.borrower {
+				cell.nameLabel.text = borrower.username
+			}
+			cell.expectInterestLabel.text = "\(credit.rate)% per month"
+			cell.lendValueLabel.text = "$\(credit.amount)"
 			cell.delegate = self
 			return cell;
 		}
@@ -119,8 +143,15 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 			let interestRateBidTextField = alertController.textFields![0] as UITextField
 			let interestRateBid : Double = NSString(string: interestRateBidTextField.text!).doubleValue
 			if (interestRateBid < self.currentLowestBid) {
-				let appDelegate = UIApplication.shared.delegate as! AppDelegate
-				appDelegate.user = self.user
+				DataManager.shared.currentUser = self.user
+//				let biddingCredit = creditList[indexPath.row]
+//				biddingCredit.requestBidCredit(bidRate: interestRateBid, completion: { (error) -> Void? in
+//					if (error) {
+//
+//					} else {
+//
+//					}
+//				})
 				self.performSegue(withIdentifier: "LenderDashboardToHistorySegue", sender: self)
 			} else {
 				print("Failed")

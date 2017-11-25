@@ -17,8 +17,10 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var etherBalanceLabel: UILabel!
 	@IBOutlet weak var tokenBalanceLabel: UILabel!
+	@IBOutlet weak var addCreditButton: UIButton!
 
 	var user: User! = User()
+	var userList: [User]! = []
 	var historyRecord: [History] = []
 
 	override func viewDidLoad() {
@@ -27,8 +29,8 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 	}
 
 	func initUI() {
-		self.hamburgerButton.isHidden = false
-		self.backButton.isHidden = true
+		self.hamburgerButton.isHidden = true
+		self.backButton.isHidden = false
 		
 		self.profileImageView.layer.cornerRadius = 40.0
 		self.profileImageView.layer.masksToBounds = true
@@ -37,6 +39,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 		self.tableView.dataSource = self
 		self.profileImageView.layer.cornerRadius = 40.0
 		self.profileImageView.layer.masksToBounds = true;
+		self.addCreditButton.layer.cornerRadius = 50
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -45,10 +48,24 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 	}
 
 	func reloadData() {
-		let appDelegate = UIApplication.shared.delegate as! AppDelegate
-		self.user = appDelegate.user
-		self.historyRecord = [History(), History(), History()]
-		self.tableView.reloadData()
+		self.user = DataManager.shared.currentUser
+		self.userList = DataManager.shared.userList
+		History.requestAllHistory(user: self.user) { (historyList, error) in
+			self.historyRecord = historyList
+			DataManager.shared.historyRecord = historyList
+
+			// Test
+			let newHistory = History()
+			newHistory.creditId = 1
+			newHistory.traderId = 1
+			newHistory.historyOwner = 3
+			newHistory.dateTime = 1511603760
+			newHistory.totalValue = 300
+			newHistory.status = "Approved"
+
+			self.historyRecord.append(newHistory)
+			self.tableView.reloadData()
+		}
 	}
 
 	func populateData() {
@@ -68,24 +85,39 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//		return historyRecord.count
-		return 3
+		return historyRecord.count
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCellIdentifier") as? HistoryCell {
 			let history = self.historyRecord[indexPath.row]
 			cell.profileImageView.image = UIImage.init(named: "borrower\(indexPath.row)")
-			cell.nameLabel.text = history.traderName
-			cell.historyLabel.text = self.historyActionDisplay(history: history)
-			cell.dateTimeLabel.text = "Oct 21st"
+			for user in userList {
+				if user.id == history.traderId {
+					cell.nameLabel.text = user.username
+					break;
+				}
+			}
+			cell.historyLabel.text = "$\(history.totalValue)"
+			cell.statusLabel.text = history.status;
+			self.historyActionDisplay(history: history, cell: cell)
+			cell.dateTimeLabel.text = String.stringFromTimeInterval(interval: history.created)
 			return cell;
 		}
 		return UITableViewCell();
 	}
 
-	func historyActionDisplay(history: History) -> String {
-			return "<-->"
+	func historyActionDisplay(history: History, cell: HistoryCell) {
+		// Current user is lending
+		if history.historyOwner == user.id {
+			cell.directionImageView.image = UIImage(named: "leftArrow")
+		} else if (history.traderId == user.id) {
+			cell.directionImageView.image = UIImage(named: "rightArrow")
+		}
+	}
+
+	@IBAction func backButtonDidTap(_ sender: Any) {
+		self.navigationController?.popViewController(animated: true)
 	}
 
 }

@@ -18,12 +18,15 @@ protocol JSONParams {
 enum BCJSONParams: JSONParams {
   case SignIn(User)
 	case BalanceOf(User)
+	case BidCredit(Double)
 
   func toJSON() -> JSON {
     switch self {
     case .SignIn(_):
 			return JSON.init(object: self.toParam())
 		case .BalanceOf(_):
+			return JSON.init(object:self.toParam())
+		case .BidCredit(_):
 			return JSON.init(object:self.toParam())
 		}
 	}
@@ -33,7 +36,9 @@ enum BCJSONParams: JSONParams {
 		case .SignIn(let user):
 			return ["email": user.email, "password": user.password]
 		case .BalanceOf(let user):
-			return ["address": user.address]
+			return ["address": user.address, "timestamp": Date.timeIntervalSinceReferenceDate]
+		case .BidCredit(let rate):
+			return ["rate": rate]
 		}
 	}
 

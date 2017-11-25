@@ -10,6 +10,9 @@
 		651890FA1FC8F3CA00ADF326 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651890F91FC8F3CA00ADF326 /* HistoryViewController.swift */; };
 		651890FC1FC8F62B00ADF326 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651890FB1FC8F62B00ADF326 /* HistoryCell.swift */; };
 		651890FE1FC926AA00ADF326 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651890FD1FC926AA00ADF326 /* History.swift */; };
+		651891041FC949FE00ADF326 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651891031FC949FE00ADF326 /* String+Extension.swift */; };
+		651891061FC9568E00ADF326 /* Credit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651891051FC9568E00ADF326 /* Credit.swift */; };
+		651891081FC9596C00ADF326 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651891071FC9596C00ADF326 /* DataManager.swift */; };
 		652D274F1FC881B800E8B1C1 /* APIFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D274B1FC881B800E8B1C1 /* APIFoundation.swift */; };
 		652D27501FC881B800E8B1C1 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D274C1FC881B800E8B1C1 /* HttpClient.swift */; };
 		652D27511FC881B800E8B1C1 /* JSONParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D274D1FC881B800E8B1C1 /* JSONParams.swift */; };
@@ -37,6 +40,9 @@
 		651890F91FC8F3CA00ADF326 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		651890FB1FC8F62B00ADF326 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		651890FD1FC926AA00ADF326 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		651891031FC949FE00ADF326 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		651891051FC9568E00ADF326 /* Credit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credit.swift; sourceTree = "<group>"; };
+		651891071FC9596C00ADF326 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		652D274B1FC881B800E8B1C1 /* APIFoundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIFoundation.swift; sourceTree = "<group>"; };
 		652D274C1FC881B800E8B1C1 /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		652D274D1FC881B800E8B1C1 /* JSONParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParams.swift; sourceTree = "<group>"; };
@@ -72,6 +78,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		651891021FC949ED00ADF326 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				651891031FC949FE00ADF326 /* String+Extension.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		652D27601FC8A16200E8B1C1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +121,7 @@
 				65CFCC9B1FC88187009BA9E7 /* Model */,
 				654C37FA1FC8186C00F3D6EB /* API */,
 				652D27601FC8A16200E8B1C1 /* Views */,
+				651891021FC949ED00ADF326 /* Helpers */,
 				654C37E81FC8149300F3D6EB /* AppDelegate.swift */,
 				654C37EA1FC8149300F3D6EB /* LoginViewController.swift */,
 				652D275D1FC89F7300E8B1C1 /* LenderDashboardViewController.swift */,
@@ -139,6 +154,8 @@
 				652D27531FC881EE00E8B1C1 /* User.swift */,
 				652D27551FC8840E00E8B1C1 /* BaseModel.swift */,
 				651890FD1FC926AA00ADF326 /* History.swift */,
+				651891051FC9568E00ADF326 /* Credit.swift */,
+				651891071FC9596C00ADF326 /* DataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -302,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				651890FE1FC926AA00ADF326 /* History.swift in Sources */,
+				651891081FC9596C00ADF326 /* DataManager.swift in Sources */,
 				652D27511FC881B800E8B1C1 /* JSONParams.swift in Sources */,
 				654C37EB1FC8149300F3D6EB /* LoginViewController.swift in Sources */,
 				652D276A1FC8B74100E8B1C1 /* MenuTableViewCell.swift in Sources */,
@@ -311,6 +329,8 @@
 				652D275C1FC889D000E8B1C1 /* NSError+Extension.swift in Sources */,
 				652D27501FC881B800E8B1C1 /* HttpClient.swift in Sources */,
 				652D27521FC881B800E8B1C1 /* Router.swift in Sources */,
+				651891041FC949FE00ADF326 /* String+Extension.swift in Sources */,
+				651891061FC9568E00ADF326 /* Credit.swift in Sources */,
 				652D27681FC8AFE900E8B1C1 /* MenuViewController.swift in Sources */,
 				652D274F1FC881B800E8B1C1 /* APIFoundation.swift in Sources */,
 				652D27561FC8840E00E8B1C1 /* BaseModel.swift in Sources */,

@@ -22,9 +22,14 @@ class Router {
   private static let loginPath = "users/login"
   private static let userPath = "users"
   // Balance paths
-	private static let balancePath = "utils/checkBalance"
+	private static let etherBalancePath = "utils/checkEthBalance"
+	private static let tokenBalancePath = "utils/checkTokenBalance"
 	// History paths
 	private static let historyPath = "bidHistories"
+	// Credit paths
+	private static let creditPath = "credits"
+	private static let bidCreditPath = "credits/%@/bid"
+
   private static let contentTypeHeaderField = "Content-Type"
   private static let applicationJSONContentType = "application/json"
   static let multipartFormDataContentType = "multipart/form-data"
@@ -39,12 +44,26 @@ class Router {
     return createUrlRequestWithRelativePath(relativePath: path, params: param, httpMethod: .GET)
   }
 
-	class func requestBalance(param: JSONParams) -> URLRequestConvertible {
-		return createUrlRequestWithRelativePath(relativePath: balancePath, params: param, httpMethod: .GET)
+	class func requestEtherBalance(param: JSONParams) -> URLRequestConvertible {
+		return createUrlRequestWithRelativePath(relativePath: etherBalancePath, params: param, httpMethod: .GET)
+	}
+
+	class func requestTokenBalance(param: JSONParams) -> URLRequestConvertible {
+		return createUrlRequestWithRelativePath(relativePath: tokenBalancePath, params: param, httpMethod: .GET)
 	}
 
 	class func fetchHistory(param: JSONParams? = nil) -> URLRequestConvertible {
 		let path = historyPath
+		return createUrlRequestWithRelativePath(relativePath: path, params: param, httpMethod: .GET)
+	}
+
+	class func fetchCredit(param: JSONParams? = nil) -> URLRequestConvertible {
+		let path = creditPath
+		return createUrlRequestWithRelativePath(relativePath: path, params: param, httpMethod: .GET)
+	}
+
+	class func bidCredit(param: JSONParams? = nil) -> URLRequestConvertible {
+		let path = bidCreditPath
 		return createUrlRequestWithRelativePath(relativePath: path, params: param, httpMethod: .GET)
 	}
 

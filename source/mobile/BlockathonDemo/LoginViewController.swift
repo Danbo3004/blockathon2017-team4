@@ -75,8 +75,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 				self.errorLabel.isHidden = false
 				print(error)
 			} else {
-				let appDelegate = UIApplication.shared.delegate as! AppDelegate
-				appDelegate.user = user
+				DataManager.shared.currentUser = user
 				self.performSegue(withIdentifier: "LoginToMainScreenSegue", sender: self)
 			}
 		}

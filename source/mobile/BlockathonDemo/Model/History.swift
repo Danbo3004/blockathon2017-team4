@@ -10,26 +10,36 @@ import Foundation
 import SwiftyJSON
 
 class History: BaseModel {
-	var historyOwner = ""
+	var historyOwner: Int = 0
 	var creditId: Int = 0
-	var dateTime = ""
+	var dateTime: TimeInterval = 0
 	var totalValue = 0.0
-	var traderName = ""
+	var traderId: Int = 0
 	var status = ""
 	var interestRate = 0.0
 
 	func updateObject(json: JSON) {
 		self.id = json["id"].intValue
-		self.historyOwner = json["lenderId"].stringValue
-		self.traderName = json["email"].stringValue
-		self.dateTime = json["userType"].stringValue
-		self.totalValue = json["address"].doubleValue
+		self.historyOwner = json["lenderId"].intValue
+		self.traderId = json["borrowerId"].intValue
+		self.dateTime = json["created"].doubleValue
+		self.totalValue = json["amount"].doubleValue
 		self.interestRate = json["rate"].doubleValue
 		self.status = json["status"].stringValue
 		self.creditId = json["creditId"].intValue
 	}
 
-	func requestAllHistory(userId: Int, completion: (([History], Error?) -> Void)?) {
+	class func filterHistory(user: User, historyList: [History]) -> [History] {
+		var filterHistoryList: [History] = []
+		for history: History in historyList {
+			if (history.historyOwner == user.id || history.traderId == user.id) {
+				filterHistoryList.append(history)
+			}
+		}
+		return filterHistoryList;
+	}
+
+	class func requestAllHistory(user: User, completion: (([History], Error?) -> Void)?) {
 		APIFoundation.requestFetchHistory() { (json: JSON?, error: Error?) in
 			if let error = error {
 				completion!([], error)
@@ -41,6 +51,7 @@ class History: BaseModel {
 					newHistory.updateObject(json: objectJson)
 					historyList.append(newHistory)
 				}
+				historyList = History.filterHistory(user: user, historyList: historyList)
 				completion!(historyList, nil);
 			}
 		}

@@ -87,7 +87,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
 		case MenuItem.Dashboard.rawValue:
 			fallthrough
 		case MenuItem.History.rawValue:
-			fallthrough
+			swrevealViewController.frontViewController.performSegue(withIdentifier: "LenderDashboardToHistorySegue", sender: swrevealViewController.frontViewController)
 		case MenuItem.MyProfile.rawValue:
 			fallthrough
 		case MenuItem.Settings.rawValue:

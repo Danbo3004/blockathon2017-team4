@@ -26,6 +26,7 @@ class User: BaseModel {
 		self.email = json["email"].stringValue
 		self.userType = json["userType"].stringValue
 		self.address = json["address"].stringValue
+		print("Address: \(self.address)")
 	}
 
 	func requestSignIn(completion: ((Error?) -> Void)?) {
@@ -35,6 +36,7 @@ class User: BaseModel {
 			} else if let json = json {
 				if (json["id"].string != nil) {
 					self.accessToken = json["id"].stringValue
+					print("Access Token: \(self.accessToken)")
 					self.id = json["userId"].intValue
 					UserDefaults.standard.set(self.accessToken, forKey: "accessToken")
 					completion!(nil);
@@ -59,17 +61,27 @@ class User: BaseModel {
 			}
 	}
 
-	func requestUserBalance(completion: ((User, Error?) -> Void)?) {
-		APIFoundation.requestBalance(param: BCJSONParams.BalanceOf(self)){ (json: JSON?, error: Error?) in
+	func requestUserEtherBalance(completion: ((User, Error?) -> Void)?) {
+		APIFoundation.requestEtherBalance(param: BCJSONParams.BalanceOf(self)){ (json: JSON?, error: Error?) in
 			if let error = error {
 				completion!(self, error)
 			} else if let json = json {
-				self.ETHBalance = json.doubleValue / (pow(10, 18))
+				self.ETHBalance = NSString(string: json["balance"].stringValue).doubleValue / (pow(10, 18))
 				completion!(self, nil);
 			}
 		}
 	}
 
+	func requestUserTokenBalance(completion: ((User, Error?) -> Void)?) {
+		APIFoundation.requestTokenBalance(param: BCJSONParams.BalanceOf(self)){ (json: JSON?, error: Error?) in
+			if let error = error {
+				completion!(self, error)
+			} else if let json = json {
+				self.tokenBalance = NSString(string: json["balance"].stringValue).doubleValue
+				completion!(self, nil);
+			}
+		}
+	}
 	func requestAllUser(completion: (([User], Error?) -> Void)?) {
 		APIFoundation.requestFetchUser() { (json: JSON?, error: Error?) in
 			if let error = error {

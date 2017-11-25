@@ -11,14 +11,14 @@ import EVReflection
 
 class BaseModel: EVObject {
 	var id = 0
-	var created = 0
+	var created: TimeInterval = 0
 	var modified = 0
 
 	required init() {
 		super.init()
 	}
 
-	init(id: Int, created: Int, modified: Int) {
+	init(id: Int, created: TimeInterval, modified: Int) {
 		self.id = id
 		self.created = created
 		self.modified = modified
