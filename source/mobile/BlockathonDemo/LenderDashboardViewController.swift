@@ -16,15 +16,22 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var profileImageView: UIImageView!
 	@IBOutlet weak var nameLabel: UILabel!
+	@IBOutlet weak var etherBalanceLabel: UILabel!
+	@IBOutlet weak var tokenBalanceLabel: UILabel!
 
 	var swrevealViewController: SWRevealViewController {
 		return revealViewController()
 	}
 
-	var borrowerList: [BaseModel] = [];
+	var borrowerList: [User] = [];
+	var user: User!
+	var currentLowestBid = 12.0
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		let appDelegate = UIApplication.shared.delegate as! AppDelegate
+		user = appDelegate.user
+
 		self.initUI()
 	}
 
@@ -42,19 +49,36 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		self.tableView.reloadData()
-		self.populateData()
+		self.reloadData()
+	}
+
+	func reloadData() {
+		self.user.requestUserData { (user, error) in
+			self.user = user
+			self.populateData()
+		}
+		self.user.requestUserBalance { (user, error) in
+			self.user = user
+			self.populateData()
+		}
+		self.user.requestAllUser { (userList, error) in
+			self.borrowerList = userList.filter({ (user) -> Bool in
+				return user.userType == "borrower"
+			})
+			self.tableView.reloadData()
+		}
 	}
 
 	func populateData() {
-		let appDelegate = UIApplication.shared.delegate as! AppDelegate
-		let user: User = appDelegate.user
 		if !user.username.isEmpty {
 			self.nameLabel.text = user.username
 		}
-		if !user.username.isEmpty {
-			self.nameLabel.text = user.username
+		if !(user.ETHBalance >= Double(0.0)) {
+			self.etherBalanceLabel.text = "\(user.ETHBalance) ETH"
 		}
-
+		if !(user.tokenBalance >= Double(0.0)) {
+			self.tokenBalanceLabel.text = "\(user.tokenBalance) VNDT"
+		}
 	}
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -62,19 +86,21 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 4;
+		return borrowerList.count;
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if let cell = tableView.dequeueReusableCell(withIdentifier: "BorrowerCellIdentifier") as? BorrowerCell {
+			let borrower = self.borrowerList[indexPath.row]
 			cell.avatarImage.image = UIImage.init(named: "borrower\(indexPath.row)")
+			cell.nameLabel.text = borrower.username
 			return cell;
 		}
 		return UITableViewCell();
 	}
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let alertController = UIAlertController(title: "Bid interest", message: "Enter the interest rate you want to bid", preferredStyle: UIAlertControllerStyle.alert)
+		let alertController = UIAlertController(title: "Bid interest", message: "Enter the interest rate you want to bid\nCurrent lowest bid rate: \(currentLowestBid)%", preferredStyle: UIAlertControllerStyle.alert)
 		alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action: UIAlertAction) in
 			tableView.deselectRow(at: indexPath, animated: true)
 			alertController.dismiss(animated: true, completion: nil)
@@ -82,7 +108,12 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 
 		alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction) in
 			let interestRateBidTextField = alertController.textFields![0] as UITextField
-			let interestRateBid = (interestRateBidTextField.text as! NSString).floatValue
+			let interestRateBid : Double = NSString(string: interestRateBidTextField.text!).doubleValue
+			if (interestRateBid < self.currentLowestBid) {
+				print("Success")
+			} else {
+				print("Failed")
+			}
 			tableView.deselectRow(at: indexPath, animated: true)
 			alertController.dismiss(animated: true, completion: nil)
 		}))

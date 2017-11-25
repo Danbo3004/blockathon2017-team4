@@ -17,21 +17,26 @@ protocol JSONParams {
 
 enum BCJSONParams: JSONParams {
   case SignIn(User)
+	case BalanceOf(User)
 
   func toJSON() -> JSON {
     switch self {
-    case .SignIn(let user):
-			return JSON.init(object: ["email": user.email, "password": user.password])
+    case .SignIn(_):
+			return JSON.init(object: self.toParam())
+		case .BalanceOf(_):
+			return JSON.init(object:self.toParam())
 		}
 	}
 
 	func toParam() -> Parameters {
 		switch self {
 		case .SignIn(let user):
-
 			return ["email": user.email, "password": user.password]
+		case .BalanceOf(let user):
+			return ["address": user.address]
 		}
 	}
+
 }
 
 

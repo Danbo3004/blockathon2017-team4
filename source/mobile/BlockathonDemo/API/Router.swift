@@ -21,8 +21,8 @@ class Router {
   // User paths
   private static let loginPath = "users/login"
   private static let userPath = "users"
-  // Environment paths
-  private static let environmentPath = "env"
+  // Balance paths
+	private static let balancePath = "utils/checkBalance"
 
   private static let contentTypeHeaderField = "Content-Type"
   private static let applicationJSONContentType = "application/json"
@@ -33,10 +33,14 @@ class Router {
     return createUrlRequestWithRelativePath(relativePath: loginPath, params: param, httpMethod: .POST)
   }
 
-  class func fetchUser(userId: String, param: JSONParams? = nil) -> URLRequestConvertible {
-    let path = String(format: userPath, userId)
+  class func fetchUser(param: JSONParams? = nil) -> URLRequestConvertible {
+    let path = userPath
     return createUrlRequestWithRelativePath(relativePath: path, params: param, httpMethod: .GET)
   }
+
+	class func requestBalance(param: JSONParams) -> URLRequestConvertible {
+		return createUrlRequestWithRelativePath(relativePath: balancePath, params: param, httpMethod: .POST)
+	}
 
   // MARK: Private methods
   private class func createUrlRequestWithRelativePath(relativePath: String, params: JSONParams?, httpMethod: HTTPMethod, contentType: String? = applicationJSONContentType) -> URLRequestConvertible {
@@ -54,5 +58,4 @@ class Router {
 		let encodedURLRequest = try! JSONEncoding.default.encode(request, with: params?.toParam())
 		return encodedURLRequest;
   }
-
 }

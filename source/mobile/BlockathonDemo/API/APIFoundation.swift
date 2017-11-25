@@ -18,11 +18,17 @@ class APIFoundation {
     }
   }
 
-  class func requestFetchUser(userId: String, param: JSONParams? = nil, completion: ((JSON?, Error?) -> Void)?) {
-    HttpClient.request(url: Router.fetchUser(userId: userId, param: param)) { (response: JSON?, error: Error?) in
+  class func requestFetchUser(param: JSONParams? = nil, completion: ((JSON?, Error?) -> Void)?) {
+    HttpClient.request(url: Router.fetchUser(param: param)) { (response: JSON?, error: Error?) in
       self.processRequestResponse(response: response, error: error, completion: completion)
     }
   }
+
+	class func requestBalance(param: JSONParams, completion: ((JSON?, Error?) -> Void)?) {
+		HttpClient.request(url: Router.requestBalance(param: param)) { (response: JSON?, error: Error?) in
+			self.processRequestResponse(response: response, error: error, completion: completion)
+		}
+	}
 
 }
 

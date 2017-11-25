@@ -13,6 +13,8 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var profileImageView: UIImageView!
 
+	var historyRecord: [History]
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.profileImageView.layer.cornerRadius = 40.0
@@ -20,10 +22,15 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 		self.tableView.allowsSelection = false
 		self.tableView.delegate = self
 		self.tableView.dataSource = self
+		self.reloadData()
+	}
+
+	func reloadData() {
+
 	}
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 100
+		return 80
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

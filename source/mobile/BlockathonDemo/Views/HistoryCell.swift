@@ -10,13 +10,16 @@ import UIKit
 
 class HistoryCell: UITableViewCell {
 
-	@IBOutlet weak var iconImageView: UIImageView!
+	@IBOutlet weak var profileImageView: UIImageView!
 	@IBOutlet weak var nameLabel: UILabel!
-	@IBOutlet weak var titleLabel: UILabel!
+	@IBOutlet weak var actionLabel: UILabel!
+	@IBOutlet weak var dateTimeLabel: NSLayoutConstraint!
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		self.separatorInset = UIEdgeInsets.zero
+		self.profileImageView.layer.cornerRadius = 30
+		self.profileImageView.layer.masksToBounds = true
 	}
 
 }

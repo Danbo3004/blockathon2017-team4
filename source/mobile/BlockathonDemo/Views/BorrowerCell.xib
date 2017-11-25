@@ -45,7 +45,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="niN-TT-kBu" userLabel="Separator View">
-                        <rect key="frame" x="25" y="87.5" width="350" height="1"/>
+                        <rect key="frame" x="25" y="87.5" width="325" height="1"/>
                         <color key="backgroundColor" red="0.48627450980392156" green="0.49411764705882355" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.40000000000000002" id="2jq-pS-kgL"/>
@@ -101,10 +101,16 @@
                             <constraint firstAttribute="width" secondItem="cAB-6f-lET" secondAttribute="height" id="jOY-yU-UpK"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1gh-K0-HFj">
-                        <rect key="frame" x="321" y="25" width="34" height="30"/>
-                        <state key="normal" title="Lend">
-                            <color key="titleColor" red="0.0" green="0.69019607839999997" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="1gh-K0-HFj">
+                        <rect key="frame" x="305" y="25" width="50" height="50"/>
+                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="1gh-K0-HFj" secondAttribute="height" id="3l7-TH-dTX"/>
+                            <constraint firstAttribute="width" constant="50" id="Vlc-rO-BGA"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <state key="normal" title="Bid Rate">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
                 </subviews>
@@ -129,7 +135,7 @@
                     <constraint firstItem="KBC-8K-hk0" firstAttribute="leading" secondItem="gku-H2-bXh" secondAttribute="leading" constant="28" id="Sxy-1h-u5c"/>
                     <constraint firstItem="rlq-AW-N6P" firstAttribute="leading" secondItem="KBC-8K-hk0" secondAttribute="trailing" constant="12" id="Tjx-LE-FfP"/>
                     <constraint firstAttribute="bottom" secondItem="QKg-jm-WS6" secondAttribute="bottom" id="V9X-g9-dIj"/>
-                    <constraint firstAttribute="trailing" secondItem="niN-TT-kBu" secondAttribute="trailing" id="c45-gh-6dX"/>
+                    <constraint firstAttribute="trailing" secondItem="niN-TT-kBu" secondAttribute="trailing" constant="25" id="c45-gh-6dX"/>
                     <constraint firstItem="hfr-Kc-dwE" firstAttribute="baseline" secondItem="gGG-GE-g8b" secondAttribute="baseline" id="dWb-VU-2WD"/>
                     <constraint firstItem="Ujf-TZ-YIt" firstAttribute="top" secondItem="gku-H2-bXh" secondAttribute="top" constant="12" id="ePc-5J-yQj"/>
                     <constraint firstItem="WVL-K7-Sa2" firstAttribute="leading" secondItem="tBQ-vu-IPh" secondAttribute="trailing" constant="8" id="fgi-kF-naf"/>
@@ -144,6 +150,10 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="avatarImage" destination="Ujf-TZ-YIt" id="1G0-Iu-xDQ"/>
+                <outlet property="bidRateButton" destination="1gh-K0-HFj" id="GFE-7t-ucr"/>
+                <outlet property="expectInterestLabel" destination="hfr-Kc-dwE" id="6kn-ig-i8U"/>
+                <outlet property="lendValueLabel" destination="WVL-K7-Sa2" id="g0B-GY-94e"/>
+                <outlet property="nameLabel" destination="Dzj-Pc-u6C" id="ckg-ac-u4t"/>
                 <outlet property="separatorHeightConstraint" destination="2jq-pS-kgL" id="cV8-HD-Rfa"/>
             </connections>
             <point key="canvasLocation" x="-152.5" y="-232"/>
