@@ -93,15 +93,17 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 			let history = self.historyRecord[indexPath.row]
 			cell.profileImageView.image = UIImage.init(named: "borrower\(indexPath.row)")
 			for user in userList {
-				if user.id == history.traderId {
-					cell.nameLabel.text = user.username
-					break;
+				if user.id == self.user.id {
+					continue
+				}
+				if user.id == history.traderId || user.id == history.historyOwnerId {
+					cell.nameLabel.text = user.username.isEmpty ? "N/A" : user.username
 				}
 			}
 			cell.historyLabel.text = "\(history.totalValue) VNDT"
 			cell.updateStatus(history: history)
 			self.historyActionDisplay(history: history, cell: cell)
-			cell.dateTimeLabel.text = String.stringFromTimeInterval(interval: history.created)
+			cell.dateTimeLabel.text = String.stringFromTimeInterval(interval: history.dateTime)
 			return cell;
 		}
 		return UITableViewCell();
