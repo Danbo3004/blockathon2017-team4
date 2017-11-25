@@ -26,6 +26,7 @@ contract Lending {
         bool isPaid;
         bool isLended;
         address lender;
+        uint blockNumberLended;
     }
 
     function tokenIn() constant returns(uint){
@@ -49,8 +50,15 @@ contract Lending {
 	    
 	    require(loan.value > 0 && loan.isLended ==false);
 	    require(loan.blockNumberExpired >= block.number);
-	    require(compareFraction(_tu,_mau,loan.tu,loan.mau)==false);
 	    require(loan.value <= _value);
+	    require((loan.lender!=address(0)&& compareFraction(_tu,_mau,loan.tu,loan.mau)==-1) || (loan.lender==address(0)&& compareFraction(_tu,_mau,loan.tu,loan.mau)!=-1) );
+	    if(loan.lender!=address(0)){
+	        require(compareFraction(_tu,_mau,loan.tu,loan.mau)==-1);
+			tk.transfer(loan.lender,loan.value);
+	    }
+	    else{
+	        require(compareFraction(_tu,_mau,loan.tu,loan.mau)!=1);	        
+	    }
 	    
 	    loan.tu = _tu;
 	    loan.mau = _mau;
@@ -91,7 +99,7 @@ contract Lending {
         Loan memory loan ;
         address emptyAddress;
         require(loans[_from].value == 0 ||(loans[_from].value>0 && loans[_from].isPaid == true));
-         loan = Loan({value:_value,tu:_tu,mau:_mau,blockNumberExpired:_blockNumberExpires,blockNumberTime:_blockNumberTime,isPaid:false,isLended:false,lender:emptyAddress});
+         loan = Loan({value:_value,tu:_tu,mau:_mau,blockNumberExpired:_blockNumberExpires,blockNumberTime:_blockNumberTime,isPaid:false,isLended:false,lender:emptyAddress,blockNumberLended:0});
         loans[_from]= loan;
         
         NewLoan( _from, _value, _tu,  _mau,block.number, _blockNumberExpires, _blockNumberTime);
@@ -115,8 +123,17 @@ contract Lending {
         tk.transfer(_to,loan.value);
     }
     
-    function compareFraction(uint so1, uint so2,uint so3,uint so4) constant returns(bool){
-        return (so1*so4 >= so2 * so3);
+    function compareFraction(uint so1, uint so2,uint so3,uint so4) constant returns(int){
+        int status ;
+        if(so1*so4 > so2 * so3){
+            status = 1;
+        }
+		else if(so1*so4 == so2 * so3)
+			status = 0;
+		else 
+			status = -1;
+			
+		return status;
     }
 	
 	function subFraction(uint so1, uint so2,uint so3,uint so4) constant returns(uint){
@@ -131,8 +148,8 @@ contract Lending {
         return numberDay; 
     }
     
-    function calInvoice(Loan loan) constant returns(uint) {
-        uint numberDay = countDays(loan.blockNumberExpired,block.number);
+    function calInvoice(Loan loan) internal returns(uint) {
+        uint numberDay = countDays(loan.blockNumberLended,block.number);
        return (loan.value * loan.tu* numberDay / (loan.mau*365));
     }
 }
