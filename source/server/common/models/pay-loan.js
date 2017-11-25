@@ -44,4 +44,28 @@ module.exports = function(PayLoan) {
     }
     next();
   });
+
+  PayLoan.beforeRemote('create', function(ctx, instance, next) {
+    if (!ctx.req.accessToken) {
+      let err = new Error('Authentication is required');
+      err.statusCode = 401;
+      next(err);
+      return;
+    }
+    ctx.args.data['borrowerId'] = ctx.req.accessToken.userId;
+    PayLoan.app.models.credit.findById(ctx.args.data.creditId, (err, credit) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      if (!credit) {
+        let err = new Error('Credit not found');
+        err.statusCode = 404;
+        next(err);
+        return;
+      }
+      ctx.args.data['lenderId'] = credit.lenderId;
+      next();
+    });
+  })
 };
