@@ -10,6 +10,10 @@
       "type": "number",
       "required": true
     },
+    "borrowerName": {
+      "type": "number",
+      "required": true
+    },
     "amount": {
       "type": "number"
     },
@@ -27,10 +31,13 @@
     "lenderId": {
       "type": "number"
     },
+    "lenderName": {
+      "type": "string"
+    },
     "status": {
       "type": "string",
       "default": "created",
-      "description": "created | in-progress | ended"
+      "description": "created | readyToBid | Lending | Pay | Done"
     },
     "created": {
       "type": "number"
