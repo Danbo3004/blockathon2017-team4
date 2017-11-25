@@ -6,18 +6,18 @@ import {AuthenticationService} from '../../services/authentication';
   templateUrl: './borrower.component.html'
 })
 export class BorrowerComponent implements OnInit {
-  listBorrowers: object[];
+  listBorrowers
 
   constructor(private creditService: CreditService, private authenticationService: AuthenticationService) {
   }
 
   ngOnInit(): void {
-    const currentUser = this.authenticationService.getUser();
+    const currentUserId = this.authenticationService.getUserId();
 
     this.creditService.getCredits({
       where: {
         status: 'lending',
-        lenderId: currentUser.id
+        lenderId: (currentUserId) ? currentUserId : 0
       }
     }, data => {
       this.listBorrowers = data;

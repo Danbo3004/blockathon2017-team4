@@ -1,59 +1,43 @@
+<div class="section" style="margin: 0 -15px 0 -15px; border-bottom: 1px solid #c2cfd6;">
+  <div class="row" style="background-color: #ffffff; height: 46px; padding-top: 10px; margin-bottom: 20px">
+    <div class="col-md-12">
+      <h3 style="color:#4e4b4b">Your investments</h3>
+    </div>
+  </div>
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header">
-          <h2>Borrowers</h2>
-        </div>
         <div class="card-body">
-          <table class="table">
+          <h2 *ngIf="listBorrowers?.length==0" class="text-center">You have no investment now!</h2>
+
+          <table class="table" *ngIf="listBorrowers?.length>0">
             <thead>
             <tr>
-              <th>Username</th>
-              <th>Date registered</th>
+              <th>Borrower</th>
+              <th>Lend ticket</th>
               <th>Role</th>
               <th>Status</th>
+              <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>Samppa Nori</td>
-              <td>2012/01/01</td>
-              <td>Member</td>
-              <td>
-                <span class="badge badge-success">Active</span>
+            <tr *ngFor="let credit of listBorrowers">
+              <td><strong>{{credit.borrowerName}}</strong><br>
+                CIC Rank: {{credit.cicRank}}<br>
+                LLLRank:{{credit.lllRank}}<br>
+                Credit Limit:{{credit.creditLimit}} VNDT
               </td>
-            </tr>
-            <tr>
-              <td>Estavan Lykos</td>
-              <td>2012/02/01</td>
-              <td>Staff</td>
-              <td>
-                <span class="badge badge-danger">Banned</span>
+              <td>Amount: {{credit.amount}} VNDT<br>
+                Rate: {{credit.rate*100}} %/yr<br>
+                Due Day after: {{credit.dueDay*100}} days
               </td>
-            </tr>
-            <tr>
-              <td>Chetan Mohamed</td>
-              <td>2012/02/01</td>
-              <td>Admin</td>
+              <td>Expired: {{credit.expiredTime | date:"MM/dd/yy"}} days</td>
               <td>
-                <span class="badge badge-secondary">Inactive</span>
+                <span class="badge badge-success">{{credit.status}}</span>
               </td>
-            </tr>
-            <tr>
-              <td>Derick Maximinus</td>
-              <td>2012/03/01</td>
-              <td>Member</td>
               <td>
-                <span class="badge badge-warning">Pending</span>
-              </td>
-            </tr>
-            <tr>
-              <td>Friderik Dávid</td>
-              <td>2012/01/21</td>
-              <td>Staff</td>
-              <td>
-                <span class="badge badge-success">Active</span>
+                <button class="btn btn-primary">Bid rate now!</button>
               </td>
             </tr>
             </tbody>
@@ -63,3 +47,5 @@
     </div>
   </div>
 </div>
+</div>
+
