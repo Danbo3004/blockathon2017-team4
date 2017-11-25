@@ -17,7 +17,7 @@ export class AuthenticationService {
     if (this.subscription && !this.subscription.closed) {
       this.subscription.unsubscribe();
     }
-    this.subscription = this.http.post<any>(`${this.baseUrl}/login`, {email: email, password: password})
+    this.subscription = this.http.post<any>(`${this.baseUrl}/login?include=user`, {email: email, password: password})
       .debounceTime(2000)
       .subscribe(successCb ? credentials => {
           successCb(credentials);
