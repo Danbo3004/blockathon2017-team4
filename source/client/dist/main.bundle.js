@@ -64,154 +64,12 @@ var navigation = [
         url: '/account/opportunities'
     },
     {
-        name: 'Borrowers',
+        name: 'Your investments',
         url: '/account/borrower'
     },
     {
-        name: 'History',
+        name: 'Histories',
         url: '/account/history'
-    },
-    {
-        name: 'Dashboard',
-        url: '/dashboard',
-        icon: 'icon-speedometer',
-        badge: {
-            variant: 'info',
-            text: 'NEW'
-        }
-    },
-    {
-        title: true,
-        name: 'UI elements'
-    },
-    {
-        name: 'Components',
-        url: '/components',
-        icon: 'icon-puzzle',
-        children: [
-            {
-                name: 'Buttons',
-                url: '/components/buttons',
-                icon: 'icon-puzzle'
-            },
-            {
-                name: 'Social Buttons',
-                url: '/components/social-buttons',
-                icon: 'icon-puzzle'
-            },
-            {
-                name: 'Cards',
-                url: '/components/cards',
-                icon: 'icon-puzzle'
-            },
-            {
-                name: 'Forms',
-                url: '/components/forms',
-                icon: 'icon-puzzle'
-            },
-            {
-                name: 'Modals',
-                url: '/components/modals',
-                icon: 'icon-puzzle'
-            },
-            {
-                name: 'Switches',
-                url: '/components/switches',
-                icon: 'icon-puzzle'
-            },
-            {
-                name: 'Tables',
-                url: '/components/tables',
-                icon: 'icon-puzzle'
-            },
-            {
-                name: 'Tabs',
-                url: '/components/tabs',
-                icon: 'icon-puzzle'
-            }
-        ]
-    },
-    {
-        name: 'Icons',
-        url: '/icons',
-        icon: 'icon-star',
-        children: [
-            {
-                name: 'Font Awesome',
-                url: '/icons/font-awesome',
-                icon: 'icon-star',
-                badge: {
-                    variant: 'secondary',
-                    text: '4.7'
-                }
-            },
-            {
-                name: 'Simple Line Icons',
-                url: '/icons/simple-line-icons',
-                icon: 'icon-star'
-            }
-        ]
-    },
-    {
-        name: 'Widgets',
-        url: '/widgets',
-        icon: 'icon-calculator',
-        badge: {
-            variant: 'info',
-            text: 'NEW'
-        }
-    },
-    {
-        name: 'Charts',
-        url: '/charts',
-        icon: 'icon-pie-chart'
-    },
-    {
-        divider: true
-    },
-    {
-        title: true,
-        name: 'Extras',
-    },
-    {
-        name: 'Pages',
-        url: '/pages',
-        icon: 'icon-star',
-        children: [
-            {
-                name: 'Login',
-                url: '/pages/login',
-                icon: 'icon-star'
-            },
-            {
-                name: 'Register',
-                url: '/pages/register',
-                icon: 'icon-star'
-            },
-            {
-                name: 'Error 404',
-                url: '/pages/404',
-                icon: 'icon-star'
-            },
-            {
-                name: 'Error 500',
-                url: '/pages/500',
-                icon: 'icon-star'
-            }
-        ]
-    },
-    {
-        name: 'Download CoreUI',
-        url: 'http://coreui.io/angular/',
-        icon: 'icon-cloud-download',
-        class: 'mt-auto',
-        variant: 'success'
-    },
-    {
-        name: 'Try CoreUI PRO',
-        url: 'http://coreui.io/pro/angular/',
-        icon: 'icon-layers',
-        variant: 'danger'
     }
 ];
 
@@ -644,7 +502,7 @@ var AppFooterComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/components/app-header/app-header-lala.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<header class=\"app-header navbar\">\n  <button class=\"navbar-toggler d-lg-none\" type=\"button\" appMobileSidebarToggler>\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n  <a class=\"navbar-brand\" href=\"#\"></a>\n  <button class=\"navbar-toggler d-md-down-none\" type=\"button\" appSidebarToggler>\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n  <ul class=\"nav navbar-nav d-md-down-none\">\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Dashboard</a>-->\n    <!--</li>-->\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Users</a>-->\n    <!--</li>-->\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Settings</a>-->\n    <!--</li>-->\n  </ul>\n  <ul class=\"nav navbar-nav ml-auto\">\n    <li class=\"nav-item dropdown\" dropdown placement=\"bottom right\" >\n      <a class=\"nav-link\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"\n         dropdownToggle (click)=\"false\">\n        <i class=\"icon-bell\"></i><span class=\"badge badge-pill badge-danger\">5</span>\n      </a>\n      <div class=\"dropdown-menu dropdown-menu-right\" *dropdownMenu aria-labelledby=\"simple-dropdown\">\n        <div class=\"dropdown-header text-center\"><strong>Notifications</strong></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-usd\"></i> You received payment</a>\n      </div>\n\n    </li>\n    <!--<li class=\"nav-item d-md-down-none\">\n      <a class=\"nav-link\" href=\"#\"><i class=\"icon-list\"></i></a>\n    </li>\n    <li class=\"nav-item d-md-down-none\">\n      <a class=\"nav-link\" href=\"#\"><i class=\"icon-location-pin\"></i></a>\n    </li>-->\n    <li class=\"nav-item dropdown\" dropdown placement=\"bottom right\">\n      <a class=\"nav-link\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"\n         dropdownToggle (click)=\"false\">\n        <img src=\"assets/img/avatars/6.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\"/>\n      </a>\n      <div class=\"dropdown-menu dropdown-menu-right\" *dropdownMenu aria-labelledby=\"simple-dropdown\">\n        <!--<div class=\"dropdown-header text-center\"><strong>Account</strong></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-bell-o\"></i> Updates<span\n          class=\"badge badge-info\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-envelope-o\"></i> Messages<span\n          class=\"badge badge-success\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-tasks\"></i> Tasks<span\n          class=\"badge badge-danger\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-comments\"></i> Comment<span\n          class=\"badge badge-warning\">42</span></a>-->\n        <!--<div class=\"dropdown-header text-center\"><strong>Settings</strong></div>-->\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-user\"></i> Profile</a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-wrench\"></i> Setting</a>\n        <!--<a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-usd\"></i> Payments<span class=\"badge badge-dark\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-file\"></i> Projects<span class=\"badge badge-primary\">42</span></a>\n        <div class=\"divider\"></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-shield\"></i> Lock account</a>-->\n        <a class=\"dropdown-item\" href=\"#\" (click)=\"logout()\"><i class=\"fa fa-lock\"></i> Logout</a>\n      </div>\n    </li>\n    <!--<button class=\"navbar-toggler d-md-down-none\" type=\"button\" appAsideMenuToggler>\n      <span class=\"navbar-toggler-icon\"></span>\n    </button>-->\n  </ul>\n</header>\n"
+module.exports = "<header class=\"app-header navbar\">\n  <button class=\"navbar-toggler d-lg-none\" type=\"button\" appMobileSidebarToggler>\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n  <a class=\"navbar-brand\" href=\"#\"></a>\n  <button class=\"navbar-toggler d-md-down-none\" type=\"button\" appSidebarToggler>\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n  <ul class=\"nav navbar-nav d-md-down-none\">\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Dashboard</a>-->\n    <!--</li>-->\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Users</a>-->\n    <!--</li>-->\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Settings</a>-->\n    <!--</li>-->\n  </ul>\n  <ul class=\"nav navbar-nav ml-auto\">\n    <!--<li class=\"nav-item dropdown\" dropdown placement=\"bottom right\" >\n      <a class=\"nav-link\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"\n         dropdownToggle (click)=\"false\">\n        <i class=\"icon-bell\"></i><span class=\"badge badge-pill badge-danger\">5</span>\n      </a>\n      <div class=\"dropdown-menu dropdown-menu-right\" *dropdownMenu aria-labelledby=\"simple-dropdown\">\n        <div class=\"dropdown-header text-center\"><strong>Notifications</strong></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-usd\"></i> You received payment</a>\n      </div>\n\n    </li>-->\n    <!--<li class=\"nav-item d-md-down-none\">\n      <a class=\"nav-link\" href=\"#\"><i class=\"icon-list\"></i></a>\n    </li>\n    <li class=\"nav-item d-md-down-none\">\n      <a class=\"nav-link\" href=\"#\"><i class=\"icon-location-pin\"></i></a>\n    </li>-->\n    <li class=\"nav-item dropdown\" dropdown placement=\"bottom right\">\n      <a class=\"nav-link\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"\n         dropdownToggle (click)=\"false\">\n        <img src=\"assets/img/avatars/6.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\"/>\n      </a>\n      <div class=\"dropdown-menu dropdown-menu-right\" *dropdownMenu aria-labelledby=\"simple-dropdown\">\n        <!--<div class=\"dropdown-header text-center\"><strong>Account</strong></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-bell-o\"></i> Updates<span\n          class=\"badge badge-info\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-envelope-o\"></i> Messages<span\n          class=\"badge badge-success\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-tasks\"></i> Tasks<span\n          class=\"badge badge-danger\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-comments\"></i> Comment<span\n          class=\"badge badge-warning\">42</span></a>-->\n        <!--<div class=\"dropdown-header text-center\"><strong>Settings</strong></div>-->\n        <!--<a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-user\"></i> Profile</a>-->\n        <!--<a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-wrench\"></i> Setting</a>-->\n        <!--<a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-usd\"></i> Payments<span class=\"badge badge-dark\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-file\"></i> Projects<span class=\"badge badge-primary\">42</span></a>\n        <div class=\"divider\"></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-shield\"></i> Lock account</a>-->\n        <a class=\"dropdown-item\" href=\"#\" (click)=\"logout()\"><i class=\"fa fa-lock\"></i> Logout</a>\n      </div>\n    </li>\n    <!--<button class=\"navbar-toggler d-md-down-none\" type=\"button\" appAsideMenuToggler>\n      <span class=\"navbar-toggler-icon\"></span>\n    </button>-->\n  </ul>\n</header>\n"
 
 /***/ }),
 
@@ -1871,6 +1729,9 @@ var AuthenticationService = /** @class */ (function () {
     AuthenticationService.prototype.getUser = function () {
         return this.user;
     };
+    AuthenticationService.prototype.getUserId = function () {
+        return this.user.id;
+    };
     AuthenticationService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_common_http__["b" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_1__globals_service__["a" /* GlobalsService */]])
@@ -1914,7 +1775,7 @@ var CheckAccessTokenService = /** @class */ (function () {
         if (sessionStorage.getItem('access_token')) {
             this.subscription = this.http.get(this.baseUrl + "/count")
                 .subscribe(function (count) {
-                _this.router.navigateByUrl('account/wallet');
+                // this.router.navigateByUrl('account/wallet');
             }, function (err) {
                 sessionStorage.removeItem('access_token');
                 _this.router.navigateByUrl('pages/login');

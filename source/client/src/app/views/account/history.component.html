@@ -1,73 +1,48 @@
-<div class="animated fadeIn">
-  <div class="row">
+<div class="section" style="margin: 0 -15px 0 -15px; border-bottom: 1px solid #c2cfd6;">
+  <div class="row" style="background-color: #ffffff; height: 46px; padding-top: 10px; margin-bottom: 20px">
     <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <h2>Histories</h2>
-        </div>
-        <div class="card-body">
-          <table class="table">
-            <thead>
-            <tr>
-              <th>Username</th>
-              <th>Date registered</th>
-              <th>Role</th>
-              <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>Samppa Nori</td>
-              <td>2012/01/01</td>
-              <td>Member</td>
-              <td>
-                <span class="badge badge-success">Active</span>
-              </td>
-            </tr>
-            <tr>
-              <td>Estavan Lykos</td>
-              <td>2012/02/01</td>
-              <td>Staff</td>
-              <td>
-                <span class="badge badge-danger">Banned</span>
-              </td>
-            </tr>
-            <tr>
-              <td>Chetan Mohamed</td>
-              <td>2012/02/01</td>
-              <td>Admin</td>
-              <td>
-                <span class="badge badge-secondary">Inactive</span>
-              </td>
-            </tr>
-            <tr>
-              <td>Derick Maximinus</td>
-              <td>2012/03/01</td>
-              <td>Member</td>
-              <td>
-                <span class="badge badge-warning">Pending</span>
-              </td>
-            </tr>
-            <tr>
-              <td>Friderik Dávid</td>
-              <td>2012/01/21</td>
-              <td>Staff</td>
-              <td>
-                <span class="badge badge-success">Active</span>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
+      <h3 style="color:#4e4b4b">Histories</h3>
+    </div>
+  </div>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 *ngIf="listBorrowers?.length==0" class="text-center">Your history of investment is empty!</h2>
+
+            <table class="table" *ngIf="listBorrowers?.length>0">
+              <thead>
+              <tr>
+                <th>Borrower</th>
+                <th>Lend ticket</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let credit of listBorrowers">
+                <td><strong>{{credit.borrowerName}}</strong><br>
+                  CIC Rank: {{credit.cicRank}}<br>
+                  LLLRank:{{credit.lllRank}}<br>
+                  Credit Limit:{{credit.creditLimit}} VNDT
+                </td>
+                <td>Amount: {{credit.amount}} VNDT<br>
+                  Rate: {{credit.rate*100}} %/yr<br>
+                  Due Day after: {{credit.dueDay*100}} days
+                </td>
+                <td>Expired: {{credit.expiredTime | date:"MM/dd/yy"}} days</td>
+                <td>
+                  <span class="badge badge-success">{{credit.status}}</span>
+                </td>
+                <td>
+                  <button class="btn btn-primary">Bid rate now!</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
