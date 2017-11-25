@@ -55,7 +55,15 @@ module.exports = function(Credit) {
       return;
     }
     ctx.args.data['borrowerId'] = ctx.req.accessToken.userId;
-    next();
+    // get borrowerName
+    Credit.app.models.user.findById(ctx.req.accessToken.userId, (err, user) => {
+      if(err) {
+        next(err);
+        return;
+      }
+      ctx.args.data['borrowerName'] = user.username;
+      next();
+    });
   });
 
   Credit.remoteMethod('newLoan', {
