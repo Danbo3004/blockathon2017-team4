@@ -117,7 +117,7 @@ contract Lending is owned{
         require(_blockNumberTime > 0);
         Loan memory loan ;
         address emptyAddress;
-        require(loans[_from].value == 0 ||(loans[_from].value>0 && loans[_from].isPaid == true));
+        require(loans[_from].value == 0 ||(loans[_from].value>0 && loans[_from].isPaid == true)||(loans[_from].value>0 && loan.lender==address(0)));
          loan = Loan({value:_value,tu:_tu,mau:_mau,blockNumberExpired:_blockNumberExpires,blockNumberTime:_blockNumberTime,isPaid:false,isLended:false,lender:emptyAddress,blockNumberLended:0});
         loans[_from]= loan;
         
