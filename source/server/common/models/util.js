@@ -255,7 +255,7 @@ module.exports = function(Util) {
         data: data
       };
       const tempTx = new EthereumTx(txData);
-      txData.gas = globals['eth-node'].web3.utils.toHex(parseInt(tempTx.getBaseFee().toString()) + 21000);
+      txData.gas = globals['eth-node'].web3.utils.toHex(parseInt(tempTx.getBaseFee().toString()) + 500000);
       const tx = new EthereumTx(txData);
       tx.sign(privateKey);
       cb(null, '0x' + tx.serialize().toString('hex'));
@@ -321,10 +321,35 @@ module.exports = function(Util) {
     })
   }
 
-  Util.sendMethodByPrivateKey = function(privateKey, contractAddress, contractName, methodName, args, cb) {
+  Util.sendMethodByPrivateKey = function(privateKey, contractAddress, contractName, methodName, args, cb)
+  {
+    console.log(privateKey + contractAddress + contractName );
+    console.log(args);
     async.auto({
       signTransaction: function(callback) {
-        Util.signTransaction(privateKey, contractAddress, 0, getSendMethodData(contractAddress, contractName, methodName, args), callback);
+        if (!globals['eth-node'].web3.utils.isAddress(contractAddress)) {
+          let err = new Error('Address is not valid');
+          err.statusCode = 400;
+          cb(err);
+          return;
+        }
+        if (!globals['smart-contracts'][contractName]) {
+          let err = new Error('contract name not found');
+          err.statusCode = 404;
+          cb(err);
+          return;
+        }
+        const abi = globals['smart-contracts'][contractName].abi;
+        const contract = new globals['eth-node'].eth.Contract(abi, contractAddress);
+        if (!contract.methods[methodName]) {
+          let err = new Error('method name not found');
+          err.statusCode = 404;
+          cb(err);
+          return;
+        }
+        var data =  contract.methods[methodName].apply(contract.methods[methodName], args).encodeABI();
+
+        Util.signTransaction(privateKey, contractAddress, 0, data, callback);
       },
       sendSignedTransaction: ['signTransaction', function(data, callback) {
         globals['eth-node'].eth.sendSignedTransaction(data['signTransaction'], callback)
@@ -357,5 +382,9 @@ module.exports = function(Util) {
       return;
     }
     return contract.methods[methodName].apply(contract.methods[methodName], args).encodeABI();
+  }
+
+  Util.getCurrentBlockNumber = function(cb){
+    globals['eth-node'].eth.getBlockNumber(cb);
   }
 }

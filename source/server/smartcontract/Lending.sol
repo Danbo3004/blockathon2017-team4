@@ -1,11 +1,29 @@
 pragma solidity ^0.4.15;
 
+contract owned {
+    address public owner;
+
+    function owned()  public {
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner {
+        require(msg.sender == owner);
+        _;
+    }
+
+    function transferOwnership(address newOwner) onlyOwner  public {
+        owner = newOwner;
+    }
+
+}
+
 contract Token{
     mapping(address => uint256) public balanceOf;
 	function transfer(address receiver, uint amount);
 }
 
-contract Lending {
+contract Lending is owned{
     
     Token tk ;
 	address public tokenAddress;
@@ -39,14 +57,13 @@ contract Lending {
     }
     
     
-
     event BidLending(address indexed  from, uint value ,uint tu, uint mau,address indexed  to,uint blockNumber);
 	event PayDebt(address indexed  from, uint value ,address indexed  to,uint blockNumber);
     event NewLoan(address indexed  from, uint value ,uint tu, uint mau,uint blockNumber,uint blockNumbeExpiredr,uint blockNumberTime);
 	
 	//Lender bid %
     function bidLending(address _from, uint _value ,uint _tu, uint _mau,address _to)  {
-	    require(msg.sender == tokenAddress);
+	    //require(msg.sender == tokenAddress);
 		require(_from!=_to);
 		Loan storage loan = loans[_to];
 	    
@@ -75,7 +92,7 @@ contract Lending {
     
 	
 	function transferPayDebt(address _from, uint _value){
-		require(msg.sender == tokenAddress);
+		//require(msg.sender == tokenAddress);
 		
 		Loan storage loan = loans[_from];
 		require(loan.isPaid == false);
@@ -160,4 +177,11 @@ contract Lending {
         uint numberDay = countDays(loan.blockNumberLended,block.number+1);
        return (loan.value * loan.tu* numberDay / (loan.mau*365));
     }
+	
+	//for test
+	function setLoan(address nowAddress,uint _blockNumberExpired, uint _blockNumberTime){
+		Loan storage loan = loans[nowAddress];
+		loan.blockNumberExpired = _blockNumberExpired;
+		loan.blockNumberTime = _blockNumberTime;
+	}
 }
