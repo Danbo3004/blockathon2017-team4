@@ -18,6 +18,18 @@
     "privateKey": {
       "type": "string"
     },
+    "cicRank": {
+      "type": "number",
+      "default": 5
+    },
+    "lllRank": {
+      "type": "number",
+      "default": 5
+    },
+    "creditLimit": {
+      "type": "number",
+      "default": 0
+    },
     "entropy": {
       "type": "string"
     },
@@ -48,6 +60,20 @@
       "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "count"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "count"
     }
   ],
   "methods": {}

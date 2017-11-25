@@ -33,7 +33,7 @@ module.exports = function(Util) {
       verb: 'get'
     },
     returns: {
-      root: true, type: 'string'
+      arg: 'balance', type: 'string'
     }
   })
   Util.checkEthBalance = function(address, cb) {
@@ -52,7 +52,7 @@ module.exports = function(Util) {
       verb: 'get'
     },
     returns: {
-      root: true, type: 'string'
+      arg: 'balance', type: 'string'
     }
   })
   Util.checkTokenBalance = function(address, cb) {

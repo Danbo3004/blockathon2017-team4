@@ -1,8 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
+
+// Import services
+import {
+  GlobalsService,
+  AuthenticationService,
+  CheckAccessTokenService,
+  CreditService,
+  CustomHttpInterceptor
+} from './services';
+
+const APP_SERVICES = [
+  GlobalsService,
+  AuthenticationService,
+  CheckAccessTokenService,
+  CreditService
+]
 
 // Import containers
 import {
@@ -63,13 +80,15 @@ const APP_DIRECTIVES = [
 ]
 
 // Import routing module
-import { AppRoutingModule } from './app.routing';
+import {AppRoutingModule} from './app.routing';
 
 // Import 3rd party components
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {TabsModule} from 'ngx-bootstrap/tabs';
+import {ChartsModule} from 'ng2-charts/ng2-charts';
 import {LalalendLayoutComponent} from './containers/lalalend-layout/lalalend-layout.component';
+import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -77,7 +96,10 @@ import {LalalendLayoutComponent} from './containers/lalalend-layout/lalalend-lay
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    HttpClientModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   declarations: [
     AppComponent,
@@ -88,7 +110,14 @@ import {LalalendLayoutComponent} from './containers/lalalend-layout/lalalend-lay
   providers: [{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  }],
-  bootstrap: [ AppComponent ]
+  },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomHttpInterceptor,
+      multi: true,
+    },
+    APP_SERVICES],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

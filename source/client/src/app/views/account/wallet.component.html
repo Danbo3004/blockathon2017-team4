@@ -19,9 +19,9 @@
               </div>
               <div class="col-md-4">
                 <h2>Tony Doan</h2>
-                <p>CIC Rank: Level 1</p>
-                <p>LLL Rank: 4.7</p>
-                <h4>Credit Limit: <strong>80,000</strong> VND</h4>
+                <p>CIC Rank: Level {{user.cicRank || 0}}</p>
+                <p>LLL Rank: {{user.lllRank || 0}}</p>
+                <h4>Credit Limit: <strong>{{user.creditLimit || 0}}</strong> VND</h4>
               </div>
               <div class="col-md-4 text-right">
                 <h2><strong>1,343.2</strong> ETH</h2>
@@ -100,6 +100,13 @@
                   <input type="password" id="hf-password" name="hf-password" class="form-control"
                          placeholder="Enter Password..">
                   <span class="help-block">Please enter your password</span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="hf-amount">Amount</label>
+                <div class="col-md-9">
+                  <input type="number" step="1" id="hf-amount" name="hf-amount" class="form-control"
+                         placeholder="Enter amount of VNDT token..">
                 </div>
               </div>
             </form>

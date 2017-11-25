@@ -12,68 +12,39 @@
             <h4>Borrowers</h4>
           </div>
           <div class="card-body">
-            <table class="table">
+            <h2 *ngIf="listOpportunities" class="text-center">There are no opportunity now!</h2>
+
+            <table class="table" *ngIf="!listOpportunities">
               <thead>
               <tr>
-                <th>Username</th>
-                <th>Date registered</th>
+                <th>Borrower</th>
+                <th>Lend ticket</th>
                 <th>Role</th>
                 <th>Status</th>
+                <th>Action</th>
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>Samppa Nori</td>
-                <td>2012/01/01</td>
-                <td>Member</td>
-                <td>
-                  <span class="badge badge-success">Active</span>
+              <tr *ngFor="let credit of listOpportunities">
+                <td><strong>{{credit.borrowerName}}</strong><br>
+                  CIC Rank: {{credit.cicRank}}<br>
+                  LLLRank:{{credit.lllRank}}<br>
+                  Credit Limit:{{credit.creditLimit}} VNDT
                 </td>
-              </tr>
-              <tr>
-                <td>Estavan Lykos</td>
-                <td>2012/02/01</td>
-                <td>Staff</td>
-                <td>
-                  <span class="badge badge-danger">Banned</span>
+                <td>Amount: {{credit.amount}} VNDT<br>
+                  Rate: {{credit.rate*100}} %/yr<br>
+                  Due Day after: {{credit.dueDay*100}} days
                 </td>
-              </tr>
-              <tr>
-                <td>Chetan Mohamed</td>
-                <td>2012/02/01</td>
-                <td>Admin</td>
+                <td>Expired: {{credit.expiredTime | date:"MM/dd/yy"}} days</td>
                 <td>
-                  <span class="badge badge-secondary">Inactive</span>
+                  <span class="badge badge-success">{{credit.status}}</span>
                 </td>
-              </tr>
-              <tr>
-                <td>Derick Maximinus</td>
-                <td>2012/03/01</td>
-                <td>Member</td>
                 <td>
-                  <span class="badge badge-warning">Pending</span>
-                </td>
-              </tr>
-              <tr>
-                <td>Friderik Dávid</td>
-                <td>2012/01/21</td>
-                <td>Staff</td>
-                <td>
-                  <span class="badge badge-success">Active</span>
+                  <button class="btn btn-primary">Bid rate now!</button>
                 </td>
               </tr>
               </tbody>
             </table>
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-              <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
           </div>
         </div>
       </div>
