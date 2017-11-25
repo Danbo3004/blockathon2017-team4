@@ -10,9 +10,15 @@
       "type": "number",
       "required": true
     },
+    "borrowerId": {
+      "type": "number"
+    },
     "rate": {
       "type": "number",
       "required": true
+    },
+    "amount": {
+      "type": "number"
     },
     "lenderId": {
       "type": "number",
