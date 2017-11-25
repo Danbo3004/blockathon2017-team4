@@ -40,7 +40,18 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "bidHistory": {
+      "type": "hasMany",
+      "model": "bidHistory",
+      "foreignKey": "creditId"
+    },
+    "payLoan": {
+      "type": "hasMany",
+      "model": "payLoan",
+      "foreignKey": "creditId"
+    }
+  },
   "acls": [
     {
       "accessType": "READ",

@@ -51,5 +51,9 @@
   "payLoan": {
     "dataSource": "mysql",
     "public": true
+  },
+  "bidHistory": {
+    "dataSource": "mysql",
+    "public": true
   }
 }
