@@ -22,6 +22,7 @@ class BidLoanOrderView: UIView, UITextFieldDelegate {
 	@IBOutlet weak var rateStepper: UIStepper!
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var OKButton: UIButton!
+	@IBOutlet weak var errorLabel: UILabel!
 
 	weak var delegate: BidLoanOrderViewDelegate?
 	var credit: Credit!
@@ -41,10 +42,12 @@ class BidLoanOrderView: UIView, UITextFieldDelegate {
 		wrapperView.layer.shadowOpacity = 0.5
 		bidRateTextField.textAlignment = .right
 		bidRateTextField.delegate = self
+		errorLabel.isHidden = true
 		self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
 	}
 
 	func populateData() {
+		errorLabel.isHidden = true
 		currentLowestRate = credit.rate
 		currentLowestRateLabel.text = "\(currentLowestRate)%"
 		rateStepper.stepValue = 0.01

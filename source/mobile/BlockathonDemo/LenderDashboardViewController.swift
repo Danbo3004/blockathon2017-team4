@@ -145,7 +145,11 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 
 	func borrowerCellDidTapBidRate(cell: BorrowerCell) {
 		let indexPath = tableView.indexPath(for: cell)
-		let credit = creditList[(indexPath?.row)!]
+		self.performBidRate(indexPath: indexPath!)
+	}
+
+	func performBidRate(indexPath: IndexPath) {
+		let credit = creditList[indexPath.row]
 		rateView = Bundle.main.loadNibNamed("BidLoanOrderView", owner: self, options: nil)?[0] as? BidLoanOrderView
 		if let rateView = rateView {
 			rateView.credit = credit
@@ -155,42 +159,7 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 			rateView.delegate = self
 			self.view.addSubview(rateView)
 		}
-//		self.performBidRate(indexPath: indexPath!)
-	}
 
-	func performBidRate(indexPath: IndexPath) {
-		let alertController = UIAlertController(title: "Bid interest", message: "Enter the interest rate you want to bid\nCurrent lowest bid rate: \(currentLowestBid)%", preferredStyle: UIAlertControllerStyle.alert)
-		alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action: UIAlertAction) in
-			self.tableView.deselectRow(at: indexPath, animated: true)
-			alertController.dismiss(animated: true, completion: nil)
-		}))
-
-		alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction) in
-			let interestRateBidTextField = alertController.textFields![0] as UITextField
-			let interestRateBid : Double = NSString(string: interestRateBidTextField.text!).doubleValue
-			if (interestRateBid < self.currentLowestBid) {
-				DataManager.shared.currentUser = self.user
-//				let biddingCredit = creditList[indexPath.row]
-//				biddingCredit.requestBidCredit(bidRate: interestRateBid, completion: { (error) -> Void? in
-//					if (error) {
-//
-//					} else {
-//
-//					}
-//				})
-				self.performSegue(withIdentifier: "LenderDashboardToHistorySegue", sender: self)
-			} else {
-				print("Failed")
-			}
-			self.tableView.deselectRow(at: indexPath, animated: true)
-			alertController.dismiss(animated: true, completion: nil)
-		}))
-
-		alertController.addTextField { (textField : UITextField!) in
-			textField.placeholder = "Enter Bidding Interest Rate"
-		}
-
-		present(alertController, animated: true, completion: nil)
 	}
 
 	func handleRefresh(_ refreshControl: UIRefreshControl) {
@@ -209,15 +178,15 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 
 			if let biddingCredit = bidLoanOrderView.credit {
 				biddingCredit.requestBidCredit(bidRate: interestRateBid, userAddess: biddingCredit.borrower!.address, completion: { (error) -> Void in
-					if let error = error {
-						print(error.localizedDescription)
+					if let _ = error {
+						bidLoanOrderView.errorLabel.isHidden = false
 					} else {
-
+						bidLoanOrderView.errorLabel.isHidden = true
+						bidLoanOrderView.removeFromSuperview()
+						self.performSegue(withIdentifier: "LenderDashboardToHistorySegue", sender: self)
 					}
 				})
 			}
-			bidLoanOrderView.removeFromSuperview()
-			self.performSegue(withIdentifier: "LenderDashboardToHistorySegue", sender: self)
 
 		}
 	}

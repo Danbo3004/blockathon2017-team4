@@ -97,6 +97,12 @@ The current lowest ratio of interest is: </string>
                                 <constraint firstAttribute="width" constant="1" id="91W-bX-iso"/>
                             </constraints>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your bidding is failed, please adjust your interest rate or try again later" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GzM-vz-VOk" userLabel="Error Label">
+                            <rect key="frame" x="40" y="282" width="280" height="31.333333333333314"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5R-2z-znf">
                             <rect key="frame" x="0.0" y="340" width="179.66666666666666" height="60"/>
                             <state key="normal" title="Cancel">
@@ -111,6 +117,7 @@ The current lowest ratio of interest is: </string>
                     <constraints>
                         <constraint firstAttribute="height" constant="400" id="0TJ-X9-dqJ"/>
                         <constraint firstItem="ReR-p1-2qf" firstAttribute="leading" secondItem="fgJ-5g-9oF" secondAttribute="leading" constant="20" id="124-R8-0Gi"/>
+                        <constraint firstAttribute="trailing" secondItem="GzM-vz-VOk" secondAttribute="trailing" constant="40" id="3bE-mk-YKv"/>
                         <constraint firstItem="2mO-7x-KYp" firstAttribute="centerX" secondItem="fgJ-5g-9oF" secondAttribute="centerX" id="3in-Fo-7AX"/>
                         <constraint firstItem="whM-83-X9n" firstAttribute="centerX" secondItem="fgJ-5g-9oF" secondAttribute="centerX" id="49g-Fa-Hg5"/>
                         <constraint firstItem="EPv-AC-Wfp" firstAttribute="top" secondItem="2mO-7x-KYp" secondAttribute="bottom" constant="20" id="53K-vz-OFv"/>
@@ -118,6 +125,7 @@ The current lowest ratio of interest is: </string>
                         <constraint firstItem="VN9-oq-AkC" firstAttribute="leading" secondItem="L5R-2z-znf" secondAttribute="trailing" id="6US-lE-hUm"/>
                         <constraint firstItem="2mO-7x-KYp" firstAttribute="top" secondItem="ReR-p1-2qf" secondAttribute="bottom" constant="15" id="7Jy-Aw-4dk"/>
                         <constraint firstItem="TDF-4w-O6u" firstAttribute="top" secondItem="fgJ-5g-9oF" secondAttribute="top" constant="35" id="82u-Gv-py8"/>
+                        <constraint firstItem="GzM-vz-VOk" firstAttribute="top" secondItem="whM-83-X9n" secondAttribute="bottom" constant="8" id="CKQ-7s-JsC"/>
                         <constraint firstItem="EPv-AC-Wfp" firstAttribute="centerX" secondItem="fgJ-5g-9oF" secondAttribute="centerX" id="CaI-oo-Jyj"/>
                         <constraint firstItem="XBf-5q-rV3" firstAttribute="leading" secondItem="HMU-uG-Dcn" secondAttribute="trailing" constant="3" id="HOV-VL-YRz"/>
                         <constraint firstItem="TDF-4w-O6u" firstAttribute="centerX" secondItem="fgJ-5g-9oF" secondAttribute="centerX" id="I3K-Dj-s6I"/>
@@ -131,6 +139,7 @@ The current lowest ratio of interest is: </string>
                         <constraint firstItem="uZw-Qw-d39" firstAttribute="height" secondItem="VN9-oq-AkC" secondAttribute="height" constant="-3" id="Qpn-IH-YHO"/>
                         <constraint firstItem="HMU-uG-Dcn" firstAttribute="centerY" secondItem="EPv-AC-Wfp" secondAttribute="centerY" id="Rgu-2C-IWx"/>
                         <constraint firstItem="FPe-NI-WlB" firstAttribute="leading" secondItem="EPv-AC-Wfp" secondAttribute="trailing" constant="8" id="Tz1-D9-Uka"/>
+                        <constraint firstItem="GzM-vz-VOk" firstAttribute="leading" secondItem="fgJ-5g-9oF" secondAttribute="leading" constant="40" id="Uyg-Mv-xQ2"/>
                         <constraint firstAttribute="trailing" secondItem="uZw-Qw-d39" secondAttribute="trailing" id="VOG-EW-XfC"/>
                         <constraint firstAttribute="width" constant="360" id="aEP-aK-cXj"/>
                         <constraint firstItem="L5R-2z-znf" firstAttribute="height" secondItem="VN9-oq-AkC" secondAttribute="height" constant="-3" id="baW-VO-GUA"/>
@@ -139,6 +148,7 @@ The current lowest ratio of interest is: </string>
                         <constraint firstItem="VN9-oq-AkC" firstAttribute="centerX" secondItem="fgJ-5g-9oF" secondAttribute="centerX" id="ina-y8-2Gu"/>
                         <constraint firstItem="HMU-uG-Dcn" firstAttribute="leading" secondItem="17h-4Q-rf3" secondAttribute="trailing" constant="3" id="loi-e9-Epy"/>
                         <constraint firstAttribute="bottom" secondItem="VN9-oq-AkC" secondAttribute="bottom" id="pCd-xz-Js7"/>
+                        <constraint firstItem="GzM-vz-VOk" firstAttribute="centerX" secondItem="fgJ-5g-9oF" secondAttribute="centerX" id="s63-81-AJx"/>
                         <constraint firstAttribute="trailing" secondItem="ReR-p1-2qf" secondAttribute="trailing" constant="20" id="v45-PO-Fxg"/>
                         <constraint firstAttribute="bottom" secondItem="uZw-Qw-d39" secondAttribute="bottom" id="yuj-bM-ao8"/>
                     </constraints>
@@ -158,6 +168,7 @@ The current lowest ratio of interest is: </string>
                 <outlet property="bidRateTextField" destination="EPv-AC-Wfp" id="W5l-UG-Toc"/>
                 <outlet property="cancelButton" destination="L5R-2z-znf" id="XSw-sL-GyI"/>
                 <outlet property="currentLowestRateLabel" destination="2mO-7x-KYp" id="UKm-Sf-xqH"/>
+                <outlet property="errorLabel" destination="GzM-vz-VOk" id="7H1-A6-P0Z"/>
                 <outlet property="rateStepper" destination="whM-83-X9n" id="gz0-Th-H2X"/>
                 <outlet property="wrapperView" destination="fgJ-5g-9oF" id="Vps-8S-DsD"/>
             </connections>
