@@ -1,9 +1,6 @@
 import {Injectable} from '@angular/core';
 import { GlobalsService } from './globals.service';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/distinct';
-import 'rxjs/add/operator/debounceTime';
 import {Subscription} from 'rxjs/Subscription';
 import {Router} from '@angular/router';
 
@@ -14,5 +11,13 @@ export class CheckAccessTokenService {
   constructor(private http: HttpClient, private globalsService: GlobalsService, private router: Router) {
     this.baseUrl = globalsService.getBaseUrl() + 'users';
     console.log('router: ' + router);
+
+    this.subscription = this.http.get<any>(`${this.baseUrl}/count`)
+      .subscribe(count => {
+
+      }, err => {
+        sessionStorage.removeItem('access_token');
+        this.router.navigateByUrl('pages/login');
+      });
   }
 }

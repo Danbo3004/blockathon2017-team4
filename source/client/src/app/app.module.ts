@@ -8,12 +8,14 @@ import {AppComponent} from './app.component';
 // Import services
 import {
   GlobalsService,
-  AuthenticationService
+  AuthenticationService,
+  CheckAccessTokenService
 } from './services';
 
 const APP_SERVICES = [
   GlobalsService,
-  AuthenticationService
+  AuthenticationService,
+  CheckAccessTokenService
 ]
 
 // Import containers
