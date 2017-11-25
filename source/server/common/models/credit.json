@@ -17,22 +17,39 @@
     "amount": {
       "type": "number"
     },
+    "cicRank": {
+      "type": "number",
+      "default": 5
+    },
+    "lllRank": {
+      "type": "number",
+      "default": 5
+    },
+    "creditLimit": {
+      "type": "number",
+      "default": 0
+    },
     "rate": {
       "type": "number"
     },
-    "period": {
+    "dueDay": {
       "type": "number",
-      "description": "period in second"
+      "description": "dueDay of lend"
     },
-    "expired": {
-      "type": "boolean",
-      "default": "false"
+    "expiredTime": {
+      "type": "number"
     },
     "lenderId": {
       "type": "number"
     },
     "lenderName": {
       "type": "string"
+    },
+    "startLend": {
+      "type": "number"
+    },
+    "endLend": {
+      "type": "number"
     },
     "status": {
       "type": "string",

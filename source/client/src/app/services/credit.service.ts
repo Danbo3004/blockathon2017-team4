@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {GlobalsService} from './globals.service';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class CreditService {
       this.subscription.unsubscribe();
     }
     this.subscription = this.http.get<any>(this.baseUrl, {
-      filter: filter
+      params: new HttpParams().set('filter', JSON.stringify(filter))
     })
       .debounceTime(2000)
       .subscribe(successCb ? (data) => {
