@@ -27,6 +27,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		self.emailTextField.delegate = self
 		self.errorLabel.isHidden = true
 		self.loadingView.isHidden = true
+		self.emailTextField.layer.borderWidth = 1
+		self.passwordTextField.layer.borderWidth = 1
+		self.emailTextField.layer.cornerRadius = 5
+		self.passwordTextField.layer.cornerRadius = 5
+		self.emailTextField.layer.borderColor = UIColor(white: 0.8, alpha: 1).cgColor
+		self.passwordTextField.layer.borderColor = UIColor(white: 0.8, alpha: 1).cgColor
 	}
 
 	func textFieldDidBeginEditing(_ textField: UITextField) {

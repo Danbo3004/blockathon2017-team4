@@ -18,14 +18,14 @@
                 <img class="img-avatar" src="assets/img/no-user.jpg" height="200"/>
               </div>
               <div class="col-md-4">
-                <h2>Tony Doan</h2>
+                <h2>{{user.username}}</h2>
                 <p>CIC Rank: Level {{user.cicRank || 0}}</p>
                 <p>LLL Rank: {{user.lllRank || 0}}</p>
-                <h4>Credit Limit: <strong>{{user.creditLimit || 0}}</strong> VND</h4>
+                <h4>Credit Limit: <strong>{{user.creditLimit || 0}}</strong> VNDT</h4>
               </div>
               <div class="col-md-4 text-right">
                 <h2><strong>{{user.ethBalance || 0}}</strong> ETH</h2>
-                <h3><strong>{{user.tokenBalance || 0}}</strong> VND</h3>
+                <h3><strong>{{user.tokenBalance || 0}}</strong> VNDT</h3>
               </div>
             </div>
           </div>
@@ -36,8 +36,8 @@
 
   <div class="animated fadeIn">
     <div class="row">
-      <div class="col-md-6">
-        <div class="card">
+      <div class="col-md-12">
+        <div class="card" *ngIf="inDept">
           <div class="card-header">
             <h4>Your Debt</h4>
           </div>
@@ -45,7 +45,7 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="hf-email">Amount</label>
               <div class="col-md-9">
-                <h4><strong>30,324.65</strong> VND</h4>
+                <h4><strong>30,324.65</strong> VNDT</h4>
               </div>
             </div>
 
@@ -80,44 +80,49 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="card">
+      <div class="col-md-12">
+        <div class="card" *ngIf="!inDept">
           <div class="card-header">
             <h4>Borrow Form</h4>
           </div>
           <div class="card-body">
             <form action="" method="post" class="form-horizontal">
               <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="hf-email">Email</label>
+                <label class="col-md-3 col-form-label" for="borrow-amount">Amount</label>
                 <div class="col-md-9">
-                  <input type="email" id="hf-email" name="hf-email" class="form-control" placeholder="Enter Email..">
-                  <span class="help-block">Please enter your email</span>
+                  <input type="number" step="1" id="borrow-amount" name="borrow-amount" class="form-control"
+                         placeholder="Enter amount of VNDT token.." [(ngModel)]="borrow.amount">
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="hf-password">Password</label>
+                <label class="col-md-3 col-form-label" for="borrow-amount">Rate</label>
                 <div class="col-md-9">
-                  <input type="password" id="hf-password" name="hf-password" class="form-control"
-                         placeholder="Enter Password..">
-                  <span class="help-block">Please enter your password</span>
+                  <input type="number" id="borrow-rate" name="borrow-rate" class="form-control"
+                         placeholder="Enter rate in percentage.." [(ngModel)]="borrow.rate">
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="hf-amount">Amount</label>
+                <label class="col-md-3 col-form-label" for="borrow-amount">Period</label>
                 <div class="col-md-9">
-                  <input type="number" step="1" id="hf-amount" name="hf-amount" class="form-control"
-                         placeholder="Enter amount of VNDT token..">
+                  <input type="number" step="1" id="borrow-period" name="borrow-period" class="form-control"
+                         placeholder="Enter number of days to pay.." [(ngModel)]="borrow.period">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="borrow-expire-date">Expire Date</label>
+                <div class="col-md-9">
+                  <input type="date" step="1" id="borrow-expire-date" name="borrow-expire-date" class="form-control"
+                         [(ngModel)]="expire">
                 </div>
               </div>
             </form>
+            <p class="red">{{message}}</p>
           </div>
           <div class="card-footer">
-            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
-            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+            <button type="submit" class="btn btn-sm btn-primary" (click)="createBorrow()"><i class="fa fa-dot-circle-o"></i> Submit</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </div>

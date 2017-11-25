@@ -21,8 +21,8 @@ enum MenuItem: Int {
 		switch self {
 		case .MyWallet: return "MyWallet"
 		case .History: return "History"
-		case .MyProfile: return "MyProfile"
-		case .Settings: return "Settings"
+		case .MyProfile: return "MyProfile (not implemented)"
+		case .Settings: return "Settings (not implemented)"
 		case .SignOut: return "SignOut"
 		default: return ""
 		}

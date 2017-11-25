@@ -3,6 +3,7 @@ const globals = require('../../server/boot/globals');
 const async = require('async');
 const _ = require('underscore');
 const smartContract = require("./../SmartContractUtil");
+const socketIO = require('../../server/socket');
 
 module.exports = function(Credit) {
   //Credit.disableRemoteMethodByName('create');
@@ -54,7 +55,15 @@ module.exports = function(Credit) {
       return;
     }
     ctx.args.data['borrowerId'] = ctx.req.accessToken.userId;
-    next();
+    // get borrowerName
+    Credit.app.models.user.findById(ctx.req.accessToken.userId, (err, user) => {
+      if(err) {
+        next(err);
+        return;
+      }
+      ctx.args.data['borrowerName'] = user.username;
+      next();
+    });
   });
 
   Credit.remoteMethod('newLoan', {
@@ -157,4 +166,99 @@ module.exports = function(Credit) {
       }
     });
   };
+
+  Credit.remoteMethod('newBid', {
+    accepts: [
+      {arg: 'id', type: 'number', required: true},
+      {arg: 'rate', type: 'number', required: true},
+      {arg: 'req', type: 'object', 'http': {source: 'req'}}
+    ],
+    returns: {
+      arg: 'bidHistory', type: 'object'
+    }
+  })
+  Credit.newBid = function(id, rate, req, cb) {
+    if (!req.accessToken) {
+      let err = new Error('Authentication is required');
+      err.statusCode = 401;
+      cb(err);
+      return;
+    }
+    async.auto({
+      getCredit: function(callback) {
+        Credit.findById(id, (err, credit) => {
+          if(err) {
+            callback(err);
+            return;
+          }
+          if(!credit) {
+            let err = new Error('Credit not found');
+            err.statusCode = 404;
+            callback(err);
+            return;
+          }
+          if(rate >= credit.rate) {
+            let err = new Error('Rate must be less than credit rate');
+            err.statusCode = 400;
+            callback(err);
+            return;
+          }
+          callback(null, credit);
+        })
+      },
+      getUser: function(callback) {
+        Credit.app.models.user.findById(req.accessToken.userId, (err, user) => {
+          if(err) {
+            callback(err);
+            return;
+          }
+          if(!user) {
+            let err = new Error('Invalid access token');
+            err.statusCode = 404;
+            callback(err);
+            return;
+          }
+          callback(null, user);
+        })
+      },
+      checkTokenBalance: ['getCredit', 'getUser', function(data, callback) {
+        Credit.app.models.util.checkTokenBalance(data['getUser'].address, (err, balance) => {
+          if(err) {
+            callback(err);
+            return;
+          }
+          if(balance.balance < data['getCredit'].amount) {
+            let err = new Error('Your balance is not enough to lend');
+            err.statusCode = 400;
+            callback(err);
+            return;
+          }
+          callback(null, balance.balance);
+        })
+      }],
+      updateLender: ['checkTokenBalance', function(data, callback) {
+        data['getCredit'].updateAttribute('lenderId', req.accessToken.userId, (err, updatedCredit) => {
+          if(err) {
+            callback(err);
+            return;
+          }
+          // create bid history
+          data['getCredit'].bidHistory.create({
+            borrowerId: data['getCredit'].borrowerId,
+            rate: rate,
+            amount: data['getCredit'].amount,
+            lenderId: data['getUser'].id
+          }, callback);
+        })
+      }]
+    }, (err, results) => {
+      if(err) {
+        cb(err);
+        return;
+      }
+      // use socket to broadcast
+      socketIO.broadcastMessage('newBid', results['updateLender']);
+      cb(null, results['updateLender']);
+    })
+  }
 };

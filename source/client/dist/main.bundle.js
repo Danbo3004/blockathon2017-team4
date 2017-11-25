@@ -83,6 +83,7 @@ var navigation = [
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_check_access_token__ = __webpack_require__("../../../../../src/app/services/check-access-token.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_socket_service__ = __webpack_require__("../../../../../src/app/services/socket.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -94,8 +95,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var AppComponent = /** @class */ (function () {
-    function AppComponent(checkAccessTokenService) {
+    function AppComponent(checkAccessTokenService, socketService) {
         this.checkAccessTokenService = checkAccessTokenService;
     }
     AppComponent = __decorate([
@@ -104,7 +106,7 @@ var AppComponent = /** @class */ (function () {
             selector: 'body',
             template: '<router-outlet></router-outlet>'
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_check_access_token__["a" /* CheckAccessTokenService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_check_access_token__["a" /* CheckAccessTokenService */], __WEBPACK_IMPORTED_MODULE_2__services_socket_service__["a" /* SocketService */]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -135,6 +137,7 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__containers_lalalend_layout_lalalend_layout_component__ = __webpack_require__("../../../../../src/app/containers/lalalend-layout/lalalend-layout.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_ngx_toastr__ = __webpack_require__("../../../../ngx-toastr/toastr.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__angular_platform_browser_animations__ = __webpack_require__("../../../platform-browser/esm5/animations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -149,10 +152,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 // Import services
 
 var APP_SERVICES = [
-    __WEBPACK_IMPORTED_MODULE_5__services__["e" /* GlobalsService */],
+    __WEBPACK_IMPORTED_MODULE_5__services__["f" /* GlobalsService */],
     __WEBPACK_IMPORTED_MODULE_5__services__["a" /* AuthenticationService */],
     __WEBPACK_IMPORTED_MODULE_5__services__["b" /* CheckAccessTokenService */],
-    __WEBPACK_IMPORTED_MODULE_5__services__["c" /* CreditService */]
+    __WEBPACK_IMPORTED_MODULE_5__services__["d" /* CreditService */],
+    __WEBPACK_IMPORTED_MODULE_5__services__["c" /* CheckBalanceService */],
+    __WEBPACK_IMPORTED_MODULE_5__services__["g" /* SocketService */]
 ];
 // Import containers
 
@@ -194,6 +199,7 @@ var APP_DIRECTIVES = [
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -207,6 +213,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_12_ng2_charts_ng2_charts__["ChartsModule"],
                 __WEBPACK_IMPORTED_MODULE_3__angular_common_http__["c" /* HttpClientModule */],
                 __WEBPACK_IMPORTED_MODULE_14_ngx_toastr__["a" /* ToastrModule */].forRoot(),
+                __WEBPACK_IMPORTED_MODULE_16__ng_bootstrap_ng_bootstrap__["c" /* NgbModule */].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_15__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */]
             ],
             declarations: [
@@ -218,7 +225,7 @@ var AppModule = /** @class */ (function () {
                 },
                 {
                     provide: __WEBPACK_IMPORTED_MODULE_3__angular_common_http__["a" /* HTTP_INTERCEPTORS */],
-                    useClass: __WEBPACK_IMPORTED_MODULE_5__services__["d" /* CustomHttpInterceptor */],
+                    useClass: __WEBPACK_IMPORTED_MODULE_5__services__["e" /* CustomHttpInterceptor */],
                     multi: true,
                 },
                 APP_SERVICES],
@@ -502,7 +509,7 @@ var AppFooterComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/components/app-header/app-header-lala.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<header class=\"app-header navbar\">\n  <button class=\"navbar-toggler d-lg-none\" type=\"button\" appMobileSidebarToggler>\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n  <a class=\"navbar-brand\" href=\"#\"></a>\n  <button class=\"navbar-toggler d-md-down-none\" type=\"button\" appSidebarToggler>\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n  <ul class=\"nav navbar-nav d-md-down-none\">\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Dashboard</a>-->\n    <!--</li>-->\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Users</a>-->\n    <!--</li>-->\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Settings</a>-->\n    <!--</li>-->\n  </ul>\n  <ul class=\"nav navbar-nav ml-auto\">\n    <!--<li class=\"nav-item dropdown\" dropdown placement=\"bottom right\" >\n      <a class=\"nav-link\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"\n         dropdownToggle (click)=\"false\">\n        <i class=\"icon-bell\"></i><span class=\"badge badge-pill badge-danger\">5</span>\n      </a>\n      <div class=\"dropdown-menu dropdown-menu-right\" *dropdownMenu aria-labelledby=\"simple-dropdown\">\n        <div class=\"dropdown-header text-center\"><strong>Notifications</strong></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-usd\"></i> You received payment</a>\n      </div>\n\n    </li>-->\n    <!--<li class=\"nav-item d-md-down-none\">\n      <a class=\"nav-link\" href=\"#\"><i class=\"icon-list\"></i></a>\n    </li>\n    <li class=\"nav-item d-md-down-none\">\n      <a class=\"nav-link\" href=\"#\"><i class=\"icon-location-pin\"></i></a>\n    </li>-->\n    <li class=\"nav-item dropdown\" dropdown placement=\"bottom right\">\n      <a class=\"nav-link\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"\n         dropdownToggle (click)=\"false\">\n        <img src=\"assets/img/avatars/6.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\"/>\n      </a>\n      <div class=\"dropdown-menu dropdown-menu-right\" *dropdownMenu aria-labelledby=\"simple-dropdown\">\n        <!--<div class=\"dropdown-header text-center\"><strong>Account</strong></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-bell-o\"></i> Updates<span\n          class=\"badge badge-info\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-envelope-o\"></i> Messages<span\n          class=\"badge badge-success\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-tasks\"></i> Tasks<span\n          class=\"badge badge-danger\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-comments\"></i> Comment<span\n          class=\"badge badge-warning\">42</span></a>-->\n        <!--<div class=\"dropdown-header text-center\"><strong>Settings</strong></div>-->\n        <!--<a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-user\"></i> Profile</a>-->\n        <!--<a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-wrench\"></i> Setting</a>-->\n        <!--<a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-usd\"></i> Payments<span class=\"badge badge-dark\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-file\"></i> Projects<span class=\"badge badge-primary\">42</span></a>\n        <div class=\"divider\"></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-shield\"></i> Lock account</a>-->\n        <a class=\"dropdown-item\" href=\"#\" (click)=\"logout()\"><i class=\"fa fa-lock\"></i> Logout</a>\n      </div>\n    </li>\n    <!--<button class=\"navbar-toggler d-md-down-none\" type=\"button\" appAsideMenuToggler>\n      <span class=\"navbar-toggler-icon\"></span>\n    </button>-->\n  </ul>\n</header>\n"
+module.exports = "<header class=\"app-header navbar\">\n  <button class=\"navbar-toggler d-lg-none\" type=\"button\" appMobileSidebarToggler>\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n  <a class=\"navbar-brand\" href=\"#\"></a>\n  <button class=\"navbar-toggler d-md-down-none\" type=\"button\" appSidebarToggler>\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n  <ul class=\"nav navbar-nav d-md-down-none\">\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Dashboard</a>-->\n    <!--</li>-->\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Users</a>-->\n    <!--</li>-->\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Settings</a>-->\n    <!--</li>-->\n  </ul>\n  <ul class=\"nav navbar-nav ml-auto\">\n    <!--<li class=\"nav-item dropdown\" dropdown placement=\"bottom right\" >\n      <a class=\"nav-link\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"\n         dropdownToggle (click)=\"false\">\n        <i class=\"icon-bell\"></i><span class=\"badge badge-pill badge-danger\">5</span>\n      </a>\n      <div class=\"dropdown-menu dropdown-menu-right\" *dropdownMenu aria-labelledby=\"simple-dropdown\">\n        <div class=\"dropdown-header text-center\"><strong>Notifications</strong></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-usd\"></i> You received payment</a>\n      </div>\n\n    </li>-->\n    <!--<li class=\"nav-item d-md-down-none\">\n      <a class=\"nav-link\" href=\"#\"><i class=\"icon-list\"></i></a>\n    </li>\n    <li class=\"nav-item d-md-down-none\">\n      <a class=\"nav-link\" href=\"#\"><i class=\"icon-location-pin\"></i></a>\n    </li>-->\n    <li class=\"nav-item dropdown\" dropdown placement=\"bottom right\">\n      <a class=\"nav-link\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"\n         dropdownToggle (click)=\"false\">\n        <img src=\"assets/img/no-user.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\"/>\n      </a>\n      <div class=\"dropdown-menu dropdown-menu-right\" *dropdownMenu aria-labelledby=\"simple-dropdown\">\n        <!--<div class=\"dropdown-header text-center\"><strong>Account</strong></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-bell-o\"></i> Updates<span\n          class=\"badge badge-info\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-envelope-o\"></i> Messages<span\n          class=\"badge badge-success\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-tasks\"></i> Tasks<span\n          class=\"badge badge-danger\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-comments\"></i> Comment<span\n          class=\"badge badge-warning\">42</span></a>-->\n        <!--<div class=\"dropdown-header text-center\"><strong>Settings</strong></div>-->\n        <!--<a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-user\"></i> Profile</a>-->\n        <!--<a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-wrench\"></i> Setting</a>-->\n        <!--<a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-usd\"></i> Payments<span class=\"badge badge-dark\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-file\"></i> Projects<span class=\"badge badge-primary\">42</span></a>\n        <div class=\"divider\"></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-shield\"></i> Lock account</a>-->\n        <a class=\"dropdown-item\" href=\"#\" (click)=\"logout()\"><i class=\"fa fa-lock\"></i> Logout</a>\n      </div>\n    </li>\n    <!--<button class=\"navbar-toggler d-md-down-none\" type=\"button\" appAsideMenuToggler>\n      <span class=\"navbar-toggler-icon\"></span>\n    </button>-->\n  </ul>\n</header>\n"
 
 /***/ }),
 
@@ -600,6 +607,102 @@ var AppHeaderComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_header_lala_component__ = __webpack_require__("../../../../../src/app/components/app-header/app-header-lala.component.ts");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__app_header_lala_component__["a"]; });
 
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/app-popup/app-popup.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<button class=\"btn btn-primary\" (click)=\"open(content)\">Bid rate now!</button>\n<ng-template #content let-c=\"close\" let-d=\"dismiss\">\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">Bid</h4>\n    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n\n    <div class=\"form-group\">\n      <label>Current rate: {{credit.rate}} %</label>\n      <input class=\"form-control\" [(ngModel)]=\"newRate\"/>\n    </div>\n\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Ok</button>\n  </div>\n</ng-template>\n\n<!--<button class=\"btn btn-lg btn-outline-primary\" (click)=\"open(content)\">Launch demo modal</button>-->\n\n<!--<hr>-->\n\n<!--<pre>{{closeResult}}</pre>-->\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/app-popup/app-popup.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppPopupComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_credit_service__ = __webpack_require__("../../../../../src/app/services/credit.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ngx_toastr__ = __webpack_require__("../../../../ngx-toastr/toastr.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var AppPopupComponent = /** @class */ (function () {
+    function AppPopupComponent(modalService, creditService, toastr) {
+        this.modalService = modalService;
+        this.creditService = creditService;
+        this.toastr = toastr;
+    }
+    AppPopupComponent.prototype.open = function (content) {
+        var _this = this;
+        this.modalService.open(content).result.then(function (result) {
+            console.log(_this.newRate);
+            if (_this.newRate < _this.credit.rate) {
+                _this.creditService.bidCredit(_this.credit.id, _this.newRate, function (data) {
+                    _this.toastr.success('Your bid is recorded');
+                    console.log(data);
+                }, function (err) {
+                    console.log(err);
+                    _this.toastr.error('Your bid is not recorded');
+                });
+            }
+            else {
+                _this.toastr.error('You can not bit lower than current rate');
+            }
+            _this.closeResult = "Closed with: " + result;
+        }, function (reason) {
+            _this.closeResult = "Dismissed " + _this.getDismissReason(reason);
+        });
+    };
+    AppPopupComponent.prototype.getDismissReason = function (reason) {
+        if (reason === __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["a" /* ModalDismissReasons */].ESC) {
+            return 'by pressing ESC';
+        }
+        else if (reason === __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["a" /* ModalDismissReasons */].BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        }
+        else {
+            return "with: " + reason;
+        }
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+        __metadata("design:type", Object)
+    ], AppPopupComponent.prototype, "credit", void 0);
+    AppPopupComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-popup',
+            template: __webpack_require__("../../../../../src/app/components/app-popup/app-popup.component.html")
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */], __WEBPACK_IMPORTED_MODULE_2__services_credit_service__["a" /* CreditService */], __WEBPACK_IMPORTED_MODULE_3_ngx_toastr__["b" /* ToastrService */]])
+    ], AppPopupComponent);
+    return AppPopupComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/app-popup/index.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_popup_component__ = __webpack_require__("../../../../../src/app/components/app-popup/app-popup.component.ts");
+/* unused harmony namespace reexport */
 
 
 
@@ -1093,6 +1196,9 @@ var AppSidebarComponent = /** @class */ (function () {
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_8__app_sidebar_minimizer__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_sidebar_nav__ = __webpack_require__("../../../../../src/app/components/app-sidebar-nav/index.ts");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_9__app_sidebar_nav__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_popup__ = __webpack_require__("../../../../../src/app/components/app-popup/index.ts");
+/* unused harmony namespace reexport */
+
 
 
 
@@ -1796,6 +1902,66 @@ var CheckAccessTokenService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/services/check-balance.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CheckBalanceService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals_service__ = __webpack_require__("../../../../../src/app/services/globals.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var CheckBalanceService = /** @class */ (function () {
+    function CheckBalanceService(http, globalsService, router) {
+        this.http = http;
+        this.globalsService = globalsService;
+        this.router = router;
+        this.baseUrl = globalsService.getBaseUrl() + 'utils';
+    }
+    CheckBalanceService.prototype.checkEthBalance = function (address, successCb, errorCb, completeCb) {
+        var subscription = this.http.get(this.baseUrl + "/checkEthBalance", {
+            params: new __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["e" /* HttpParams */]()
+                .set('address', address)
+        })
+            .subscribe(successCb ? function (balance) {
+            successCb(balance);
+            subscription.unsubscribe();
+        } : null, errorCb ? function (err) { return errorCb(err); } : null, completeCb ? function () { return completeCb(); } : null);
+    };
+    CheckBalanceService.prototype.checkTokenBalance = function (address, successCb, errorCb, completeCb) {
+        var subscription = this.http.get(this.baseUrl + "/checkTokenBalance", {
+            params: new __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["e" /* HttpParams */]()
+                .set('address', address)
+        })
+            .subscribe(successCb ? function (balance) {
+            successCb(balance);
+            subscription.unsubscribe();
+        } : null, errorCb ? function (err) { return errorCb(err); } : null, completeCb ? function () { return completeCb(); } : null);
+    };
+    CheckBalanceService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_common_http__["b" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_1__globals_service__["a" /* GlobalsService */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* Router */]])
+    ], CheckBalanceService);
+    return CheckBalanceService;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/services/credit.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1837,6 +2003,23 @@ var CreditService = /** @class */ (function () {
             .subscribe(successCb ? function (data) {
             successCb(data);
             _this.subscription.unsubscribe();
+        } : null, errorCb ? function (err) { return errorCb(err); } : null, completeCb ? function () { return completeCb(); } : null);
+    };
+    CreditService.prototype.createCredit = function (credit, successCb, errorCb, completeCb) {
+        var subscription = this.http.post(this.baseUrl, credit)
+            .subscribe(successCb ? function (data) {
+            successCb(data);
+            subscription.unsubscribe();
+        } : null, errorCb ? function (err) { return errorCb(err); } : null, completeCb ? function () { return completeCb(); } : null);
+    };
+    CreditService.prototype.bidCredit = function (creditId, rate, successCb, errorCb, completeCb) {
+        var subscription = this.http.post(this.baseUrl + '/newBid', {
+            id: creditId,
+            rate: rate
+        })
+            .subscribe(successCb ? function (data) {
+            successCb(data);
+            subscription.unsubscribe();
         } : null, errorCb ? function (err) { return errorCb(err); } : null, completeCb ? function () { return completeCb(); } : null);
     };
     CreditService = __decorate([
@@ -1945,19 +2128,73 @@ var CustomHttpInterceptor = /** @class */ (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__globals_service__ = __webpack_require__("../../../../../src/app/services/globals.service.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_0__globals_service__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_0__globals_service__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__authentication__ = __webpack_require__("../../../../../src/app/services/authentication.ts");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__authentication__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__check_access_token__ = __webpack_require__("../../../../../src/app/services/check-access-token.ts");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__check_access_token__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__credit_service__ = __webpack_require__("../../../../../src/app/services/credit.service.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__credit_service__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_3__credit_service__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__http_interceptor_service__ = __webpack_require__("../../../../../src/app/services/http-interceptor.service.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_4__http_interceptor_service__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_4__http_interceptor_service__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__check_balance__ = __webpack_require__("../../../../../src/app/services/check-balance.ts");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_5__check_balance__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__socket_service__ = __webpack_require__("../../../../../src/app/services/socket.service.ts");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_6__socket_service__["a"]; });
 
 
 
 
+
+
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/socket.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SocketService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client_dist_socket_io__ = __webpack_require__("../../../../socket.io-client/dist/socket.io.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client_dist_socket_io___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_socket_io_client_dist_socket_io__);
+
+
+var SocketService = /** @class */ (function () {
+    function SocketService() {
+        // private url = 'https://lalalendapi.clearsystems.asia';
+        this.url = 'http://localhost:3000';
+        this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client_dist_socket_io__(this.url);
+        this.socket.on('message', function (data) {
+            console.log(data);
+        });
+        this.socket.on('newBid', function (data) {
+            console.log(data);
+        });
+    }
+    SocketService.prototype.ngOnDestroy = function () {
+        this.socket.disconnect();
+    };
+    SocketService.prototype.sendMessage = function (message) {
+        this.socket.emit('add-message', message);
+    };
+    SocketService.prototype.getMessages = function () {
+        var _this = this;
+        var observable = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["a" /* Observable */](function (observer) {
+            _this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client_dist_socket_io__(_this.url);
+            _this.socket.on('message', function (data) {
+                observer.next(data);
+            });
+            return function () {
+                _this.socket.disconnect();
+            };
+        });
+        return observable;
+    };
+    return SocketService;
+}());
 
 
 
