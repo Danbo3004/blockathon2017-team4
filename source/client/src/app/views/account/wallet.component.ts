@@ -1,15 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../services/authentication';
 import {CheckBalanceService} from '../../services/check-balance';
+import {CreditService} from '../../services/credit.service';
 
 @Component({
-  templateUrl: './wallet.component.html'
+  templateUrl: './wallet.component.html',
+  styles: ['.red {color: red;}']
 })
 export class WalletComponent implements OnInit{
   user: any;
   ethBalance: string;
   tokenBalance: string;
-  constructor(private authenticationService: AuthenticationService, private checkBalanceService: CheckBalanceService) {}
+  borrow = {};
+  message = '';
+  constructor(private authenticationService: AuthenticationService, private checkBalanceService: CheckBalanceService,
+              private creditService: CreditService) {
+  }
   ngOnInit(): void {
     this.user = this.authenticationService.getUser();
     this.checkBalanceService.checkEthBalance(this.user.address, data => this.user.ethBalance = data.balance,
@@ -107,4 +113,20 @@ export class WalletComponent implements OnInit{
     console.log(e);
   }
 
+  createBorrow(): void {
+    if(!this.borrow['amount'] || !this.borrow['rate'] || !this.borrow['period'] || !this['expire']) {
+      this.message = 'Please fill in all fields'
+      return;
+    }
+    this.message = '';
+    this.borrow['expire'] = new Date(parseInt(this['expire'] .slice(0, 4)),
+      parseInt(this['expire'].slice(5,7) - 1),
+      parseInt(this['expire'].slice(8,10))).getTime() / 1000;
+    this.borrow['borrowerName'] = 0;
+    this.creditService.createCredit(this.borrow, borrow => {
+      console.log(borrow);
+    }, err => {
+      console.error(err);
+    })
+  }
 }
