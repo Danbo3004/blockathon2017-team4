@@ -10,14 +10,16 @@ export class CheckAccessTokenService {
   subscription: Subscription;
   constructor(private http: HttpClient, private globalsService: GlobalsService, private router: Router) {
     this.baseUrl = globalsService.getBaseUrl() + 'users';
-    console.log('router: ' + router);
-
-    this.subscription = this.http.get<any>(`${this.baseUrl}/count`)
-      .subscribe(count => {
-
-      }, err => {
-        sessionStorage.removeItem('access_token');
-        this.router.navigateByUrl('pages/login');
-      });
+    if (sessionStorage.getItem('access_token')) {
+      this.subscription = this.http.get<any>(`${this.baseUrl}/count`)
+        .subscribe(count => {
+          this.router.navigateByUrl('account/wallet');
+        }, err => {
+          sessionStorage.removeItem('access_token');
+          this.router.navigateByUrl('pages/login');
+        });
+    } else {
+      this.router.navigateByUrl('pages/login');
+    }
   }
 }

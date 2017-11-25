@@ -1,20 +1,21 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 
 // Import services
 import {
   GlobalsService,
-  AuthenticationService
-  CheckAccessTokenService
+  AuthenticationService,
+  CheckAccessTokenService,
+  CustomHttpInterceptor
 } from './services';
 
 const APP_SERVICES = [
   GlobalsService,
-  AuthenticationService
+  AuthenticationService,
   CheckAccessTokenService
 ]
 
@@ -108,9 +109,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomHttpInterceptor,
+      multi: true,
+    },
     APP_SERVICES],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private checkAccessTokenService: CheckAccessTokenService)
 }

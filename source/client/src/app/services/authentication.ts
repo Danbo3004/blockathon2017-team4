@@ -10,8 +10,10 @@ import {Subscription} from 'rxjs/Subscription';
 export class AuthenticationService {
   private baseUrl: string;
   subscription: Subscription;
+  user: object;
   constructor(private http: HttpClient, private globalsService: GlobalsService) {
     this.baseUrl = globalsService.getBaseUrl() + 'users';
+    this.user = JSON.parse(sessionStorage.getItem('user') || '{}');
   }
   login(email: string, password: string, successCb?: Function, errorCb?: Function, completeCb?: Function): void {
     if (this.subscription && !this.subscription.closed) {
@@ -21,6 +23,10 @@ export class AuthenticationService {
       .debounceTime(2000)
       .subscribe(successCb ? credentials => {
           successCb(credentials);
+          //save user
+          if (credentials.user) {
+            this.saveUser(credentials.user);
+          }
           this.subscription.unsubscribe();
         } : null,
         errorCb ? err => errorCb(err) : null,
@@ -44,5 +50,12 @@ export class AuthenticationService {
   }
   getAccessToken(): string {
     return sessionStorage.getItem('access_token') || localStorage.getItem('access_token');
+  }
+  saveUser(user): void {
+    sessionStorage.setItem('user', JSON.stringify(user));
+    this.user = user;
+  }
+  getUser(): object {
+    return this.user;
   }
 }
