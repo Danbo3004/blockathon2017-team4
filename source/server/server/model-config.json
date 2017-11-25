@@ -47,5 +47,9 @@
   "credit": {
     "dataSource": "mysql",
     "public": true
+  },
+  "payLoan": {
+    "dataSource": "mysql",
+    "public": true
   }
 }
