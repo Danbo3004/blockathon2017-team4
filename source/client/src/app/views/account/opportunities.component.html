@@ -29,15 +29,16 @@
                   Credit Limit:{{credit.creditLimit}} VNDT
                 </td>
                 <td>Amount: {{credit.amount}} VNDT<br>
-                  Rate: {{credit.rate*100}} %/yr<br>
-                  Due Day after: {{credit.dueDay*100}} days
+                  Rate: {{credit.rate}} %/yr<br>
+                  Due Day after: {{credit.dueDay}} days
                 </td>
                 <td>Expired: {{credit.expiredTime | date:"MM/dd/yy"}} days</td>
                 <td>
                   <span class="badge badge-success">{{credit.status}}</span>
                 </td>
                 <td>
-                  <button class="btn btn-primary">Bid rate now!</button>
+                  <!--<button class="btn btn-primary" (click)="open(content)">Bid rate now!</button>-->
+                  <app-popup [credit]="credit"></app-popup>
                 </td>
               </tr>
               </tbody>

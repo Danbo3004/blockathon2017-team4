@@ -5,14 +5,17 @@ import {OpportunitiesComponent} from './opportunities.component';
 import {BorrowerComponent} from './borrower.component';
 import {HistoryComponent} from './history.component';
 import {CommonModule} from "@angular/common";
+import {AppPopupComponent} from "../../components/app-popup/app-popup.component";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
-  imports: [AccountRoutingModule, CommonModule],
+  imports: [AccountRoutingModule, CommonModule, FormsModule],
   declarations: [
     WalletComponent,
     OpportunitiesComponent,
     BorrowerComponent,
-    HistoryComponent
+    HistoryComponent,
+    AppPopupComponent,
   ]
 })
 export class AccountModule {
