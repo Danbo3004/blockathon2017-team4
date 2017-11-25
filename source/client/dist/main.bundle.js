@@ -4,6 +4,10 @@ webpackJsonp(["main"],{
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./views/account/account.module": [
+		"../../../../../src/app/views/account/account.module.ts",
+		"account.module"
+	],
 	"./views/chartjs/chartjs.module": [
 		"../../../../../src/app/views/chartjs/chartjs.module.ts",
 		"chartjs.module"
@@ -51,6 +55,22 @@ module.exports = webpackAsyncContext;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return navigation; });
 var navigation = [
+    {
+        name: 'My Wallet',
+        url: '/account/wallet'
+    },
+    {
+        name: 'Opportunities',
+        url: '/account/opportunities'
+    },
+    {
+        name: 'Borrowers',
+        url: '/account/borrower'
+    },
+    {
+        name: 'History',
+        url: '/account/history'
+    },
     {
         name: 'Dashboard',
         url: '/dashboard',
@@ -245,6 +265,7 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_ngx_bootstrap_tabs__ = __webpack_require__("../../../../ngx-bootstrap/tabs/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_ng2_charts_ng2_charts__ = __webpack_require__("../../../../ng2-charts/ng2-charts.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_ng2_charts_ng2_charts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_ng2_charts_ng2_charts__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__containers_lalalend_layout_lalalend_layout_component__ = __webpack_require__("../../../../../src/app/containers/lalalend-layout/lalalend-layout.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -259,20 +280,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var APP_CONTAINERS = [
     __WEBPACK_IMPORTED_MODULE_4__containers__["a" /* FullLayoutComponent */],
-    __WEBPACK_IMPORTED_MODULE_4__containers__["b" /* SimpleLayoutComponent */]
+    __WEBPACK_IMPORTED_MODULE_4__containers__["c" /* SimpleLayoutComponent */],
+    __WEBPACK_IMPORTED_MODULE_11__containers_lalalend_layout_lalalend_layout_component__["a" /* LalalendLayoutComponent */]
 ];
 // Import components
 
 var APP_COMPONENTS = [
+    __WEBPACK_IMPORTED_MODULE_5__components__["f" /* AppHeaderLalaComponent */],
+    __WEBPACK_IMPORTED_MODULE_5__components__["k" /* AppSidebarLalaComponent */],
     __WEBPACK_IMPORTED_MODULE_5__components__["b" /* AppAsideComponent */],
     __WEBPACK_IMPORTED_MODULE_5__components__["c" /* AppBreadcrumbsComponent */],
     __WEBPACK_IMPORTED_MODULE_5__components__["d" /* AppFooterComponent */],
     __WEBPACK_IMPORTED_MODULE_5__components__["e" /* AppHeaderComponent */],
-    __WEBPACK_IMPORTED_MODULE_5__components__["f" /* AppSidebarComponent */],
-    __WEBPACK_IMPORTED_MODULE_5__components__["g" /* AppSidebarFooterComponent */],
-    __WEBPACK_IMPORTED_MODULE_5__components__["h" /* AppSidebarFormComponent */],
-    __WEBPACK_IMPORTED_MODULE_5__components__["i" /* AppSidebarHeaderComponent */],
-    __WEBPACK_IMPORTED_MODULE_5__components__["j" /* AppSidebarMinimizerComponent */],
+    __WEBPACK_IMPORTED_MODULE_5__components__["g" /* AppSidebarComponent */],
+    __WEBPACK_IMPORTED_MODULE_5__components__["h" /* AppSidebarFooterComponent */],
+    __WEBPACK_IMPORTED_MODULE_5__components__["i" /* AppSidebarFormComponent */],
+    __WEBPACK_IMPORTED_MODULE_5__components__["j" /* AppSidebarHeaderComponent */],
+    __WEBPACK_IMPORTED_MODULE_5__components__["l" /* AppSidebarMinimizerComponent */],
     __WEBPACK_IMPORTED_MODULE_5__components__["a" /* APP_SIDEBAR_NAV */]
 ];
 // Import directives
@@ -286,6 +310,7 @@ var APP_DIRECTIVES = [
 // Import routing module
 
 // Import 3rd party components
+
 
 
 
@@ -374,7 +399,7 @@ var routes = [
     },
     {
         path: 'pages',
-        component: __WEBPACK_IMPORTED_MODULE_2__containers__["b" /* SimpleLayoutComponent */],
+        component: __WEBPACK_IMPORTED_MODULE_2__containers__["c" /* SimpleLayoutComponent */],
         data: {
             title: 'Pages'
         },
@@ -382,6 +407,19 @@ var routes = [
             {
                 path: '',
                 loadChildren: './views/pages/pages.module#PagesModule',
+            }
+        ]
+    },
+    {
+        path: 'account',
+        component: __WEBPACK_IMPORTED_MODULE_2__containers__["b" /* LalalendLayoutComponent */],
+        data: {
+            title: 'Account'
+        },
+        children: [
+            {
+                path: '',
+                loadChildren: './views/account/account.module#AccountModule',
             }
         ]
     }
@@ -528,7 +566,7 @@ var AppBreadcrumbsComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/components/app-footer/app-footer.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<footer class=\"app-footer\">\n  <span><a href=\"http://coreui.io\">CoreUI</a> &copy; 2017 creativeLabs.</span>\n  <span class=\"ml-auto\">Powered by <a href=\"http://coreui.io\">CoreUI</a></span>\n</footer>\n"
+module.exports = "<footer class=\"app-footer\">\n  <span>© 2017 LaLaLend Co., Ltd</span>\n  <span class=\"ml-auto\">Powered by UClear - Blockathon 2017</span>\n</footer>\n"
 
 /***/ }),
 
@@ -567,6 +605,42 @@ var AppFooterComponent = /** @class */ (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_footer_component__ = __webpack_require__("../../../../../src/app/components/app-footer/app-footer.component.ts");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__app_footer_component__["a"]; });
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/app-header/app-header-lala.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<header class=\"app-header navbar\">\n  <button class=\"navbar-toggler d-lg-none\" type=\"button\" appMobileSidebarToggler>\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n  <a class=\"navbar-brand\" href=\"#\"></a>\n  <button class=\"navbar-toggler d-md-down-none\" type=\"button\" appSidebarToggler>\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n  <ul class=\"nav navbar-nav d-md-down-none\">\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Dashboard</a>-->\n    <!--</li>-->\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Users</a>-->\n    <!--</li>-->\n    <!--<li class=\"nav-item px-3\">-->\n      <!--<a class=\"nav-link\" href=\"#\">Settings</a>-->\n    <!--</li>-->\n  </ul>\n  <ul class=\"nav navbar-nav ml-auto\">\n    <li class=\"nav-item dropdown\" dropdown placement=\"bottom right\" >\n      <a class=\"nav-link\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"\n         dropdownToggle (click)=\"false\">\n        <i class=\"icon-bell\"></i><span class=\"badge badge-pill badge-danger\">5</span>\n      </a>\n      <div class=\"dropdown-menu dropdown-menu-right\" *dropdownMenu aria-labelledby=\"simple-dropdown\">\n        <div class=\"dropdown-header text-center\"><strong>Notifications</strong></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-usd\"></i> You received payment</a>\n      </div>\n\n    </li>\n    <!--<li class=\"nav-item d-md-down-none\">\n      <a class=\"nav-link\" href=\"#\"><i class=\"icon-list\"></i></a>\n    </li>\n    <li class=\"nav-item d-md-down-none\">\n      <a class=\"nav-link\" href=\"#\"><i class=\"icon-location-pin\"></i></a>\n    </li>-->\n    <li class=\"nav-item dropdown\" dropdown placement=\"bottom right\">\n      <a class=\"nav-link\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"\n         dropdownToggle (click)=\"false\">\n        <img src=\"assets/img/avatars/6.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\"/>\n      </a>\n      <div class=\"dropdown-menu dropdown-menu-right\" *dropdownMenu aria-labelledby=\"simple-dropdown\">\n        <!--<div class=\"dropdown-header text-center\"><strong>Account</strong></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-bell-o\"></i> Updates<span\n          class=\"badge badge-info\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-envelope-o\"></i> Messages<span\n          class=\"badge badge-success\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-tasks\"></i> Tasks<span\n          class=\"badge badge-danger\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-comments\"></i> Comment<span\n          class=\"badge badge-warning\">42</span></a>-->\n        <!--<div class=\"dropdown-header text-center\"><strong>Settings</strong></div>-->\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-user\"></i> Profile</a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-wrench\"></i> Setting</a>\n        <!--<a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-usd\"></i> Payments<span class=\"badge badge-dark\">42</span></a>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-file\"></i> Projects<span class=\"badge badge-primary\">42</span></a>\n        <div class=\"divider\"></div>\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-shield\"></i> Lock account</a>-->\n        <a class=\"dropdown-item\" href=\"#\"><i class=\"fa fa-lock\"></i> Logout</a>\n      </div>\n    </li>\n    <!--<button class=\"navbar-toggler d-md-down-none\" type=\"button\" appAsideMenuToggler>\n      <span class=\"navbar-toggler-icon\"></span>\n    </button>-->\n  </ul>\n</header>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/app-header/app-header-lala.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppHeaderLalaComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var AppHeaderLalaComponent = /** @class */ (function () {
+    function AppHeaderLalaComponent() {
+    }
+    AppHeaderLalaComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-header-lala',
+            template: __webpack_require__("../../../../../src/app/components/app-header/app-header-lala.component.html")
+        })
+    ], AppHeaderLalaComponent);
+    return AppHeaderLalaComponent;
+}());
 
 
 
@@ -614,6 +688,9 @@ var AppHeaderComponent = /** @class */ (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_header_component__ = __webpack_require__("../../../../../src/app/components/app-header/app-header.component.ts");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__app_header_component__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_header_lala_component__ = __webpack_require__("../../../../../src/app/components/app-header/app-header-lala.component.ts");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__app_header_lala_component__["a"]; });
+
 
 
 
@@ -995,6 +1072,42 @@ var APP_SIDEBAR_NAV = [
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/app-sidebar/app-sidebar-lala.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"sidebar\">\n\n  <!--<app-sidebar-header></app-sidebar-header>-->\n  <!--<app-sidebar-form></app-sidebar-form>-->\n  <app-sidebar-nav></app-sidebar-nav>\n  <!--<app-sidebar-footer></app-sidebar-footer>-->\n  <!--<app-sidebar-minimizer></app-sidebar-minimizer>-->\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/app-sidebar/app-sidebar-lala.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppSidebarLalaComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var AppSidebarLalaComponent = /** @class */ (function () {
+    function AppSidebarLalaComponent() {
+    }
+    AppSidebarLalaComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-sidebar-lala',
+            template: __webpack_require__("../../../../../src/app/components/app-sidebar/app-sidebar-lala.component.html")
+        })
+    ], AppSidebarLalaComponent);
+    return AppSidebarLalaComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/app-sidebar/app-sidebar.component.html":
 /***/ (function(module, exports) {
 
@@ -1037,6 +1150,9 @@ var AppSidebarComponent = /** @class */ (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_sidebar_component__ = __webpack_require__("../../../../../src/app/components/app-sidebar/app-sidebar.component.ts");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__app_sidebar_component__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_sidebar_lala_component__ = __webpack_require__("../../../../../src/app/components/app-sidebar/app-sidebar-lala.component.ts");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__app_sidebar_lala_component__["a"]; });
+
 
 
 
@@ -1054,16 +1170,18 @@ var AppSidebarComponent = /** @class */ (function () {
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_2__app_footer__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_header__ = __webpack_require__("../../../../../src/app/components/app-header/index.ts");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_3__app_header__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_3__app_header__["b"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_sidebar__ = __webpack_require__("../../../../../src/app/components/app-sidebar/index.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_4__app_sidebar__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_4__app_sidebar__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_4__app_sidebar__["b"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_sidebar_footer__ = __webpack_require__("../../../../../src/app/components/app-sidebar-footer/index.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_5__app_sidebar_footer__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_5__app_sidebar_footer__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_sidebar_form__ = __webpack_require__("../../../../../src/app/components/app-sidebar-form/index.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_6__app_sidebar_form__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_6__app_sidebar_form__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_sidebar_header__ = __webpack_require__("../../../../../src/app/components/app-sidebar-header/index.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_7__app_sidebar_header__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_7__app_sidebar_header__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_sidebar_minimizer__ = __webpack_require__("../../../../../src/app/components/app-sidebar-minimizer/index.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_8__app_sidebar_minimizer__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_8__app_sidebar_minimizer__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_sidebar_nav__ = __webpack_require__("../../../../../src/app/components/app-sidebar-nav/index.ts");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_9__app_sidebar_nav__["a"]; });
 
@@ -1134,8 +1252,58 @@ var FullLayoutComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__full_layout__ = __webpack_require__("../../../../../src/app/containers/full-layout/index.ts");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__full_layout__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__simple_layout__ = __webpack_require__("../../../../../src/app/containers/simple-layout/index.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__simple_layout__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__simple_layout__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lalalend_layout__ = __webpack_require__("../../../../../src/app/containers/lalalend-layout/index.ts");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__lalalend_layout__["a"]; });
 
+
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/containers/lalalend-layout/index.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lalalend_layout_component__ = __webpack_require__("../../../../../src/app/containers/lalalend-layout/lalalend-layout.component.ts");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__lalalend_layout_component__["a"]; });
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/containers/lalalend-layout/lalalend-layout.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<app-header-lala></app-header-lala>\n<div class=\"app-body\">\n  <app-sidebar-lala></app-sidebar-lala>\n  <!-- Main content -->\n  <main class=\"main\">\n    <!-- Breadcrumb -->\n    <!--<ol class=\"breadcrumb\">-->\n      <!--<app-breadcrumbs></app-breadcrumbs>-->\n      <!-- Breadcrumb Menu-->\n      <!--<li class=\"breadcrumb-menu d-md-down-none\">-->\n        <!--<div class=\"btn-group\" role=\"group\" aria-label=\"Button group with nested dropdown\">-->\n          <!--<a class=\"btn\" href=\"#\"><i class=\"icon-speech\"></i></a>-->\n          <!--<a class=\"btn\" [routerLink]=\"['/dashboard']\"><i class=\"icon-graph\"></i> &nbsp;Dashboard</a>-->\n          <!--<a class=\"btn\" href=\"#\"><i class=\"icon-settings\"></i> &nbsp;Settings</a>-->\n        <!--</div>-->\n      <!--</li>-->\n    <!--</ol>-->\n    <div class=\"container-fluid\">\n      <router-outlet></router-outlet>\n    </div><!-- /.conainer-fluid -->\n  </main>\n  <app-aside></app-aside>\n</div>\n<app-footer></app-footer>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/containers/lalalend-layout/lalalend-layout.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LalalendLayoutComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var LalalendLayoutComponent = /** @class */ (function () {
+    function LalalendLayoutComponent() {
+    }
+    LalalendLayoutComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-dashboard',
+            template: __webpack_require__("../../../../../src/app/containers/lalalend-layout/lalalend-layout.component.html")
+        })
+    ], LalalendLayoutComponent);
+    return LalalendLayoutComponent;
+}());
 
 
 
@@ -1149,6 +1317,13 @@ var FullLayoutComponent = /** @class */ (function () {
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__simple_layout_component__["a"]; });
 
 
+
+/***/ }),
+
+/***/ "../../../../../src/app/containers/simple-layout/simple-layout.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<router-outlet></router-outlet>\n\n<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-md-12 text-center\">\n      <p>© 2017 LaLaLend Co., Ltd</p>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1171,7 +1346,7 @@ var SimpleLayoutComponent = /** @class */ (function () {
     SimpleLayoutComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-dashboard',
-            template: '<router-outlet></router-outlet>',
+            template: __webpack_require__("../../../../../src/app/containers/simple-layout/simple-layout.component.html"),
         })
     ], SimpleLayoutComponent);
     return SimpleLayoutComponent;
