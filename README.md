@@ -1,5 +1,5 @@
 # blockathon2017-team4
-# <Project name>
+# LalaLand Project
 [![NPM Package](https://img.shields.io/npm/v/ethereumjs-tx.svg?style=flat-square)](https://www.npmjs.org/package/ethereumjs-tx)  
 [![Build Status](https://img.shields.io/travis/ethereumjs/ethereumjs-tx.svg?branch=master&style=flat-square)](https://travis-ci.org/ethereumjs/ethereumjs-tx)
 
@@ -7,6 +7,9 @@
 
 
 
+## Smart Contract code and address
+- Token : [TokenERC20Plus](https://rinkeby.etherscan.io/address/0xEe6d9E8529209E803eF9D08a75C181df64FF85AA#code)
+- Lending Contract : [Lending](https://rinkeby.etherscan.io/address/0x1c02eD62F8399f68ed419e1d2D102FdC784B22e1#code)
 
 ## Build
 ### Server
