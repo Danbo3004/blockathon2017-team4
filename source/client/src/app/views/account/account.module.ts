@@ -4,9 +4,10 @@ import {AccountRoutingModule} from './account-routing.module';
 import {OpportunitiesComponent} from './opportunities.component';
 import {BorrowerComponent} from './borrower.component';
 import {HistoryComponent} from './history.component';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
-  imports: [AccountRoutingModule],
+  imports: [AccountRoutingModule, CommonModule],
   declarations: [
     WalletComponent,
     OpportunitiesComponent,
