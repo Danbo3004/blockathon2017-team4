@@ -47,6 +47,7 @@ contract Lending {
 	//Lender bid %
     function bidLending(address _from, uint _value ,uint _tu, uint _mau,address _to)  {
 	    require(msg.sender == tokenAddress);
+		require(_from!=_to);
 		Loan storage loan = loans[_to];
 	    
 	    require(loan.value > 0 && loan.isLended ==false);
@@ -151,6 +152,12 @@ contract Lending {
     
     function calInvoice(Loan loan) internal returns(uint) {
         uint numberDay = countDays(loan.blockNumberLended,block.number);
+       return (loan.value * loan.tu* numberDay / (loan.mau*365));
+    }
+	
+	function calInvoice(address borrower) constant returns(uint) {
+	    Loan memory loan = loans[borrower];
+        uint numberDay = countDays(loan.blockNumberLended,block.number+1);
        return (loan.value * loan.tu* numberDay / (loan.mau*365));
     }
 }

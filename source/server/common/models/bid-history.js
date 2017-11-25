@@ -44,4 +44,15 @@ module.exports = function(BidHistory) {
     }
     next();
   });
+
+  BidHistory.beforeRemote('create', function(ctx, instance, next) {
+    if (!ctx.req.accessToken) {
+      let err = new Error('Authentication is required');
+      err.statusCode = 401;
+      next(err);
+      return;
+    }
+    ctx.args.data['lenderId'] = ctx.req.accessToken.userId;
+    next();
+  })
 };

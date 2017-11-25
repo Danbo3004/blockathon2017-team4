@@ -5,7 +5,7 @@ const _ = require('underscore');
 
 module.exports = function(User) {
   //User.disableRemoteMethodByName('create');
-  User.disableRemoteMethodByName('count');
+  //User.disableRemoteMethodByName('count');
   User.disableRemoteMethodByName('destroyById');
   User.disableRemoteMethodByName('destroyAll');
   User.disableRemoteMethodByName('findOne');
