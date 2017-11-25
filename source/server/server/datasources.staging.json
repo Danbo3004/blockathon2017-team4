@@ -1,0 +1,18 @@
+{
+  "memory": {
+    "name": "memory",
+    "connector": "memory"
+  },
+  "mysql": {
+    "host": "192.168.22.2",
+    "port": 3306,
+    "url": "",
+    "database": "blockathon",
+    "password": "TOMtjPUHRImmClqV7cmY",
+    "name": "mysql",
+    "user": "blockathon",
+    "connector": "mysql",
+    "connectTimeout": 50000,
+    "acquireTimeout": 50000
+  }
+}
