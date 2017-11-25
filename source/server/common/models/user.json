@@ -18,6 +18,18 @@
     "privateKey": {
       "type": "string"
     },
+    "cicRank": {
+      "type": "number",
+      "default": 5
+    },
+    "lllRank": {
+      "type": "number",
+      "default": 5
+    },
+    "creditLimit": {
+      "type": "number",
+      "default": 0
+    },
     "entropy": {
       "type": "string"
     },
