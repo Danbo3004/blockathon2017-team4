@@ -18,7 +18,10 @@ const APP_CONTAINERS = [
 
 // Import components
 import {
+  OpportunitiesComponent,
+  HistoryComponent,
   AppHeaderLalaComponent,
+  AppSidebarLalaComponent,
   AppAsideComponent,
   AppBreadcrumbsComponent,
   AppFooterComponent,
@@ -33,6 +36,7 @@ import {
 
 const APP_COMPONENTS = [
   AppHeaderLalaComponent,
+  AppSidebarLalaComponent,
   AppAsideComponent,
   AppBreadcrumbsComponent,
   AppFooterComponent,
@@ -67,7 +71,7 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import {LalalendLayoutComponent} from "./containers/lalalend-layout/lalalend-layout.component";
+import {LalalendLayoutComponent} from './containers/lalalend-layout/lalalend-layout.component';
 
 @NgModule({
   imports: [
