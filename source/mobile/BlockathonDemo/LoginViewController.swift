@@ -20,9 +20,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	var email: String?
 	var password: String?
 
-	let correctEmail = "test@a.b"
-	let correctPassword = "qweqwe"
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.passwordTextField.isSecureTextEntry = true;
@@ -49,8 +46,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	@IBAction func signInButtonDidTap(_ sender: Any) {
 		self.loadingView.isHidden = false
 		self.activityIndicator.startAnimating()
-		self.emailTextField.text = correctEmail
-		self.passwordTextField.text = correctPassword
 		self.email = self.emailTextField.text
 		self.password = self.passwordTextField.text
 
