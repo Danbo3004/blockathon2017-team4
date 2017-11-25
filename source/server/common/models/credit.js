@@ -59,7 +59,7 @@ module.exports = function(Credit) {
 
   Credit.remoteMethod('newLoan', {
     accepts: [
-      {arg: 'addressUser', type: 'string', required: true},
+      {arg: 'req', type: 'object', 'http': {source: 'req'}},
       {arg: 'val', type: 'string', required: true},
       {arg: 'rate', type: 'string', required: true},
       {arg: 'timeStart', type: 'string', required: true},
@@ -73,8 +73,39 @@ module.exports = function(Credit) {
     }
   });
 
-  Credit.newLoan= function(addressUser, val, rate, timeStart, timeLimit,cb){
-    smartContract.createLoan( addressUser, val, rate, timeStart, timeLimit,cb);
+  Credit.newLoan= function(req, val, rate, timeStart, timeLimit,cb){
+
+    async.auto({
+      getUser :function (callback) {
+        Credit.app.models.user.findById(req.accessToken.userId, (err, user) => {
+          if (err) {
+            callback(err);
+            return;
+          }
+          if (!user) {
+            let err = new Error('No user found');
+            err.statusCode = 404;
+            callback(err);
+            return;
+          }
+          callback(null, user);
+        });
+      },
+      pushNewLoan: ["getUser",function(data,callback) {
+
+        smartContract.createLoan( data["getUser"].address, val, rate, timeStart, timeLimit,cb);
+      }
+      ]
+    },function (err,result) {
+      if(err){
+        cb(err);
+        return;
+      }
+
+      cb(null,true);
+    });
+
+
   };
 
 
@@ -96,25 +127,9 @@ module.exports = function(Credit) {
   };
 
 
-  Credit.remoteMethod('updateLoan', {
-    accepts: [
-      {arg: 'addressUser', type: 'string', required: true}
-    ],
-    http: {
-      verb: 'post'
-    },
-    returns: {
-      arg: 'transactionHash', type: 'string'
-    }
-  })
-  Credit.updateLoan= function(addressUser,cb){
-    smartContract.updateLoan(addressUser,cb);
-  };
-
-
   Credit.remoteMethod('payDebt', {
     accepts: [
-     {arg: 'req', type: 'object', 'http': {source: 'req'}}
+      {arg: 'req', type: 'object', 'http': {source: 'req'}}
     ],
     http: {
       verb: 'post'
@@ -125,22 +140,5 @@ module.exports = function(Credit) {
   })
   Credit.payDebt= function(req,cb){
     smartContract.payDebt(req,cb);
-  };
-
-
-  Credit.remoteMethod('crowFund', {
-    accepts: [
-      {arg: 'addressLender', type: 'string', required: true}
-    ],
-    http: {
-      verb: 'post'
-    },
-    returns: {
-      arg: 'transactionHash', type: 'string'
-    }
-  })
-  Credit.crowFund= function(addressLender,cb){
-    smartContract.withdrawal( addressLender,cb);
-
   };
 };
