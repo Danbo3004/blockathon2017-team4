@@ -8,11 +8,13 @@ import { AppComponent } from './app.component';
 // Import services
 import {
   GlobalsService,
-  AuthenticationService
+  AuthenticationService,
+  CheckAccessTokenService
 } from './services';
 const APP_SERVICES = [
   GlobalsService,
-  AuthenticationService
+  AuthenticationService,
+  CheckAccessTokenService
 ]
 
 // Import containers
@@ -104,4 +106,6 @@ import {LalalendLayoutComponent} from './containers/lalalend-layout/lalalend-lay
     APP_SERVICES],
   bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private checkAccessTokenService: CheckAccessTokenService)
+}
