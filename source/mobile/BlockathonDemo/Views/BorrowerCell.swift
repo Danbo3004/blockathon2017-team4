@@ -32,6 +32,10 @@ class BorrowerCell: UITableViewCell {
 		self.bidRateButton.layer.cornerRadius = 7.5
 	}
 
+	override func prepareForReuse() {
+		self.avatarImage.image = UIImage(named: "avatar_placeholder")
+	}
+
 	override func setSelected(_ selected: Bool, animated: Bool) {
 		super.setSelected(false, animated: animated)
 	}

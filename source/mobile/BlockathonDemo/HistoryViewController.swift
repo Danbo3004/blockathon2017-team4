@@ -58,7 +58,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 			let newHistory = History()
 			newHistory.creditId = 1
 			newHistory.traderId = 1
-			newHistory.historyOwner = 3
+			newHistory.historyOwnerId = 3
 			newHistory.dateTime = 1511603760
 			newHistory.totalValue = 300
 			newHistory.status = "Approved"
@@ -66,17 +66,23 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 			self.historyRecord.append(newHistory)
 			self.tableView.reloadData()
 		}
+
+		self.user.requestUserData { (updatedUser, error) in
+			self.user = updatedUser
+			self.populateData()
+			DataManager.shared.currentUser = self.user
+		}
 	}
 
 	func populateData() {
 		if !user.username.isEmpty {
 			self.nameLabel.text = user.username
 		}
-		if !(user.ETHBalance >= Double(0.0)) {
+		if (user.ETHBalance >= Double(0.0)) {
 			self.etherBalanceLabel.text = "\(user.ETHBalance) ETH"
 		}
-		if !(user.tokenBalance >= Double(0.0)) {
-			self.tokenBalanceLabel.text = "\(user.tokenBalance) VNDT"
+		if (user.tokenBalance >= Double(0.0)) {
+			self.tokenBalanceLabel.text = "$\(user.tokenBalance)"
 		}
 	}
 
@@ -99,7 +105,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 				}
 			}
 			cell.historyLabel.text = "$\(history.totalValue)"
-			cell.statusLabel.text = history.status;
+			cell.updateStatus(history: history)
 			self.historyActionDisplay(history: history, cell: cell)
 			cell.dateTimeLabel.text = String.stringFromTimeInterval(interval: history.created)
 			return cell;
@@ -109,7 +115,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 
 	func historyActionDisplay(history: History, cell: HistoryCell) {
 		// Current user is lending
-		if history.historyOwner == user.id {
+		if history.historyOwnerId == user.id {
 			cell.directionImageView.image = UIImage(named: "leftArrow")
 		} else if (history.traderId == user.id) {
 			cell.directionImageView.image = UIImage(named: "rightArrow")

@@ -19,6 +19,9 @@ class User: BaseModel {
 	var accessToken = ""
 	var ETHBalance = -1.0
 	var tokenBalance = -1.0
+	var cicRank = 0.0
+	var lllRank = 0.0
+
 	var address = ""
 
 	func updateObject(json: JSON) {

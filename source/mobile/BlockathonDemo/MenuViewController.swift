@@ -10,7 +10,7 @@ import UIKit
 import SWRevealViewController
 
 enum MenuItem: Int {
-	case Dashboard = 0
+	case MyWallet = 0
 	case History
 	case MyProfile
 	case Settings
@@ -19,7 +19,7 @@ enum MenuItem: Int {
 
 	var stringValue: String {
 		switch self {
-		case .Dashboard: return "Dashboard"
+		case .MyWallet: return "MyWallet"
 		case .History: return "History"
 		case .MyProfile: return "MyProfile"
 		case .Settings: return "Settings"
@@ -30,7 +30,7 @@ enum MenuItem: Int {
 
 	var iconImage: UIImage? {
 		switch self {
-		case .Dashboard: return UIImage(named: "MIDashboard")
+		case .MyWallet: return UIImage(named: "MIMyWallet")
 		case .History: return UIImage(named: "MIHistory")
 		case .MyProfile: return UIImage(named: "MIMyProfile")
 		case .Settings: return UIImage(named: "MISettings")
@@ -84,8 +84,13 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch indexPath.row {
-		case MenuItem.Dashboard.rawValue:
-			fallthrough
+		case MenuItem.MyWallet.rawValue:
+			let lenderDashboardViewController = swrevealViewController.frontViewController.navigationController?.viewControllers.first(where: { (vc) -> Bool in
+				return vc.isKind(of: LenderDashboardViewController.self)
+			})
+			if let lenderDashboardViewController = lenderDashboardViewController {
+				swrevealViewController.frontViewController.navigationController?.popToViewController(lenderDashboardViewController, animated: true)
+			}
 		case MenuItem.History.rawValue:
 			swrevealViewController.frontViewController.performSegue(withIdentifier: "LenderDashboardToHistorySegue", sender: swrevealViewController.frontViewController)
 		case MenuItem.MyProfile.rawValue:

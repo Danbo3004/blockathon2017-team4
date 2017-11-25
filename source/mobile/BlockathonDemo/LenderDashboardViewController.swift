@@ -9,7 +9,7 @@
 import UIKit
 import SWRevealViewController
 
-class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BorrowerCellDelegate {
+class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BorrowerCellDelegate, BidLoanOrderViewDelegate {
 
 	@IBOutlet weak var backButton: UIButton!
 	@IBOutlet weak var hamburgerButton: UIButton!
@@ -19,6 +19,15 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 	@IBOutlet weak var etherBalanceLabel: UILabel!
 	@IBOutlet weak var tokenBalanceLabel: UILabel!
 
+	var rateView: BidLoanOrderView?
+	lazy var refreshControl: UIRefreshControl = {
+		let refreshControl = UIRefreshControl()
+		refreshControl.addTarget(self, action:
+			#selector(LenderDashboardViewController.handleRefresh(_:)),
+														 for: UIControlEvents.valueChanged)
+
+		return refreshControl
+	}()
 	var swrevealViewController: SWRevealViewController {
 		return revealViewController()
 	}
@@ -42,6 +51,7 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 		view.addGestureRecognizer(swrevealViewController.panGestureRecognizer())
 		self.tableView.register(UINib(nibName: "BorrowerCell", bundle: nil), forCellReuseIdentifier: "BorrowerCellIdentifier")
 		self.tableView.separatorStyle = .none
+		self.tableView.addSubview(self.refreshControl)
 		self.profileImageView.layer.cornerRadius = 40.0
 		self.profileImageView.layer.masksToBounds = true;
 	}
@@ -50,6 +60,9 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 		super.viewWillAppear(animated)
 		self.tableView.reloadData()
 		self.reloadData()
+		if (self.swrevealViewController.frontViewPosition != FrontViewPosition.left) {
+			self.swrevealViewController.revealToggle(animated: false)
+		}
 	}
 
 	func reloadData() {
@@ -73,6 +86,7 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 
 			Credit.requestAllCredit(user: self.user, completion: { (creditList, error) in
 				DataManager.shared.creditList = creditList
+				self.creditList = []
 				for credit in creditList {
 					if (credit.expired == "false" && credit.status == "created" && credit.borrowerId != self.user.id) {
 						self.creditList.append(credit)
@@ -94,7 +108,7 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 			self.etherBalanceLabel.text = "Loading..."
 		}
 		if (user.tokenBalance >= Double(0.0)) {
-			self.tokenBalanceLabel.text = "\(user.tokenBalance) VNDT"
+			self.tokenBalanceLabel.text = "$\(user.tokenBalance)"
 		} else {
 			self.tokenBalanceLabel.text = "Loading..."
 		}
@@ -129,7 +143,17 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 
 	func borrowerCellDidTapBidRate(cell: BorrowerCell) {
 		let indexPath = tableView.indexPath(for: cell)
-		self.performBidRate(indexPath: indexPath!)
+		let credit = creditList[(indexPath?.row)!]
+		rateView = Bundle.main.loadNibNamed("BidLoanOrderView", owner: self, options: nil)?[0] as? BidLoanOrderView
+		if let rateView = rateView {
+			rateView.credit = credit
+			rateView.frame = self.view.bounds
+			rateView.awakeFromNib()
+			rateView.populateData()
+			rateView.delegate = self
+			self.view.addSubview(rateView)
+		}
+//		self.performBidRate(indexPath: indexPath!)
 	}
 
 	func performBidRate(indexPath: IndexPath) {
@@ -165,5 +189,32 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 		}
 
 		present(alertController, animated: true, completion: nil)
+	}
+
+	func handleRefresh(_ refreshControl: UIRefreshControl) {
+		reloadData()
+		refreshControl.endRefreshing()
+	}
+
+	func bidLoanOrderViewDidTapCancel(bidLoanOrderView: BidLoanOrderView) {
+
+	}
+
+	func bidLoanOrderViewDidTapOK(bidLoanOrderView: BidLoanOrderView) {
+		let interestRateBid : Double = NSString(string: bidLoanOrderView.bidRateTextField.text!).doubleValue
+		if (interestRateBid < self.currentLowestBid) {
+			DataManager.shared.currentUser = self.user
+			//				let biddingCredit = creditList[indexPath.row]
+			//				biddingCredit.requestBidCredit(bidRate: interestRateBid, completion: { (error) -> Void? in
+			//					if (error) {
+			//
+			//					} else {
+			//
+			//					}
+			//				})
+			bidLoanOrderView.removeFromSuperview()
+			self.performSegue(withIdentifier: "LenderDashboardToHistorySegue", sender: self)
+
+		}
 	}
 }
