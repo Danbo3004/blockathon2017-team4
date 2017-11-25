@@ -2,6 +2,7 @@
 const globals = require('../../server/boot/globals');
 const async = require('async');
 const _ = require('underscore');
+const smartContract = require("./../SmartContractUtil");
 
 module.exports = function(Credit) {
   //Credit.disableRemoteMethodByName('create');
@@ -54,5 +55,106 @@ module.exports = function(Credit) {
     }
     ctx.args.data['borrowerId'] = ctx.req.accessToken.userId;
     next();
+  });
+
+  Credit.remoteMethod('newLoan', {
+    accepts: [
+      {arg: 'req', type: 'object', 'http': {source: 'req'}},
+      {arg: 'val', type: 'string', required: true},
+      {arg: 'rate', type: 'string', required: true},
+      {arg: 'timeStart', type: 'string', required: true},
+      {arg: 'timeLimit', type: 'string', required: true}
+    ],
+    http: {
+      verb: 'post'
+    },
+    returns: {
+       type: 'object', root:true
+    }
+  });
+
+  Credit.newLoan= function(req, val, rate, timeStart, timeLimit,cb){
+
+    async.auto({
+      getUser :function (callback) {
+        Credit.app.models.user.findById(req.accessToken.userId, (err, user) => {
+          if (err) {
+            callback(err);
+            return;
+          }
+          if (!user) {
+            let err = new Error('No user found');
+            err.statusCode = 404;
+            callback(err);
+            return;
+          }
+          callback(null, user);
+        });
+      },
+      pushNewLoan: ["getUser",function(data,callback) {
+
+        smartContract.createLoan( data["getUser"].address, val, rate, timeStart, timeLimit,cb);
+      }
+      ]
+    },function (err,result) {
+      if(err){
+        cb(err);
+        return;
+      }
+
+      cb(null,{message:OK});
+    });
+
+
+  };
+
+
+  Credit.remoteMethod('bid', {
+    accepts: [
+      {arg: 'req', type: 'object', 'http': {source: 'req'}},
+      {arg: 'rate', type: 'number', required: true},
+      {arg: 'to', type: 'string', required: true}
+    ],
+    http: {
+      verb: 'post'
+    },
+    returns: {
+      type: 'object', root:true
+    }
   })
+  Credit.bid= function(req,rate,to,cb){
+    smartContract.bidLending( req , rate, to,function(err,dt){
+      if(err){
+        cb(err);
+        return;
+      }
+      else{
+        cb(null,{message:OK});
+      }
+    });
+  };
+
+
+  Credit.remoteMethod('payDebt', {
+    accepts: [
+      {arg: 'req', type: 'object', 'http': {source: 'req'}}
+    ],
+    http: {
+      verb: 'post'
+    },
+    returns: {
+      type: 'object', root:true
+    }
+  })
+  Credit.payDebt= function(req,cb){
+    smartContract.payDebt(req,function (err,data) {
+      if(err){
+        cb(err);
+        return;
+      }
+      else{
+        cb(null,{message:OK})
+      }
+    });
+  };
 };
