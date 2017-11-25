@@ -35,6 +35,11 @@
       "type": "hasMany",
       "model": "credit",
       "foreignKey": "borrowerId"
+    },
+    "bidHistory": {
+      "type": "hasMany",
+      "model": "bidHistory",
+      "foreignKey": "lenderId"
     }
   },
   "acls": [
