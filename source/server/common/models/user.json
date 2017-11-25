@@ -30,7 +30,13 @@
     "verificationToken": false
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "credit": {
+      "type": "hasMany",
+      "model": "credit",
+      "foreignKey": "borrowerId"
+    }
+  },
   "acls": [
     {
       "accessType": "READ",

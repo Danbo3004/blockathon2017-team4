@@ -43,5 +43,17 @@
   "util": {
     "dataSource": "memory",
     "public": true
+  },
+  "credit": {
+    "dataSource": "mysql",
+    "public": true
+  },
+  "payLoan": {
+    "dataSource": "mysql",
+    "public": true
+  },
+  "bidHistory": {
+    "dataSource": "mysql",
+    "public": true
   }
 }
