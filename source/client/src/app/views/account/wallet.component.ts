@@ -13,16 +13,39 @@ export class WalletComponent implements OnInit{
   tokenBalance: string;
   borrow = {};
   message = '';
+  inDept = false;
   constructor(private authenticationService: AuthenticationService, private checkBalanceService: CheckBalanceService,
               private creditService: CreditService) {
   }
   ngOnInit(): void {
     this.user = this.authenticationService.getUser();
-    this.checkBalanceService.checkEthBalance(this.user.address, data => this.user.ethBalance = data.balance,
+    this.checkBalanceService.checkEthBalance(this.user.address, data => {
+        this.user.ethBalance = data.balance
+      /*if(data.balance.length > 18) {
+          this.user.ethBalance = data.balance.slice(0, data.balance.length - 18);
+      } else {
+        this.user.ethBalance = '0.' + data.balance.slice(0, data.balance.length - 18);
+      }*/
+      },
       err => console.error(err));
     this.checkBalanceService.checkTokenBalance(this.user.address, data => this.user.tokenBalance = data.balance,
       err => console.error(err));
     console.log('user ' + JSON.stringify(this.user));
+
+    // get user credit
+    this.creditService.getCredits({
+      where: {
+        borrowerId: this.user['id']
+      }
+    }, credits => {
+      if(credits.length > 0) {
+        this.inDept = true;
+      } else {
+        this.inDept = false;
+      }
+    }, err => {
+      console.error(err);
+    })
   }
   // lineChart
   public lineChartData: Array<any> = [
@@ -120,7 +143,7 @@ export class WalletComponent implements OnInit{
     }
     this.message = '';
     this.borrow['expire'] = new Date(parseInt(this['expire'] .slice(0, 4)),
-      parseInt(this['expire'].slice(5,7) - 1),
+      parseInt(this['expire'].slice(5,7)) - 1,
       parseInt(this['expire'].slice(8,10))).getTime() / 1000;
     this.borrow['borrowerName'] = 0;
     this.creditService.createCredit(this.borrow, borrow => {
