@@ -44,4 +44,15 @@ module.exports = function(Credit) {
     }
     next();
   });
+
+  Credit.beforeRemote('create', function(ctx, instance, next) {
+    if (!ctx.req.accessToken) {
+      let err = new Error('Authentication is required');
+      err.statusCode = 401;
+      next(err);
+      return;
+    }
+    ctx.args.data['borrowerId'] = ctx.req.accessToken.userId;
+    next();
+  })
 };
