@@ -1,10 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthenticationService} from '../../services/authentication';
 
 @Component({
   templateUrl: './wallet.component.html'
 })
-export class WalletComponent {
-
+export class WalletComponent implements OnInit{
+  user: object;
+  constructor(private authenticationService: AuthenticationService) {}
+  ngOnInit(): void {
+    this.user = this.authenticationService.getUser();
+    console.log('user ' + JSON.stringify(this.user));
+  }
   // lineChart
   public lineChartData: Array<any> = [
     {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
