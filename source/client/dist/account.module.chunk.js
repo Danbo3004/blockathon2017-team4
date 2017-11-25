@@ -127,7 +127,7 @@ var AccountModule = /** @class */ (function () {
 /***/ "../../../../../src/app/views/account/borrower.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"animated fadeIn\">\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n          <h2>Borrowers</h2>\n        </div>\n        <div class=\"card-body\">\n          <table class=\"table\">\n            <thead>\n            <tr>\n              <th>Username</th>\n              <th>Date registered</th>\n              <th>Role</th>\n              <th>Status</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr>\n              <td>Samppa Nori</td>\n              <td>2012/01/01</td>\n              <td>Member</td>\n              <td>\n                <span class=\"badge badge-success\">Active</span>\n              </td>\n            </tr>\n            <tr>\n              <td>Estavan Lykos</td>\n              <td>2012/02/01</td>\n              <td>Staff</td>\n              <td>\n                <span class=\"badge badge-danger\">Banned</span>\n              </td>\n            </tr>\n            <tr>\n              <td>Chetan Mohamed</td>\n              <td>2012/02/01</td>\n              <td>Admin</td>\n              <td>\n                <span class=\"badge badge-secondary\">Inactive</span>\n              </td>\n            </tr>\n            <tr>\n              <td>Derick Maximinus</td>\n              <td>2012/03/01</td>\n              <td>Member</td>\n              <td>\n                <span class=\"badge badge-warning\">Pending</span>\n              </td>\n            </tr>\n            <tr>\n              <td>Friderik Dávid</td>\n              <td>2012/01/21</td>\n              <td>Staff</td>\n              <td>\n                <span class=\"badge badge-success\">Active</span>\n              </td>\n            </tr>\n            </tbody>\n          </table>\n          <ul class=\"pagination\">\n            <li class=\"page-item\"><a class=\"page-link\" href=\"#\">Prev</a></li>\n            <li class=\"page-item active\">\n              <a class=\"page-link\" href=\"#\">1</a>\n            </li>\n            <li class=\"page-item\"><a class=\"page-link\" href=\"#\">2</a></li>\n            <li class=\"page-item\"><a class=\"page-link\" href=\"#\">3</a></li>\n            <li class=\"page-item\"><a class=\"page-link\" href=\"#\">4</a></li>\n            <li class=\"page-item\"><a class=\"page-link\" href=\"#\">Next</a></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"section\" style=\"margin: 0 -15px 0 -15px; border-bottom: 1px solid #c2cfd6;\">\n  <div class=\"row\" style=\"background-color: #ffffff; height: 46px; padding-top: 10px; margin-bottom: 20px\">\n    <div class=\"col-md-12\">\n      <h3 style=\"color:#4e4b4b\">Your investments</h3>\n    </div>\n  </div>\n<div class=\"animated fadeIn\">\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <h2 *ngIf=\"listBorrowers?.length==0\" class=\"text-center\">You have no investment now!</h2>\n\n          <table class=\"table\" *ngIf=\"listBorrowers?.length>0\">\n            <thead>\n            <tr>\n              <th>Borrower</th>\n              <th>Lend ticket</th>\n              <th>Role</th>\n              <th>Status</th>\n              <th>Action</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr *ngFor=\"let credit of listBorrowers\">\n              <td><strong>{{credit.borrowerName}}</strong><br>\n                CIC Rank: {{credit.cicRank}}<br>\n                LLLRank:{{credit.lllRank}}<br>\n                Credit Limit:{{credit.creditLimit}} VNDT\n              </td>\n              <td>Amount: {{credit.amount}} VNDT<br>\n                Rate: {{credit.rate*100}} %/yr<br>\n                Due Day after: {{credit.dueDay*100}} days\n              </td>\n              <td>Expired: {{credit.expiredTime | date:\"MM/dd/yy\"}} days</td>\n              <td>\n                <span class=\"badge badge-success\">{{credit.status}}</span>\n              </td>\n              <td>\n                <button class=\"btn btn-primary\">Bid rate now!</button>\n              </td>\n            </tr>\n            </tbody>\n          </table>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n</div>\n\n"
 
 /***/ }),
 
@@ -137,6 +137,8 @@ module.exports = "<div class=\"animated fadeIn\">\n  <div class=\"row\">\n    <d
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BorrowerComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_credit_service__ = __webpack_require__("../../../../../src/app/services/credit.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_authentication__ = __webpack_require__("../../../../../src/app/services/authentication.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -147,14 +149,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var BorrowerComponent = /** @class */ (function () {
-    function BorrowerComponent() {
+    function BorrowerComponent(creditService, authenticationService) {
+        this.creditService = creditService;
+        this.authenticationService = authenticationService;
     }
+    BorrowerComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var currentUserId = this.authenticationService.getUserId();
+        this.creditService.getCredits({
+            where: {
+                status: 'lending',
+                lenderId: (currentUserId) ? currentUserId : 0
+            }
+        }, function (data) {
+            _this.listBorrowers = data;
+        }, function (err) {
+            console.log(err);
+        });
+    };
     BorrowerComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             template: __webpack_require__("../../../../../src/app/views/account/borrower.component.html")
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_credit_service__["a" /* CreditService */], __WEBPACK_IMPORTED_MODULE_2__services_authentication__["a" /* AuthenticationService */]])
     ], BorrowerComponent);
     return BorrowerComponent;
 }());
@@ -166,7 +186,7 @@ var BorrowerComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/views/account/history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"animated fadeIn\">\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n          <h2>Histories</h2>\n        </div>\n        <div class=\"card-body\">\n          <table class=\"table\">\n            <thead>\n            <tr>\n              <th>Username</th>\n              <th>Date registered</th>\n              <th>Role</th>\n              <th>Status</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr>\n              <td>Samppa Nori</td>\n              <td>2012/01/01</td>\n              <td>Member</td>\n              <td>\n                <span class=\"badge badge-success\">Active</span>\n              </td>\n            </tr>\n            <tr>\n              <td>Estavan Lykos</td>\n              <td>2012/02/01</td>\n              <td>Staff</td>\n              <td>\n                <span class=\"badge badge-danger\">Banned</span>\n              </td>\n            </tr>\n            <tr>\n              <td>Chetan Mohamed</td>\n              <td>2012/02/01</td>\n              <td>Admin</td>\n              <td>\n                <span class=\"badge badge-secondary\">Inactive</span>\n              </td>\n            </tr>\n            <tr>\n              <td>Derick Maximinus</td>\n              <td>2012/03/01</td>\n              <td>Member</td>\n              <td>\n                <span class=\"badge badge-warning\">Pending</span>\n              </td>\n            </tr>\n            <tr>\n              <td>Friderik Dávid</td>\n              <td>2012/01/21</td>\n              <td>Staff</td>\n              <td>\n                <span class=\"badge badge-success\">Active</span>\n              </td>\n            </tr>\n            </tbody>\n          </table>\n          <ul class=\"pagination\">\n            <li class=\"page-item\"><a class=\"page-link\" href=\"#\">Prev</a></li>\n            <li class=\"page-item active\">\n              <a class=\"page-link\" href=\"#\">1</a>\n            </li>\n            <li class=\"page-item\"><a class=\"page-link\" href=\"#\">2</a></li>\n            <li class=\"page-item\"><a class=\"page-link\" href=\"#\">3</a></li>\n            <li class=\"page-item\"><a class=\"page-link\" href=\"#\">4</a></li>\n            <li class=\"page-item\"><a class=\"page-link\" href=\"#\">Next</a></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"section\" style=\"margin: 0 -15px 0 -15px; border-bottom: 1px solid #c2cfd6;\">\n  <div class=\"row\" style=\"background-color: #ffffff; height: 46px; padding-top: 10px; margin-bottom: 20px\">\n    <div class=\"col-md-12\">\n      <h3 style=\"color:#4e4b4b\">Histories</h3>\n    </div>\n  </div>\n  <div class=\"animated fadeIn\">\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <div class=\"card\">\n          <div class=\"card-body\">\n            <h2 *ngIf=\"listBorrowers?.length==0\" class=\"text-center\">Your history of investment is empty!</h2>\n\n            <table class=\"table\" *ngIf=\"listBorrowers?.length>0\">\n              <thead>\n              <tr>\n                <th>Borrower</th>\n                <th>Lend ticket</th>\n                <th>Role</th>\n                <th>Status</th>\n                <th>Action</th>\n              </tr>\n              </thead>\n              <tbody>\n              <tr *ngFor=\"let credit of listBorrowers\">\n                <td><strong>{{credit.borrowerName}}</strong><br>\n                  CIC Rank: {{credit.cicRank}}<br>\n                  LLLRank:{{credit.lllRank}}<br>\n                  Credit Limit:{{credit.creditLimit}} VNDT\n                </td>\n                <td>Amount: {{credit.amount}} VNDT<br>\n                  Rate: {{credit.rate*100}} %/yr<br>\n                  Due Day after: {{credit.dueDay*100}} days\n                </td>\n                <td>Expired: {{credit.expiredTime | date:\"MM/dd/yy\"}} days</td>\n                <td>\n                  <span class=\"badge badge-success\">{{credit.status}}</span>\n                </td>\n                <td>\n                  <button class=\"btn btn-primary\">Bid rate now!</button>\n                </td>\n              </tr>\n              </tbody>\n            </table>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -176,6 +196,8 @@ module.exports = "<div class=\"animated fadeIn\">\n  <div class=\"row\">\n    <d
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HistoryComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_authentication__ = __webpack_require__("../../../../../src/app/services/authentication.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_credit_service__ = __webpack_require__("../../../../../src/app/services/credit.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -186,14 +208,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var HistoryComponent = /** @class */ (function () {
-    function HistoryComponent() {
+    function HistoryComponent(creditService, authenticationService) {
+        this.creditService = creditService;
+        this.authenticationService = authenticationService;
     }
+    HistoryComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var currentUserId = this.authenticationService.getUserId();
+        this.creditService.getCredits({
+            where: {
+                status: { inq: ['pay', 'done'] },
+                lenderId: (currentUserId) ? currentUserId : 0
+            }
+        }, function (data) {
+            _this.listBorrowers = data;
+        }, function (err) {
+            console.log(err);
+        });
+    };
     HistoryComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             template: __webpack_require__("../../../../../src/app/views/account/history.component.html")
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_credit_service__["a" /* CreditService */], __WEBPACK_IMPORTED_MODULE_1__services_authentication__["a" /* AuthenticationService */]])
     ], HistoryComponent);
     return HistoryComponent;
 }());
@@ -205,7 +245,7 @@ var HistoryComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/views/account/opportunities.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"section\" style=\"margin: 0 -15px 0 -15px; border-bottom: 1px solid #c2cfd6;\">\n  <div class=\"row\" style=\"background-color: #ffffff; height: 46px; padding-top: 10px; margin-bottom: 20px\">\n    <div class=\"col-md-12\">\n      <h3 style=\"color:#4e4b4b\">Opportunities</h3>\n    </div>\n  </div>\n  <div class=\"animated fadeIn\">\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <div class=\"card\">\n          <div class=\"card-header\">\n            <h4>Borrowers</h4>\n          </div>\n          <div class=\"card-body\">\n            <h2 *ngIf=\"!listOpportunities\" class=\"text-center\">There are no opportunity now!</h2>\n\n            <table class=\"table\" *ngIf=\"listOpportunities\">\n              <thead>\n              <tr>\n                <th>Borrower</th>\n                <th>Lend ticket</th>\n                <th>Role</th>\n                <th>Status</th>\n                <th>Action</th>\n              </tr>\n              </thead>\n              <tbody>\n              <tr *ngFor=\"let credit of listOpportunities\">\n                <td><strong>{{credit.borrowerName}}</strong><br>\n                  CIC Rank: {{credit.cicRank}}<br>\n                  LLLRank:{{credit.lllRank}}<br>\n                  Credit Limit:{{credit.creditLimit}} VNDT\n                </td>\n                <td>Amount: {{credit.amount}} VNDT<br>\n                  Rate: {{credit.rate*100}} %/yr<br>\n                  Due Day after: {{credit.dueDay*100}} days\n                </td>\n                <td>Expired: {{credit.expiredTime | date:\"MM/dd/yy\"}} days</td>\n                <td>\n                  <span class=\"badge badge-success\">{{credit.status}}</span>\n                </td>\n                <td>\n                  <button class=\"btn btn-primary\">Bid rate now!</button>\n                </td>\n              </tr>\n              </tbody>\n            </table>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"section\" style=\"margin: 0 -15px 0 -15px; border-bottom: 1px solid #c2cfd6;\">\n  <div class=\"row\" style=\"background-color: #ffffff; height: 46px; padding-top: 10px; margin-bottom: 20px\">\n    <div class=\"col-md-12\">\n      <h3 style=\"color:#4e4b4b\">Opportunities</h3>\n    </div>\n  </div>\n  <div class=\"animated fadeIn\">\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <div class=\"card\">\n          <div class=\"card-body\">\n            <h2 *ngIf=\"listOpportunities?.length==0\" class=\"text-center\">There are no opportunity now!</h2>\n\n            <table class=\"table\" *ngIf=\"listOpportunities?.length>0\">\n              <thead>\n              <tr>\n                <th>Borrower</th>\n                <th>Lend ticket</th>\n                <th>Role</th>\n                <th>Status</th>\n                <th>Action</th>\n              </tr>\n              </thead>\n              <tbody>\n              <tr *ngFor=\"let credit of listOpportunities\">\n                <td><strong>{{credit.borrowerName}}</strong><br>\n                  CIC Rank: {{credit.cicRank}}<br>\n                  LLLRank:{{credit.lllRank}}<br>\n                  Credit Limit:{{credit.creditLimit}} VNDT\n                </td>\n                <td>Amount: {{credit.amount}} VNDT<br>\n                  Rate: {{credit.rate*100}} %/yr<br>\n                  Due Day after: {{credit.dueDay*100}} days\n                </td>\n                <td>Expired: {{credit.expiredTime | date:\"MM/dd/yy\"}} days</td>\n                <td>\n                  <span class=\"badge badge-success\">{{credit.status}}</span>\n                </td>\n                <td>\n                  <button class=\"btn btn-primary\">Bid rate now!</button>\n                </td>\n              </tr>\n              </tbody>\n            </table>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -235,7 +275,7 @@ var OpportunitiesComponent = /** @class */ (function () {
         var _this = this;
         this.creditService.getCredits({
             where: {
-                status: 'created' //'readyToBid'
+                status: 'lending'
             }
         }, function (data) {
             _this.listOpportunities = data;
