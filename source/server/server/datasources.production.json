@@ -8,9 +8,9 @@
     "port": 3306,
     "url": "",
     "database": "blockathon",
+    "user": "blockathon",
     "password": "TOMtjPUHRImmClqV7cmY",
     "name": "mysql",
-    "user": "blockathon",
     "connector": "mysql",
     "connectTimeout": 50000,
     "acquireTimeout": 50000
