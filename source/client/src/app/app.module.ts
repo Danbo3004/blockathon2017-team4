@@ -18,8 +18,6 @@ const APP_CONTAINERS = [
 
 // Import components
 import {
-  OpportunitiesComponent,
-  HistoryComponent,
   AppHeaderLalaComponent,
   AppSidebarLalaComponent,
   AppAsideComponent,
