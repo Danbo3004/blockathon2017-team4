@@ -13,7 +13,6 @@ export class BorrowerComponent implements OnInit {
 
   ngOnInit(): void {
     const currentUser = this.authenticationService.getUser();
-    console.log(currentUser);
 
     this.creditService.getCredits({
       where: {
