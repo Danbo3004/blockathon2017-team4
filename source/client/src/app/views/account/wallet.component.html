@@ -19,9 +19,9 @@
               </div>
               <div class="col-md-4">
                 <h2>Tony Doan</h2>
-                <p>CIC Rank: Level 1</p>
-                <p>LLL Rank: 4.7</p>
-                <h4>Credit Limit: <strong>80,000</strong> VND</h4>
+                <p>CIC Rank: Level {{user.cicRank || 0}}</p>
+                <p>LLL Rank: {{user.lllRank || 0}}</p>
+                <h4>Credit Limit: <strong>{{user.creditLimit || 0}}</strong> VND</h4>
               </div>
               <div class="col-md-4 text-right">
                 <h2><strong>1,343.2</strong> ETH</h2>
