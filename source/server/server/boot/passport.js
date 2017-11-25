@@ -8,5 +8,7 @@ module.exports = function (app) {
       console.log("req.accessToken", req.accessToken);
       console.log("req.body", req.body);
     }
+
+    next();
   });
 };
