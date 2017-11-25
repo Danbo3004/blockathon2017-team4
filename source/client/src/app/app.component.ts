@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {CheckAccessTokenService} from './services/check-access-token';
 
 @Component({
@@ -7,5 +7,6 @@ import {CheckAccessTokenService} from './services/check-access-token';
   template: '<router-outlet></router-outlet>'
 })
 export class AppComponent {
-  constructor(private checkAccessTokenService: CheckAccessTokenService) { }
+  constructor(private checkAccessTokenService: CheckAccessTokenService) {
+  }
 }
