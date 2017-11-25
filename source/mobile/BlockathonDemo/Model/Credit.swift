@@ -13,7 +13,7 @@ class Credit: BaseModel {
 	var borrowerId = 0
 	var amount = 0.0
 	var rate = 0.0
-	var expired = "false"
+	var expiredTime = 0.0
 	var lenderId = 0
 	var status = "created"
 	var borrower: User?
@@ -23,7 +23,7 @@ class Credit: BaseModel {
 		self.borrowerId = json["borrowerId"].intValue
 		self.amount = json["amount"].doubleValue
 		self.rate = json["rate"].doubleValue
-		self.expired = json["expired"].stringValue
+		self.expiredTime = json["expiredTime"].doubleValue
 		self.lenderId = json["lenderId"].intValue
 		self.status = json["status"].stringValue
 		self.created = json["created"].doubleValue
@@ -54,19 +54,13 @@ class Credit: BaseModel {
 		}
 	}
 
-	func requestBidCredit(bidRate: Double, completion:((Error?) -> Void?)?) {
-		APIFoundation.requestBidCredit(param: BCJSONParams.BidCredit(bidRate)) { (json: JSON?, error: Error?) in
+	func requestBidCredit(bidRate: Double, userAddess: String, completion:@escaping ((Error?) -> Void)) {
+		APIFoundation.requestBidCredit(param: BCJSONParams.BidCredit(bidRate, userAddess)) { (json: JSON?, error: Error?) in
 			if let error = error {
-				completion!(error)
+				completion(error)
 			} else if let json = json {
-				var creditList = [Credit]()
-				for objectJson in json.array! {
-					let newCredit = Credit()
-					newCredit.id = objectJson["id"].intValue
-					newCredit.updateObject(json: objectJson)
-					creditList.append(newCredit)
-				}
-				completion!(nil);
+				let message = json["message"].stringValue
+				completion(nil);
 			}
 		}
 

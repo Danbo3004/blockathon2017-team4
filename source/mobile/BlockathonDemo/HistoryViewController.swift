@@ -82,7 +82,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 			self.etherBalanceLabel.text = "\(user.ETHBalance) ETH"
 		}
 		if (user.tokenBalance >= Double(0.0)) {
-			self.tokenBalanceLabel.text = "$\(user.tokenBalance)"
+			self.tokenBalanceLabel.text = "\(user.tokenBalance) VNDT"
 		}
 	}
 
@@ -104,7 +104,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 					break;
 				}
 			}
-			cell.historyLabel.text = "$\(history.totalValue)"
+			cell.historyLabel.text = "\(history.totalValue) VNDT"
 			cell.updateStatus(history: history)
 			self.historyActionDisplay(history: history, cell: cell)
 			cell.dateTimeLabel.text = String.stringFromTimeInterval(interval: history.created)

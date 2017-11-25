@@ -13,7 +13,7 @@ import UIKit
 	func bidLoanOrderViewDidTapOK(bidLoanOrderView: BidLoanOrderView)
 }
 
-class BidLoanOrderView: UIView {
+class BidLoanOrderView: UIView, UITextFieldDelegate {
 
 	@IBOutlet weak var wrapperView: UIView!
 	@IBOutlet weak var currentLowestRateLabel: UILabel!
@@ -39,18 +39,21 @@ class BidLoanOrderView: UIView {
 		wrapperView.layer.shadowOffset = CGSize(width: 0, height: 2)
 		wrapperView.layer.shadowRadius = 5
 		wrapperView.layer.shadowOpacity = 0.5
+		bidRateTextField.textAlignment = .right
+		bidRateTextField.delegate = self
+		self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
 	}
 
 	func populateData() {
 		currentLowestRate = credit.rate
-		currentLowestRateLabel.text = "\(currentLowestRate)"
+		currentLowestRateLabel.text = "\(currentLowestRate)%"
 		rateStepper.stepValue = 0.01
 		rateStepper.value = currentLowestRate - 0.01
 		rateStepper.maximumValue = currentLowestRate - 0.01
 		rateStepper.minimumValue = 0.01
 		rateStepper.addTarget(self, action: #selector(BidLoanOrderView.rateStepperValueDidChange(_:)), for: UIControlEvents.valueChanged)
 		bidRateTextField.text = "\(currentLowestRate - 0.01)"
-		amountLabel.text = "$\(credit.amount)"
+		amountLabel.text = "\(credit.amount) VNDT"
 	}
 
 	func rateStepperValueDidChange(_ rateStepper: UIStepper) {
@@ -70,4 +73,16 @@ class BidLoanOrderView: UIView {
 		}
 	}
 
+	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+		self.rateStepper.value = NSString(string: textField.text!).doubleValue
+		return true
+	}
+
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		self.rateStepper.value = NSString(string: textField.text!).doubleValue
+	}
+
+	func handleTap() {
+		self.bidRateTextField.resignFirstResponder()
+	}
 }

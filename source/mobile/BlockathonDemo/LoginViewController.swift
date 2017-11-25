@@ -40,6 +40,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		if (textField == self.emailTextField) {
 			self.passwordTextField.becomeFirstResponder()
 		} else {
+			self.passwordTextField.resignFirstResponder()
 			self.signInButtonDidTap(self)
 		}
 		return true;

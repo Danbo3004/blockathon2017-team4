@@ -29,6 +29,8 @@ class User: BaseModel {
 		self.email = json["email"].stringValue
 		self.userType = json["userType"].stringValue
 		self.address = json["address"].stringValue
+		self.cicRank = json["cicRank"].doubleValue
+		self.lllRank = json["lllRank"].doubleValue
 		print("Address: \(self.address)")
 	}
 

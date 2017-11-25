@@ -28,7 +28,7 @@ class Router {
 	private static let historyPath = "bidHistories"
 	// Credit paths
 	private static let creditPath = "credits"
-	private static let bidCreditPath = "credits/%@/bid"
+	private static let bidCreditPath = "credits/bid"
 
   private static let contentTypeHeaderField = "Content-Type"
   private static let applicationJSONContentType = "application/json"
@@ -64,7 +64,7 @@ class Router {
 
 	class func bidCredit(param: JSONParams? = nil) -> URLRequestConvertible {
 		let path = bidCreditPath
-		return createUrlRequestWithRelativePath(relativePath: path, params: param, httpMethod: .GET)
+		return createUrlRequestWithRelativePath(relativePath: path, params: param, httpMethod: .POST)
 	}
 
   // MARK: Private methods

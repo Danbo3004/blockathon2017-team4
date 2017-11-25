@@ -51,8 +51,8 @@
                             <constraint firstAttribute="height" constant="0.40000000000000002" id="2jq-pS-kgL"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVL-K7-Sa2" userLabel="Lend Value Label">
-                        <rect key="frame" x="130" y="41" width="18" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0 VNDT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVL-K7-Sa2" userLabel="Lend Value Label">
+                        <rect key="frame" x="130" y="41" width="62" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.40000000000000002" green="0.0" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -154,8 +154,10 @@
             <connections>
                 <outlet property="avatarImage" destination="Ujf-TZ-YIt" id="1G0-Iu-xDQ"/>
                 <outlet property="bidRateButton" destination="1gh-K0-HFj" id="GFE-7t-ucr"/>
+                <outlet property="cicRankLabel" destination="rlq-AW-N6P" id="oqw-9U-MUw"/>
                 <outlet property="expectInterestLabel" destination="hfr-Kc-dwE" id="6kn-ig-i8U"/>
                 <outlet property="lendValueLabel" destination="WVL-K7-Sa2" id="g0B-GY-94e"/>
+                <outlet property="lllRankLabel" destination="sZZ-Fg-6cf" id="jP5-OZ-zLf"/>
                 <outlet property="nameLabel" destination="Dzj-Pc-u6C" id="ckg-ac-u4t"/>
                 <outlet property="separatorHeightConstraint" destination="2jq-pS-kgL" id="cV8-HD-Rfa"/>
             </connections>

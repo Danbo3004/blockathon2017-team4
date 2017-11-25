@@ -20,6 +20,8 @@ class BorrowerCell: UITableViewCell {
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var lendValueLabel: UILabel!
 	@IBOutlet weak var expectInterestLabel: UILabel!
+	@IBOutlet weak var cicRankLabel: UILabel!
+	@IBOutlet weak var lllRankLabel: UILabel!
 
 	weak var delegate: BorrowerCellDelegate?
 

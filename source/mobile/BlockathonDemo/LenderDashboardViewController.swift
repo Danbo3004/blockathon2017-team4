@@ -88,7 +88,7 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 				DataManager.shared.creditList = creditList
 				self.creditList = []
 				for credit in creditList {
-					if (credit.expired == "false" && credit.status == "created" && credit.borrowerId != self.user.id) {
+					if ((credit.expiredTime == 0 || credit.expiredTime < Date.timeIntervalSinceReferenceDate)  && credit.status == "created" && credit.borrowerId != self.user.id) {
 						self.creditList.append(credit)
 					}
 				}
@@ -108,7 +108,7 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 			self.etherBalanceLabel.text = "Loading..."
 		}
 		if (user.tokenBalance >= Double(0.0)) {
-			self.tokenBalanceLabel.text = "$\(user.tokenBalance)"
+			self.tokenBalanceLabel.text = "\(user.tokenBalance) VNDT"
 		} else {
 			self.tokenBalanceLabel.text = "Loading..."
 		}
@@ -128,9 +128,11 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 			cell.avatarImage.image = UIImage.init(named: "borrower\(indexPath.row)")
 			if let borrower = credit.borrower {
 				cell.nameLabel.text = borrower.username
+				cell.cicRankLabel.text = "\(borrower.cicRank)"
+				cell.lllRankLabel.text = "\(borrower.lllRank)"
 			}
 			cell.expectInterestLabel.text = "\(credit.rate)% per month"
-			cell.lendValueLabel.text = "$\(credit.amount)"
+			cell.lendValueLabel.text = "\(credit.amount) VNDT"
 			cell.delegate = self
 			return cell;
 		}
@@ -204,17 +206,20 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 		let interestRateBid : Double = NSString(string: bidLoanOrderView.bidRateTextField.text!).doubleValue
 		if (interestRateBid < self.currentLowestBid) {
 			DataManager.shared.currentUser = self.user
-			//				let biddingCredit = creditList[indexPath.row]
-			//				biddingCredit.requestBidCredit(bidRate: interestRateBid, completion: { (error) -> Void? in
-			//					if (error) {
-			//
-			//					} else {
-			//
-			//					}
-			//				})
+
+			if let biddingCredit = bidLoanOrderView.credit {
+				biddingCredit.requestBidCredit(bidRate: interestRateBid, userAddess: biddingCredit.borrower!.address, completion: { (error) -> Void in
+					if let error = error {
+						print(error.localizedDescription)
+					} else {
+
+					}
+				})
+			}
 			bidLoanOrderView.removeFromSuperview()
 			self.performSegue(withIdentifier: "LenderDashboardToHistorySegue", sender: self)
 
 		}
 	}
 }
+
