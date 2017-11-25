@@ -6,7 +6,7 @@ import {CheckBalanceService} from '../../services/check-balance';
   templateUrl: './wallet.component.html'
 })
 export class WalletComponent implements OnInit{
-  user: object;
+  user: any;
   ethBalance: string;
   tokenBalance: string;
   constructor(private authenticationService: AuthenticationService, private checkBalanceService: CheckBalanceService) {}
