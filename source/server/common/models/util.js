@@ -286,9 +286,26 @@ module.exports = function(Util) {
           callback(null, user);
         });
       },
-      signTransaction: ['getUser', function(data, callback) {
-        Util.signTransaction(data['getUser'].privateKey, address, 0, getSendMethodData(address, contractName, methodName, args), callback);
-      }],
+      // signTransaction: ['getUser', function(data, callback) {
+      //   Util.signTransaction(data['getUser'].privateKey, address, 0, getSendMethodData(address, contractName, methodName, args), callback);
+      // }],
+      // sendSignedTransaction: ['signTransaction', function(data, callback) {
+      //   globals['eth-node'].eth.sendSignedTransaction(data['signTransaction'], callback)
+      //     .once('receipt', receipt => console.log('Send method transaction hash: ' + receipt.transactionHash))
+      // }],
+      sendTransaction: ['getUser', function(data, callback) {
+        Util.sendMethodByPrivateKey(data['getUser'].privateKey, address, contractName, methodName, args, callback);
+      }]
+    }, (err, results) => {
+      cb(err, results['sendTransaction']);
+    })
+  }
+
+  Util.sendMethodByPrivateKey = function(privateKey, contractAddress, contractName, methodName, args, cb) {
+    async.auto({
+      signTransaction: function(callback) {
+        Util.signTransaction(privateKey, contractAddress, 0, getSendMethodData(contractAddress, contractName, methodName, args), callback);
+      },
       sendSignedTransaction: ['signTransaction', function(data, callback) {
         globals['eth-node'].eth.sendSignedTransaction(data['signTransaction'], callback)
           .once('receipt', receipt => console.log('Send method transaction hash: ' + receipt.transactionHash))
