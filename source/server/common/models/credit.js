@@ -2,6 +2,7 @@
 const globals = require('../../server/boot/globals');
 const async = require('async');
 const _ = require('underscore');
+const smartContract = require("./../SmartContractUtil");
 
 module.exports = function(Credit) {
   //Credit.disableRemoteMethodByName('create');
@@ -54,5 +55,92 @@ module.exports = function(Credit) {
     }
     ctx.args.data['borrowerId'] = ctx.req.accessToken.userId;
     next();
+  });
+
+  Credit.remoteMethod('newLoan', {
+    accepts: [
+      {arg: 'addressUser', type: 'string', required: true},
+      {arg: 'val', type: 'string', required: true},
+      {arg: 'rate', type: 'string', required: true},
+      {arg: 'timeStart', type: 'string', required: true},
+      {arg: 'timeLimit', type: 'string', required: true}
+    ],
+    http: {
+      verb: 'post'
+    },
+    returns: {
+      arg: 'transactionHash', type: 'string'
+    }
+  });
+
+  Credit.newLoan= function(addressUser, val, rate, timeStart, timeLimit,cb){
+    smartContract.createLoan( addressUser, val, rate, timeStart, timeLimit,cb);
+  };
+
+
+  Credit.remoteMethod('bid', {
+    accepts: [
+      {arg: 'req', type: 'object', 'http': {source: 'req'}},
+      {arg: 'rate', type: 'number', required: true},
+      {arg: 'to', type: 'string', required: true}
+    ],
+    http: {
+      verb: 'post'
+    },
+    returns: {
+      arg: 'transactionHash', type: 'string'
+    }
   })
+  Credit.bid= function(req,rate,to,cb){
+    smartContract.bidLending( req , rate, to,cb);
+  };
+
+
+  Credit.remoteMethod('updateLoan', {
+    accepts: [
+      {arg: 'addressUser', type: 'string', required: true}
+    ],
+    http: {
+      verb: 'post'
+    },
+    returns: {
+      arg: 'transactionHash', type: 'string'
+    }
+  })
+  Credit.updateLoan= function(addressUser,cb){
+    smartContract.updateLoan(addressUser,cb);
+  };
+
+
+  Credit.remoteMethod('payDebt', {
+    accepts: [
+     {arg: 'req', type: 'object', 'http': {source: 'req'}}
+    ],
+    http: {
+      verb: 'post'
+    },
+    returns: {
+      arg: 'transactionHash', type: 'string'
+    }
+  })
+  Credit.payDebt= function(req,cb){
+    smartContract.payDebt(req,cb);
+  };
+
+
+  Credit.remoteMethod('crowFund', {
+    accepts: [
+      {arg: 'addressLender', type: 'string', required: true}
+    ],
+    http: {
+      verb: 'post'
+    },
+    returns: {
+      arg: 'transactionHash', type: 'string'
+    }
+  })
+  Credit.crowFund= function(addressLender,cb){
+    smartContract.withdrawal( addressLender,cb);
+
+  };
 };

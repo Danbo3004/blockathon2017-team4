@@ -58,6 +58,20 @@
       "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "property":"bid",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "property":"bid",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
     }
   ],
   "methods": {}

@@ -255,7 +255,7 @@ module.exports = function(Util) {
         data: data
       };
       const tempTx = new EthereumTx(txData);
-      txData.gas = globals['eth-node'].web3.utils.toHex(parseInt(tempTx.getUpfrontCost().toString()) + 250000);
+      txData.gas = globals['eth-node'].web3.utils.toHex(parseInt(tempTx.getBaseFee().toString()) + 500000);
       const tx = new EthereumTx(txData);
       tx.sign(privateKey);
       cb(null, '0x' + tx.serialize().toString('hex'));
@@ -278,7 +278,6 @@ module.exports = function(Util) {
     }
   })
   Util.sendMethod = function(address, contractName, methodName, args, req, cb) {
-    console.log(args);
     if (!globals['eth-node'].web3.utils.isAddress(address)) {
       let err = new Error('Address is not valid');
       err.statusCode = 400;
@@ -324,11 +323,10 @@ module.exports = function(Util) {
 
   Util.sendMethodByPrivateKey = function(privateKey, contractAddress, contractName, methodName, args, cb)
   {
+    console.log(privateKey + contractAddress + contractName );
+    console.log(args);
     async.auto({
       signTransaction: function(callback) {
-        console.log(args);
-
-
         if (!globals['eth-node'].web3.utils.isAddress(contractAddress)) {
           let err = new Error('Address is not valid');
           err.statusCode = 400;
