@@ -11,7 +11,7 @@ export class AppHeaderLalaComponent {
   logout(): void {
     this.authenticationService.logout(() => {
       // remove access token in session storage
-
+      sessionStorage.clear();
       this.router.navigateByUrl('pages/login');
     }, err => {
       console.error(err);
