@@ -36,6 +36,7 @@ class User: BaseModel {
 				if (json["id"].string != nil) {
 					self.accessToken = json["id"].stringValue
 					self.id = json["userId"].intValue
+					UserDefaults.standard.set(self.accessToken, forKey: "accessToken")
 					completion!(nil);
 				}
 			}
@@ -63,12 +64,7 @@ class User: BaseModel {
 			if let error = error {
 				completion!(self, error)
 			} else if let json = json {
-				for userJson in json.array! {
-					if userJson["id"].intValue == self.id {
-						self.updateObject(json: userJson)
-						break;
-					}
-				}
+				self.ETHBalance = json.doubleValue / (pow(10, 18))
 				completion!(self, nil);
 			}
 		}

@@ -30,6 +30,11 @@ class APIFoundation {
 		}
 	}
 
+	class func requestFetchHistory(completion: ((JSON?, Error?) -> Void)?) {
+		HttpClient.request(url: Router.fetchHistory()) { (response: JSON?, error: Error?) in
+			self.processRequestResponse(response: response, error: error, completion: completion)
+		}
+	}
 }
 
 // MARK: - Response processor

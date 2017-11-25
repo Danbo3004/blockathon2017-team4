@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Ujf-TZ-YIt">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Ujf-TZ-YIt">
                         <rect key="frame" x="12" y="12" width="64" height="64"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="64" id="nwK-oj-KzW"/>
@@ -112,6 +112,9 @@
                         <state key="normal" title="Bid Rate">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <connections>
+                            <action selector="bidRateButtonDidTap:" destination="14J-pn-FKw" eventType="touchUpInside" id="klm-eH-acE"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

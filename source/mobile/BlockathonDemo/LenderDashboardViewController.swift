@@ -9,7 +9,7 @@
 import UIKit
 import SWRevealViewController
 
-class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BorrowerCellDelegate {
 
 	@IBOutlet weak var backButton: UIButton!
 	@IBOutlet weak var hamburgerButton: UIButton!
@@ -55,11 +55,10 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 	func reloadData() {
 		self.user.requestUserData { (user, error) in
 			self.user = user
-			self.populateData()
-		}
-		self.user.requestUserBalance { (user, error) in
-			self.user = user
-			self.populateData()
+			self.user.requestUserBalance { (user, error) in
+				self.user = user
+				self.populateData()
+			}
 		}
 		self.user.requestAllUser { (userList, error) in
 			self.borrowerList = userList.filter({ (user) -> Bool in
@@ -94,15 +93,25 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 			let borrower = self.borrowerList[indexPath.row]
 			cell.avatarImage.image = UIImage.init(named: "borrower\(indexPath.row)")
 			cell.nameLabel.text = borrower.username
+			cell.delegate = self
 			return cell;
 		}
 		return UITableViewCell();
 	}
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		performBidRate(indexPath: indexPath)
+	}
+
+	func borrowerCellDidTapBidRate(cell: BorrowerCell) {
+		let indexPath = tableView.indexPath(for: cell)
+		self.performBidRate(indexPath: indexPath!)
+	}
+
+	func performBidRate(indexPath: IndexPath) {
 		let alertController = UIAlertController(title: "Bid interest", message: "Enter the interest rate you want to bid\nCurrent lowest bid rate: \(currentLowestBid)%", preferredStyle: UIAlertControllerStyle.alert)
 		alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action: UIAlertAction) in
-			tableView.deselectRow(at: indexPath, animated: true)
+			self.tableView.deselectRow(at: indexPath, animated: true)
 			alertController.dismiss(animated: true, completion: nil)
 		}))
 
@@ -110,11 +119,13 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 			let interestRateBidTextField = alertController.textFields![0] as UITextField
 			let interestRateBid : Double = NSString(string: interestRateBidTextField.text!).doubleValue
 			if (interestRateBid < self.currentLowestBid) {
-				print("Success")
+				let appDelegate = UIApplication.shared.delegate as! AppDelegate
+				appDelegate.user = self.user
+				self.performSegue(withIdentifier: "LenderDashboardToHistorySegue", sender: self)
 			} else {
 				print("Failed")
 			}
-			tableView.deselectRow(at: indexPath, animated: true)
+			self.tableView.deselectRow(at: indexPath, animated: true)
 			alertController.dismiss(animated: true, completion: nil)
 		}))
 
@@ -124,5 +135,4 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 
 		present(alertController, animated: true, completion: nil)
 	}
-
 }

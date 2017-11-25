@@ -8,6 +8,10 @@
 
 import UIKit
 
+@objc protocol BorrowerCellDelegate {
+	func borrowerCellDidTapBidRate(cell: BorrowerCell)
+}
+
 class BorrowerCell: UITableViewCell {
 
 	@IBOutlet weak var avatarImage: UIImageView!
@@ -16,6 +20,8 @@ class BorrowerCell: UITableViewCell {
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var lendValueLabel: UILabel!
 	@IBOutlet weak var expectInterestLabel: UILabel!
+
+	weak var delegate: BorrowerCellDelegate?
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -28,6 +34,12 @@ class BorrowerCell: UITableViewCell {
 
 	override func setSelected(_ selected: Bool, animated: Bool) {
 		super.setSelected(false, animated: animated)
+	}
+
+	@IBAction func bidRateButtonDidTap(_ sender: Any) {
+		if let delegate = self.delegate {
+			delegate.borrowerCellDidTapBidRate(cell: self)
+		}
 	}
 
 }

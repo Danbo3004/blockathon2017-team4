@@ -23,7 +23,8 @@ class Router {
   private static let userPath = "users"
   // Balance paths
 	private static let balancePath = "utils/checkBalance"
-
+	// History paths
+	private static let historyPath = "bidHistories"
   private static let contentTypeHeaderField = "Content-Type"
   private static let applicationJSONContentType = "application/json"
   static let multipartFormDataContentType = "multipart/form-data"
@@ -39,7 +40,12 @@ class Router {
   }
 
 	class func requestBalance(param: JSONParams) -> URLRequestConvertible {
-		return createUrlRequestWithRelativePath(relativePath: balancePath, params: param, httpMethod: .POST)
+		return createUrlRequestWithRelativePath(relativePath: balancePath, params: param, httpMethod: .GET)
+	}
+
+	class func fetchHistory(param: JSONParams? = nil) -> URLRequestConvertible {
+		let path = historyPath
+		return createUrlRequestWithRelativePath(relativePath: path, params: param, httpMethod: .GET)
 	}
 
   // MARK: Private methods
@@ -47,7 +53,11 @@ class Router {
     let baseUrl = NSURL(string: Constants.baseApiUrl)!
 		var request = URLRequest(url:  baseUrl.appendingPathComponent(relativePath)!)
     request.httpMethod = httpMethod.rawValue
-    request.setValue(Constants.apiAppToken, forHTTPHeaderField: "APP_TOKEN")
+    request.setValue(Constants.apiAppToken, forHTTPHeaderField: "access_token")
+		if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+			let accessTokenParameters: Parameters = ["access_token": accessToken]
+			request = try! URLEncoding.queryString.encode(request, with: accessTokenParameters)
+		}
     if let contentType = contentType {
       request.setValue(contentType, forHTTPHeaderField: contentTypeHeaderField)
     }
