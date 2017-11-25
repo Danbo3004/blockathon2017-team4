@@ -14,16 +14,9 @@ public class HttpClient {
 
 	public class func request(url: URLRequestConvertible, showHUD: Bool = true, completion: @escaping ((JSON?, Error?) -> Void)) {
 
-		if showHUD {
-			NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.BCNotificationDidBeginRequest), object: nil)
-		}
-
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		Alamofire.request(url).validate().responseJSON { (data:DataResponse<Any>) in
 			UIApplication.shared.isNetworkActivityIndicatorVisible = false
-			if showHUD {
-				NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.BCNotificationDidEndRequest), object: nil)
-			}
 			self.preprocessResponseFromServer(response: data.response, data: data.data, error: data.error, completion: completion)
 		}
 	}

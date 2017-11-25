@@ -55,15 +55,9 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 			DataManager.shared.historyRecord = historyList
 
 			// Test
-			let newHistory = History()
-			newHistory.creditId = 1
-			newHistory.traderId = 1
-			newHistory.historyOwnerId = 3
-			newHistory.dateTime = 1511603760
-			newHistory.totalValue = 300
-			newHistory.status = "Approved"
-
-			self.historyRecord.append(newHistory)
+			if (self.historyRecord.count == 0) {
+				self.historyRecord = Constants.historyList()
+			}
 			self.tableView.reloadData()
 		}
 
@@ -99,15 +93,17 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 			let history = self.historyRecord[indexPath.row]
 			cell.profileImageView.image = UIImage.init(named: "borrower\(indexPath.row)")
 			for user in userList {
-				if user.id == history.traderId {
-					cell.nameLabel.text = user.username
-					break;
+				if user.id == self.user.id {
+					continue
+				}
+				if user.id == history.traderId || user.id == history.historyOwnerId {
+					cell.nameLabel.text = user.username.isEmpty ? "N/A" : user.username
 				}
 			}
 			cell.historyLabel.text = "\(history.totalValue) VNDT"
 			cell.updateStatus(history: history)
 			self.historyActionDisplay(history: history, cell: cell)
-			cell.dateTimeLabel.text = String.stringFromTimeInterval(interval: history.created)
+			cell.dateTimeLabel.text = String.stringFromTimeInterval(interval: history.dateTime)
 			return cell;
 		}
 		return UITableViewCell();

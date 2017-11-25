@@ -23,10 +23,15 @@ class HistoryCell: UITableViewCell {
 		self.profileImageView.layer.masksToBounds = true
 	}
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		self.dateTimeLabel.text = "N/A"
+	}
+
 	func updateStatus(history: History) {
 		self.statusLabel.text = history.status;
 		switch history.status {
-		case "Pending": self.statusLabel.textColor = UIColor.yellow
+		case "Pending": self.statusLabel.textColor = UIColor.orange
 		case "Approved": self.statusLabel.textColor = UIColor.green
 		case "Liquidated": self.statusLabel.textColor = UIColor.green
 		case "Defaulted": self.statusLabel.textColor = UIColor.red
