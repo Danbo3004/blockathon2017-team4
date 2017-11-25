@@ -12,7 +12,7 @@ export class CheckAccessTokenService {
     this.baseUrl = globalsService.getBaseUrl() + 'users';
     console.log('router: ' + router);
     if (sessionStorage.getItem('access_token')) {
-      this.subscription = this.http.get<any>(`${this.baseUrl}/count?access_token=${sessionStorage.getItem('access_token')}`)
+      this.subscription = this.http.get<any>(`${this.baseUrl}/count`)
         .subscribe(count => {
           this.router.navigateByUrl('account/wallet');
         }, err => {
