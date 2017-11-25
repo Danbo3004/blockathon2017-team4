@@ -1,0 +1,50 @@
+{
+  "name": "bidHistory",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "creditId": {
+      "type": "number",
+      "required": true
+    },
+    "borrowerId": {
+      "type": "number"
+    },
+    "rate": {
+      "type": "number",
+      "required": true
+    },
+    "amount": {
+      "type": "number"
+    },
+    "lenderId": {
+      "type": "number",
+      "required": true
+    },
+    "status": {
+      "type": "string",
+      "default": "pending",
+      "description": "pending | successful | failed"
+    },
+    "created": {
+      "type": "number"
+    },
+    "modified": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

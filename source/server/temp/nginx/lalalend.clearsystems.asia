@@ -1,12 +1,12 @@
 server {
     listen 80;
-    server_name         lalalendapi.clearsystems.asia www.lalalendapi.clearsystems.asia;
+    server_name         lalalend.clearsystems.asia www.lalalend.clearsystems.asia;
     rewrite     ^       https://$server_name$request_uri? permanent;
 }
 
 server {
     listen              443 ssl;
-    server_name         lalalendapi.clearsystems.asia www.lalalendapi.clearsystems.asia;
+    server_name         lalalend.clearsystems.asia www.lalalend.clearsystems.asia;
 
     ssl on;
     ssl_certificate     /etc/nginx/ssl/clearsystems.asia.ssl/clearsystems.asia.crt;
@@ -23,23 +23,5 @@ server {
     gzip_disable        "MSIE [1-6]\.";
     gzip_vary           on;
 
-    location / {
-
-        #limit request
-        #limit_req zone=limit_zone burst=10  nodelay;
-
-        # give site more time to respond
-        # proxy_read_timeout 120;
-
-        # needed to forward user's IP address
-        proxy_set_header  X-Real-IP  $remote_addr;
-
-        # needed for HTTPS
-        proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_redirect off;
-        proxy_max_temp_file_size 0;
-
-        proxy_pass http://0.0.0.0:3000;
-    }
+    root /var/www/blockathon2017-team4/source/client/dist;
 }

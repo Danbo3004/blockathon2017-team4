@@ -1,0 +1,64 @@
+{
+  "name": "credit",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "borrowerId": {
+      "type": "number",
+      "required": true
+    },
+    "amount": {
+      "type": "number"
+    },
+    "rate": {
+      "type": "number"
+    },
+    "period": {
+      "type": "number",
+      "description": "period in second"
+    },
+    "expired": {
+      "type": "boolean",
+      "default": "false"
+    },
+    "lenderId": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "default": "created",
+      "description": "created | in-progress | ended"
+    },
+    "created": {
+      "type": "number"
+    },
+    "modified": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "bidHistory": {
+      "type": "hasMany",
+      "model": "bidHistory",
+      "foreignKey": "creditId"
+    },
+    "payLoan": {
+      "type": "hasMany",
+      "model": "payLoan",
+      "foreignKey": "creditId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

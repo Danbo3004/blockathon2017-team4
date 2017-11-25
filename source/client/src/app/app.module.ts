@@ -1,8 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+
+// Import services
+import {
+  GlobalsService,
+  AuthenticationService,
+  CheckAccessTokenService
+} from './services';
+const APP_SERVICES = [
+  GlobalsService,
+  AuthenticationService,
+  CheckAccessTokenService
+]
 
 // Import containers
 import {
@@ -12,11 +25,14 @@ import {
 
 const APP_CONTAINERS = [
   FullLayoutComponent,
-  SimpleLayoutComponent
+  SimpleLayoutComponent,
+  LalalendLayoutComponent
 ]
 
 // Import components
 import {
+  AppHeaderLalaComponent,
+  AppSidebarLalaComponent,
   AppAsideComponent,
   AppBreadcrumbsComponent,
   AppFooterComponent,
@@ -30,6 +46,8 @@ import {
 } from './components';
 
 const APP_COMPONENTS = [
+  AppHeaderLalaComponent,
+  AppSidebarLalaComponent,
   AppAsideComponent,
   AppBreadcrumbsComponent,
   AppFooterComponent,
@@ -64,6 +82,7 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import {LalalendLayoutComponent} from './containers/lalalend-layout/lalalend-layout.component';
 
 @NgModule({
   imports: [
@@ -71,7 +90,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    HttpClientModule
   ],
   declarations: [
     AppComponent,
@@ -82,7 +102,10 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
   providers: [{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  }],
+  },
+    APP_SERVICES],
   bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private checkAccessTokenService: CheckAccessTokenService)
+}

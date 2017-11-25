@@ -1,16 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
 // Import Containers
 import {
   FullLayoutComponent,
-  SimpleLayoutComponent
+  SimpleLayoutComponent,
+  LalalendLayoutComponent
 } from './containers';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'pages/login',
     pathMatch: 'full',
   },
   {
@@ -54,11 +55,25 @@ export const routes: Routes = [
         loadChildren: './views/pages/pages.module#PagesModule',
       }
     ]
+  },
+  {
+    path: 'account',
+    component: LalalendLayoutComponent,
+    data: {
+      title: 'Account'
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/account/account.module#AccountModule',
+      }
+    ]
   }
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

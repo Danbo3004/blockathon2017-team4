@@ -1,5 +1,21 @@
 export const navigation = [
   {
+    name: 'My Wallet',
+    url: '/account/wallet'
+  },
+  {
+    name: 'Opportunities',
+    url: '/account/opportunities'
+  },
+  {
+    name: 'Borrowers',
+    url: '/account/borrower'
+  },
+  {
+    name: 'History',
+    url: '/account/history'
+  },
+  {
     name: 'Dashboard',
     url: '/dashboard',
     icon: 'icon-speedometer',
