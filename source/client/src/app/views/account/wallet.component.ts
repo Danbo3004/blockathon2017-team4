@@ -1,14 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../services/authentication';
+import {CheckBalanceService} from '../../services/check-balance';
 
 @Component({
   templateUrl: './wallet.component.html'
 })
 export class WalletComponent implements OnInit{
   user: object;
-  constructor(private authenticationService: AuthenticationService) {}
+  ethBalance: string;
+  tokenBalance: string;
+  constructor(private authenticationService: AuthenticationService, private checkBalanceService: CheckBalanceService) {}
   ngOnInit(): void {
     this.user = this.authenticationService.getUser();
+    this.checkBalanceService.checkEthBalance(this.user.address, data => this.user.ethBalance = data.balance,
+      err => console.error(err));
+    this.checkBalanceService.checkTokenBalance(this.user.address, data => this.user.tokenBalance = data.balance,
+      err => console.error(err));
     console.log('user ' + JSON.stringify(this.user));
   }
   // lineChart

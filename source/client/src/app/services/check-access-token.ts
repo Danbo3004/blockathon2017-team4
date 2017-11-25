@@ -13,7 +13,7 @@ export class CheckAccessTokenService {
     if (sessionStorage.getItem('access_token')) {
       this.subscription = this.http.get<any>(`${this.baseUrl}/count`)
         .subscribe(count => {
-          this.router.navigateByUrl('account/wallet');
+          // this.router.navigateByUrl('account/wallet');
         }, err => {
           sessionStorage.removeItem('access_token');
           this.router.navigateByUrl('pages/login');
