@@ -10,13 +10,15 @@ import {
   GlobalsService,
   AuthenticationService,
   CheckAccessTokenService,
+  CreditService,
   CustomHttpInterceptor
 } from './services';
 
 const APP_SERVICES = [
   GlobalsService,
   AuthenticationService,
-  CheckAccessTokenService
+  CheckAccessTokenService,
+  CreditService
 ]
 
 // Import containers
