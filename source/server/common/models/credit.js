@@ -69,7 +69,7 @@ module.exports = function(Credit) {
       verb: 'post'
     },
     returns: {
-      arg: 'transactionHash', type: 'string'
+       type: 'object', root:true
     }
   });
 
@@ -102,7 +102,7 @@ module.exports = function(Credit) {
         return;
       }
 
-      cb(null,true);
+      cb(null,{message:OK});
     });
 
 
@@ -119,11 +119,19 @@ module.exports = function(Credit) {
       verb: 'post'
     },
     returns: {
-      arg: 'transactionHash', type: 'string'
+      type: 'object', root:true
     }
   })
   Credit.bid= function(req,rate,to,cb){
-    smartContract.bidLending( req , rate, to,cb);
+    smartContract.bidLending( req , rate, to,function(err,dt){
+      if(err){
+        cb(err);
+        return;
+      }
+      else{
+        cb(null,{message:OK});
+      }
+    });
   };
 
 
@@ -135,10 +143,18 @@ module.exports = function(Credit) {
       verb: 'post'
     },
     returns: {
-      arg: 'transactionHash', type: 'string'
+      type: 'object', root:true
     }
   })
   Credit.payDebt= function(req,cb){
-    smartContract.payDebt(req,cb);
+    smartContract.payDebt(req,function (err,data) {
+      if(err){
+        cb(err);
+        return;
+      }
+      else{
+        cb(null,{message:OK})
+      }
+    });
   };
 };
