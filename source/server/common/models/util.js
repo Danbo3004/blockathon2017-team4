@@ -323,8 +323,7 @@ module.exports = function(Util) {
 
   Util.sendMethodByPrivateKey = function(privateKey, contractAddress, contractName, methodName, args, cb)
   {
-    console.log(privateKey + contractAddress + contractName );
-    console.log(args);
+
     async.auto({
       signTransaction: function(callback) {
         if (!globals['eth-node'].web3.utils.isAddress(contractAddress)) {

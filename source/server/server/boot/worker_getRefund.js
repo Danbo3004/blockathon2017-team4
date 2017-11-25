@@ -1,29 +1,71 @@
 /**
  * Created by Linh Trinh on 11/26/2017.
  */
+const smartContract = require("./../../common/SmartContractUtil");
+
 module.exports = function (app) {
 
+  const runFunc = function () {
+    app.credit.find( {
+      where: {
+        dueDay: {lt: Math.floor(Date.now() / 1000)},
+        status : "pay",
+        paymentStatus : { neq:  'failed' }
+      },
+      limit: 250
+    },function(err,loans){
+      if(err){
+        console.error(err);
 
-// Credit.remoteMethod('crowFund', {
-//   accepts: [
-//     {arg: 'addressLender', type: 'string', required: true}
-//   ],
-//   http: {
-//     verb: 'post'
-//   },
-//   returns: {
-//     arg: 'transactionHash', type: 'string'
-//   }
-// })
-// Credit.crowFund= function(addressLender,cb){
-//   smartContract.withdrawal( addressLender,cb);
-//
-// };
+        setTimeout(function () {
+          runFunc();
+        }, 20000);
 
-  const runFunc = function () {}
+        return;
+      }
 
-  setTimeout(function () {
-  runFunc();
-  }, 10000);
+      if(loans==null || _.isEmpty(loans)){
+        setTimeout(function () {
+          runFunc();
+        }, 10000);
+        return;
+      }
 
+      async.eachSeries(loans,
+        function (loan,cb) {
+
+          app.models.user.findById(loan.lenderId, (err, user) => {
+            if (err) {
+              callback(err);
+              return;
+            }
+            if (!user) {
+              let err = new Error('No user found');
+              err.statusCode = 404;
+              callback(err);
+              return;
+            }
+            smartContract.withdrawal( user.address,cb);
+          });
+
+        }
+        ,
+        function (err,result) {
+          if(err){
+            console.error(err);
+
+          }
+
+          runFunc();
+
+        });
+
+    })
+
+
+    setTimeout(function () {
+      runFunc();
+    }, 10000);
+  }
 }
+
