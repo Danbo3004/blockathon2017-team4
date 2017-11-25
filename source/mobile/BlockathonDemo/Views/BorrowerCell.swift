@@ -10,13 +10,20 @@ import UIKit
 
 class BorrowerCell: UITableViewCell {
 
+	@IBOutlet weak var avatarImage: UIImageView!
+	@IBOutlet weak var separatorHeightConstraint: NSLayoutConstraint!
+
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		// Initialization code
+		separatorHeightConstraint.constant = 0.4
+		selectionStyle = .none
+		self.avatarImage.layer.cornerRadius = 32.0
+		self.avatarImage.layer.masksToBounds = true
 	}
 
 	override func setSelected(_ selected: Bool, animated: Bool) {
-		super.setSelected(selected, animated: animated)
+		super.setSelected(false, animated: animated)
 	}
 
 }

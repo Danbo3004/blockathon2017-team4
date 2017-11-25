@@ -19,8 +19,8 @@ public enum HTTPMethod: String {
 
 class Router {
   // User paths
-  private static let loginPath = "sessions"
-  private static let userPath = "users/%@"
+  private static let loginPath = "users/login"
+  private static let userPath = "users"
   // Environment paths
   private static let environmentPath = "env"
 
@@ -47,7 +47,11 @@ class Router {
     if let contentType = contentType {
       request.setValue(contentType, forHTTPHeaderField: contentTypeHeaderField)
     }
-		let encodedURLRequest = try! URLEncoding.queryString.encode(request, with: params?.toParam())
+		if httpMethod == HTTPMethod.GET {
+			let encodedURLRequest = try! URLEncoding.queryString.encode(request, with: params?.toParam())
+			return encodedURLRequest;
+		}
+		let encodedURLRequest = try! JSONEncoding.default.encode(request, with: params?.toParam())
 		return encodedURLRequest;
   }
 

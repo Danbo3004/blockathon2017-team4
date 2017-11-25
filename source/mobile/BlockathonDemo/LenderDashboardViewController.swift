@@ -14,6 +14,8 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 	@IBOutlet weak var backButton: UIButton!
 	@IBOutlet weak var hamburgerButton: UIButton!
 	@IBOutlet weak var tableView: UITableView!
+	@IBOutlet weak var profileImageView: UIImageView!
+	@IBOutlet weak var nameLabel: UILabel!
 
 	var swrevealViewController: SWRevealViewController {
 		return revealViewController()
@@ -31,22 +33,65 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 		self.backButton.isHidden = true
 		hamburgerButton.addTarget(swrevealViewController, action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
 		view.addGestureRecognizer(swrevealViewController.panGestureRecognizer())
-		self.tableView.register(BorrowerCell.self, forCellReuseIdentifier: "BorrowerCellIdentifer")
+		self.tableView.register(UINib(nibName: "BorrowerCell", bundle: nil), forCellReuseIdentifier: "BorrowerCellIdentifier")
+		self.tableView.separatorStyle = .none
+		self.profileImageView.layer.cornerRadius = 40.0
+		self.profileImageView.layer.masksToBounds = true;
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		self.tableView.reloadData()
+		self.populateData()
+	}
+
+	func populateData() {
+		let appDelegate = UIApplication.shared.delegate as! AppDelegate
+		let user: User = appDelegate.user
+		if !user.username.isEmpty {
+			self.nameLabel.text = user.username
+		}
+		if !user.username.isEmpty {
+			self.nameLabel.text = user.username
+		}
+
 	}
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 64.0;
+		return 150.0;
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return borrowerList.count;
+		return 4;
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		if let cell = tableView.dequeueReusableCell(withIdentifier: "BorrowerCellIdentifer") as? BorrowerCell {
+		if let cell = tableView.dequeueReusableCell(withIdentifier: "BorrowerCellIdentifier") as? BorrowerCell {
+			cell.avatarImage.image = UIImage.init(named: "borrower\(indexPath.row)")
 			return cell;
 		}
 		return UITableViewCell();
+	}
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let alertController = UIAlertController(title: "Bid interest", message: "Enter the interest rate you want to bid", preferredStyle: UIAlertControllerStyle.alert)
+		alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action: UIAlertAction) in
+			tableView.deselectRow(at: indexPath, animated: true)
+			alertController.dismiss(animated: true, completion: nil)
+		}))
+
+		alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction) in
+			let interestRateBidTextField = alertController.textFields![0] as UITextField
+			let interestRateBid = (interestRateBidTextField.text as! NSString).floatValue
+			tableView.deselectRow(at: indexPath, animated: true)
+			alertController.dismiss(animated: true, completion: nil)
+		}))
+
+		alertController.addTextField { (textField : UITextField!) in
+			textField.placeholder = "Enter Bidding Interest Rate"
+		}
+
+		present(alertController, animated: true, completion: nil)
 	}
 
 }

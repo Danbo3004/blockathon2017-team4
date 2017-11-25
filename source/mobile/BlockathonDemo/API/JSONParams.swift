@@ -21,7 +21,7 @@ enum BCJSONParams: JSONParams {
   func toJSON() -> JSON {
     switch self {
     case .SignIn(let user):
-			return JSON.init(object: ["user": ["email": user.email, "password": user.password]])
+			return JSON.init(object: ["email": user.email, "password": user.password])
 		}
 	}
 
@@ -29,7 +29,7 @@ enum BCJSONParams: JSONParams {
 		switch self {
 		case .SignIn(let user):
 
-			return ["user": ["email": user.email, "password": user.password]]
+			return ["email": user.email, "password": user.password]
 		}
 	}
 }

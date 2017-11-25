@@ -35,14 +35,13 @@ extension APIFoundation {
       completion?(nil, error)
       return
     }
-
-    let errorMessage = response["errors"].stringValue
-    if errorMessage.isEmpty {
+		let errorObject = response["error"].dictionaryObject
+		if let errorObject = errorObject, let errorMessage = errorObject["message"] as? String {
+			completion?(nil, requestAPIResponseError(errorMessage: errorMessage))
+		} else {
       completion?(response, nil)
-    } else {
-      completion?(nil, requestAPIResponseError(errorMessage: errorMessage))
-    }
   }
+}
 
 
 	public class func requestAPIResponseError(errorMessage: String) -> NSError {

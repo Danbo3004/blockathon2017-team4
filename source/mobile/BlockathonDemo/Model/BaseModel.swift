@@ -15,7 +15,7 @@ class BaseModel: EVObject {
 	var modified = 0
 
 	required init() {
-		fatalError("init() has not been implemented")
+		super.init()
 	}
 
 	init(id: Int, created: Int, modified: Int) {
