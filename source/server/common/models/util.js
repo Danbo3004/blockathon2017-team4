@@ -142,6 +142,7 @@ module.exports = function(Util) {
     accepts: [
       {arg: 'to', type: 'address', required: true},
       {arg: 'wei', type: 'string', required: true},
+      {arg: 'req', type: 'object', 'http': {source: 'req'}}
     ],
     http: {
       verb: 'post'
@@ -150,13 +151,45 @@ module.exports = function(Util) {
       arg: 'transactionHash', type: 'string'
     }
   })
-  Util.transferEth = function(to, wei, cb) {
+  Util.transferEth = function(to, wei, req, cb) {
     if (!globals['eth-node'].web3.utils.isAddress(to)) {
       let err = new Error('Receiver address is not valid');
       err.statusCode = 400;
       cb(err);
       return;
     }
+    if (!req.accessToken) {
+      let err = new Error('Authentication is required');
+      err.statusCode = 401;
+      cb(err);
+      return;
+    }
+    async.auto({
+      getUser: function(callback) {
+        Util.app.models.user.findById(req.accessToken.userId, (err, user) => {
+          if (err) {
+            callback(err);
+            return;
+          }
+          if (!user) {
+            let err = new Error('No user found');
+            err.statusCode = 404;
+            callback(err);
+            return;
+          }
+          callback(null, user);
+        });
+      },
+      signTransaction: ['getUser', function(data, callback) {
+        Util.signTransaction(data['getUser'].privateKey, to, wei, null, callback);
+      }],
+      sendSignedTransaction: ['signTransaction', function(data, callback) {
+        globals['eth-node'].eth.sendSignedTransaction(data['signTransaction'], callback)
+          .once('receipt', receipt => console.log('Send ETH transaction hash: ' + receipt.transactionHash))
+      }]
+    }, (err, results) => {
+      cb(err, results['sendSignedTransaction']);
+    })
   }
 
   Util.remoteMethod('signTransaction', {
@@ -202,10 +235,90 @@ module.exports = function(Util) {
         data: data
       };
       const tempTx = new EthereumTx(txData);
-      txData.gas = globals['eth-node'].web3.utils.toHex(tempTx.getBaseFee().toString());
+      txData.gas = globals['eth-node'].web3.utils.toHex(parseInt(tempTx.getBaseFee().toString()) + 21000);
       const tx = new EthereumTx(txData);
       tx.sign(privateKey);
       cb(null, '0x' + tx.serialize().toString('hex'));
     })
+  }
+
+  Util.remoteMethod('sendMethod', {
+    accepts: [
+      {arg: 'address', type: 'string', required: true},
+      {arg: 'contractName', type: 'string', required: true},
+      {arg: 'methodName', type: 'string', required: true},
+      {arg: 'args', type: 'array'},
+      {arg: 'req', type: 'object', 'http': {source: 'req'}}
+    ],
+    http: {
+      verb: 'post'
+    },
+    returns: {
+      arg: 'transactionHash', type: 'string'
+    }
+  })
+  Util.sendMethod = function(address, contractName, methodName, args, req, cb) {
+    if (!globals['eth-node'].web3.utils.isAddress(address)) {
+      let err = new Error('Address is not valid');
+      err.statusCode = 400;
+      cb(err);
+      return;
+    }
+    if (!req.accessToken) {
+      let err = new Error('Authentication is required');
+      err.statusCode = 401;
+      cb(err);
+      return;
+    }
+    async.auto({
+      getUser: function(callback) {
+        Util.app.models.user.findById(req.accessToken.userId, (err, user) => {
+          if (err) {
+            callback(err);
+            return;
+          }
+          if (!user) {
+            let err = new Error('No user found');
+            err.statusCode = 404;
+            callback(err);
+            return;
+          }
+          callback(null, user);
+        });
+      },
+      signTransaction: ['getUser', function(data, callback) {
+        Util.signTransaction(data['getUser'].privateKey, address, 0, getSendMethodData(address, contractName, methodName, args), callback);
+      }],
+      sendSignedTransaction: ['signTransaction', function(data, callback) {
+        globals['eth-node'].eth.sendSignedTransaction(data['signTransaction'], callback)
+          .once('receipt', receipt => console.log('Send method transaction hash: ' + receipt.transactionHash))
+      }]
+    }, (err, results) => {
+      cb(err, results['sendSignedTransaction']);
+    })
+  }
+
+  function getSendMethodData(contractAddress, contractName, methodName, args) {
+    if (!globals['eth-node'].web3.utils.isAddress(contractAddress)) {
+      let err = new Error('Address is not valid');
+      err.statusCode = 400;
+      cb(err);
+      return;
+    }
+    if (!globals['smart-contracts'][contractName]) {
+      let err = new Error('contract name not found');
+      err.statusCode = 404;
+      cb(err);
+      return;
+    }
+    const abi = globals['smart-contracts'][contractName].abi;
+    const contract = new globals['eth-node'].eth.Contract(abi, contractAddress);
+    if (!contract.methods[methodName]) {
+      let err = new Error('method name not found');
+      err.statusCode = 404;
+      cb(err);
+      return;
+    }
+    return contract.methods[methodName].apply(contract.methods[methodName], args).encodeABI();
   }
 }

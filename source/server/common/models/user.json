@@ -7,7 +7,9 @@
   },
   "properties": {
     "userType": {
-      "type": "string"
+      "type": "string",
+      "default": "borrower",
+      "description": "borrower | lender"
     },
     "address": {
       "type": "string",
@@ -28,7 +30,25 @@
     "verificationToken": false
   },
   "validations": [],
-  "relations": {},
-  "acls": [],
+  "relations": {
+    "credit": {
+      "type": "hasMany",
+      "model": "credit",
+      "foreignKey": "borrowerId"
+    },
+    "bidHistory": {
+      "type": "hasMany",
+      "model": "bidHistory",
+      "foreignKey": "lenderId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
   "methods": {}
 }

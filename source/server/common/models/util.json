@@ -5,6 +5,21 @@
   },
   "validations": [],
   "relations": {},
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY",
+      "property": "transferEth"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY",
+      "property": "sendMethod"
+    }
+  ],
   "methods": {}
 }

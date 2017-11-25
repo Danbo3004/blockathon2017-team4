@@ -1,0 +1,34 @@
+{
+  "name": "payLoan",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "creditId": {
+      "type": "number",
+      "required": true
+    },
+    "amount": {
+      "type": "number"
+    },
+    "created": {
+      "type": "number"
+    },
+    "modified": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}
