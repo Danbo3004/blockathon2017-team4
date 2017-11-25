@@ -13,19 +13,23 @@
 ```
 npm install
 grunt
-node .
+nodejs
+Loopback
 ```
 ### Frontend
 
 ### Mobile
-
+```
+gem install cocoapods
+pod install
+```
 
 ## Technology 
 ### Languages
 - JavaScript
 - Html
 - CSS
-- Swiff
+- Swift 3
 
 ### Environment 
 - API framework : [LoopBack ver3.0](https://loopback.io/)
@@ -33,14 +37,14 @@ node .
 - Frontend : [Angular](https://angular.io/) 
 - Templates : [CoreUI](http://coreui.io/) 
 - Amazon EC2
+- MacOS
 
 ### Library:
 - Ethereum JavaScript API : [Web3js ver1.0.0](https://github.com/ethereum/web3.js/)
 - Ethereumjs : [Ethereumjs-tx](https://github.com/ethereumjs/ethereumjs-tx)
 - Nodejs libs
+- [Cocoapods](https://cocoapods.org/)
 
 ### IDE :
-- Nodejs + Angular : [WebStorm](https://www.jetbrains.com/webstorm/)
-- Swiff : [Atom](https://atom.io/)
-
-
+- Nodejs + Angular : [WebStorm](https://www.jetbrains.com/webstorm/), [Atom](https://atom.io/)
+- iOS : [XCode](https://developer.apple.com/xcode/)
