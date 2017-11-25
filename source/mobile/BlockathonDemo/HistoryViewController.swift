@@ -55,15 +55,9 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 			DataManager.shared.historyRecord = historyList
 
 			// Test
-			let newHistory = History()
-			newHistory.creditId = 1
-			newHistory.traderId = 1
-			newHistory.historyOwnerId = 3
-			newHistory.dateTime = 1511603760
-			newHistory.totalValue = 300
-			newHistory.status = "Approved"
-
-			self.historyRecord.append(newHistory)
+			if (self.historyRecord.count == 0) {
+				self.historyRecord = Constants.historyList()
+			}
 			self.tableView.reloadData()
 		}
 

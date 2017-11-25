@@ -9,13 +9,29 @@
 import UIKit
 
 class Constants: NSObject {
-	static let BCNotificationDidBeginRequest = "BCNotificationDidBeginRequest"
-	static let BCNotificationDidEndRequest = "BCNotificationDidEndRequest"
-//	static let baseApiUrl = "http://192.168.21.230:3000/api/"
+
+	//	static let baseApiUrl = "http://192.168.21.230:3000/api/"
 	static let baseApiUrl = "https://lalalendapi.clearsystems.asia/api/"
-//	https://lalalend.clearsystems.asia/explorer/
-	static let apiAppToken = "https://127.0.0.1:8080"
+	//	https://lalalend.clearsystems.asia/explorer/
+
+
+
+	static let apiAppToken = "apptoken"
 	static let BCErrorKey = "errors"
 	static let TCMenuWidth : CGFloat = 256.0
 	static let CurrentUser = "CurrentUser"
+
+	class func historyList() -> [History] {
+		var historyRecord: [History] = []
+		let newHistory = History()
+		newHistory.creditId = 1
+		newHistory.traderId = 1
+		newHistory.historyOwnerId = 3
+		newHistory.dateTime = 1511603760
+		newHistory.totalValue = 300
+		newHistory.status = "Approved"
+
+		historyRecord.append(newHistory)
+		return historyRecord
+	}
 }
