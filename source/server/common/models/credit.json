@@ -37,7 +37,7 @@
     "status": {
       "type": "string",
       "default": "created",
-      "description": "created | readyToBid | Lending | Pay | Done"
+      "description": "readyToBid | lending | pay | done"
     },
     "created": {
       "type": "number"
