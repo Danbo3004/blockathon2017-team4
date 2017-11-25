@@ -11,14 +11,18 @@ import {
   AuthenticationService,
   CheckAccessTokenService,
   CreditService,
-  CustomHttpInterceptor
+  CustomHttpInterceptor,
+  CheckBalanceService,
+  SocketService
 } from './services';
 
 const APP_SERVICES = [
   GlobalsService,
   AuthenticationService,
   CheckAccessTokenService,
-  CreditService
+  CreditService,
+  CheckBalanceService,
+  SocketService
 ]
 
 // Import containers
@@ -89,6 +93,7 @@ import {ChartsModule} from 'ng2-charts/ng2-charts';
 import {LalalendLayoutComponent} from './containers/lalalend-layout/lalalend-layout.component';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   imports: [
@@ -99,6 +104,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ChartsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    NgbModule.forRoot(),
     BrowserAnimationsModule
   ],
   declarations: [

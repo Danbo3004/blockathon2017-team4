@@ -7,8 +7,8 @@ import {ToastrService} from 'ngx-toastr';
   templateUrl: 'login.component.html'
 })
 export class LoginComponent {
-  email = '';
-  password = '';
+  email = 'tonydoan@clearsystems.asia';
+  password = '123456';
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
@@ -22,7 +22,7 @@ export class LoginComponent {
       this.router.navigateByUrl('/account/wallet');
     }, err => {
       this.password = '';
-      const message = (err.error.message) ? err.error.message : 'Email or password was wrong';
+      const message = 'Email or password is incorrect!';
       this.toastr.error(message, 'Login Failed!');
     });
   }

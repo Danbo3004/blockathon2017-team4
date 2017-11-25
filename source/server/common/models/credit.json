@@ -11,8 +11,7 @@
       "required": true
     },
     "borrowerName": {
-      "type": "number",
-      "required": true
+      "type": "string"
     },
     "amount": {
       "type": "number"
@@ -122,6 +121,20 @@
       "accessType": "EXECUTE",
       "principalType": "ROLE",
       "property":"newLoan",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "property":"newBid",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "property":"newBid",
       "principalId": "$authenticated",
       "permission": "ALLOW"
     }

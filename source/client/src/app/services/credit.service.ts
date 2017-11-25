@@ -31,4 +31,27 @@ export class CreditService {
         errorCb ? err => errorCb(err) : null,
         completeCb ? () => completeCb() : null);
   }
+
+  createCredit(credit: object, successCb?: Function, errorCb?: Function, completeCb?: Function): void {
+    const subscription = this.http.post<any>(this.baseUrl, credit)
+      .subscribe(successCb ? (data) => {
+          successCb(data);
+          subscription.unsubscribe();
+        } : null,
+        errorCb ? err => errorCb(err) : null,
+        completeCb ? () => completeCb() : null);
+  }
+
+  bidCredit(creditId: number, rate: number, successCb?: Function, errorCb?: Function, completeCb?: Function): void {
+    const subscription = this.http.post<any>(this.baseUrl + '/newBid', {
+      id: creditId,
+      rate: rate
+    })
+      .subscribe(successCb ? (data) => {
+          successCb(data);
+          subscription.unsubscribe();
+        } : null,
+        errorCb ? err => errorCb(err) : null,
+        completeCb ? () => completeCb() : null);
+  }
 }
