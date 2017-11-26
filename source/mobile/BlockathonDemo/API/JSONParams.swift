@@ -19,6 +19,7 @@ enum BCJSONParams: JSONParams {
   case SignIn(User)
 	case BalanceOf(User)
 	case BidCredit(Double, String)
+	case NewBidCredit(Int, Double)
 
   func toJSON() -> JSON {
     switch self {
@@ -27,6 +28,8 @@ enum BCJSONParams: JSONParams {
 		case .BalanceOf(_):
 			return JSON.init(object:self.toParam())
 		case .BidCredit(_, _):
+			return JSON.init(object:self.toParam())
+		case .NewBidCredit(_, _):
 			return JSON.init(object:self.toParam())
 		}
 	}
@@ -39,6 +42,9 @@ enum BCJSONParams: JSONParams {
 			return ["address": user.address, "timestamp": Date.timeIntervalSinceReferenceDate]
 		case .BidCredit(let rate, let address):
 			return ["rate": rate, "to": address]
+		case .NewBidCredit(let id, let rate):
+			return ["rate": rate, "id": id]
+
 		}
 	}
 
