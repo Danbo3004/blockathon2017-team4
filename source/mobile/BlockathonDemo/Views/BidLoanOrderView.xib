@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="Bid Loan Rate View" customClass="BidLoanOrderView" customModule="BlockathonDemo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WD0-22-iSQ" userLabel="Opacity View">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fgJ-5g-9oF" userLabel="Wrapper View">
+                    <rect key="frame" x="27" y="168" width="360" height="400"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bid Loan Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TDF-4w-O6u">
+                            <rect key="frame" x="87.333333333333329" y="35" width="185.66666666666669" height="36"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
+                            <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReR-p1-2qf">
+                            <rect key="frame" x="20" y="91" width="320" height="28.666666666666671"/>
+                            <string key="text">Enter your desire interest rate to bid this loan order.
+The current lowest ratio of interest is: </string>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17h-4Q-rf3">
+                            <rect key="frame" x="54.000000000000007" y="192.66666666666669" width="29.333333333333336" height="15.666666666666657"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 VNDT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMU-uG-Dcn" userLabel="AmountLabel">
+                            <rect key="frame" x="86.333333333333329" y="193" width="47.333333333333329" height="15.666666666666657"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XBf-5q-rV3">
+                            <rect key="frame" x="136.66666666666666" y="193" width="14.666666666666657" height="15.666666666666657"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2mO-7x-KYp" userLabel="Current Rate Label">
+                            <rect key="frame" x="164.66666666666666" y="135" width="30.666666666666657" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.69019607843137254" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" text="12%" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EPv-AC-Wfp" userLabel="Bid Rate Text Field">
+                            <rect key="frame" x="155.33333333333334" y="175.66666666666669" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="II6-mG-LQ2"/>
+                                <constraint firstAttribute="width" constant="50" id="t6d-yc-GMA"/>
+                            </constraints>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                        </textField>
+                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" continuous="NO" autorepeat="NO" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="whM-83-X9n">
+                            <rect key="frame" x="133" y="245.66666666666669" width="94" height="29"/>
+                        </stepper>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="% interest" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPe-NI-WlB">
+                            <rect key="frame" x="213" y="193" width="59.666666666666686" height="15.666666666666657"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZw-Qw-d39">
+                            <rect key="frame" x="180.66666666666663" y="340" width="179.33333333333337" height="60"/>
+                            <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="OK">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="OKButtonDidTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="rfW-Oc-yiE"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VN9-oq-AkC" userLabel="Separator View">
+                            <rect key="frame" x="179.66666666666666" y="337" width="1" height="63"/>
+                            <color key="backgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="63" id="2Nc-fW-I7v"/>
+                                <constraint firstAttribute="width" constant="1" id="91W-bX-iso"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your bidding is failed, please adjust your interest rate or try again later" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GzM-vz-VOk" userLabel="Error Label">
+                            <rect key="frame" x="40" y="282" width="280" height="31.333333333333314"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5R-2z-znf">
+                            <rect key="frame" x="0.0" y="340" width="179.66666666666666" height="60"/>
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" red="0.0" green="0.69019607839999997" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="cancelButtonDidTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="VUb-4V-aR4"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="400" id="0TJ-X9-dqJ"/>
+                        <constraint firstItem="ReR-p1-2qf" firstAttribute="leading" secondItem="fgJ-5g-9oF" secondAttribute="leading" constant="20" id="124-R8-0Gi"/>
+                        <constraint firstAttribute="trailing" secondItem="GzM-vz-VOk" secondAttribute="trailing" constant="40" id="3bE-mk-YKv"/>
+                        <constraint firstItem="2mO-7x-KYp" firstAttribute="centerX" secondItem="fgJ-5g-9oF" secondAttribute="centerX" id="3in-Fo-7AX"/>
+                        <constraint firstItem="whM-83-X9n" firstAttribute="centerX" secondItem="fgJ-5g-9oF" secondAttribute="centerX" id="49g-Fa-Hg5"/>
+                        <constraint firstItem="EPv-AC-Wfp" firstAttribute="top" secondItem="2mO-7x-KYp" secondAttribute="bottom" constant="20" id="53K-vz-OFv"/>
+                        <constraint firstItem="FPe-NI-WlB" firstAttribute="centerY" secondItem="EPv-AC-Wfp" secondAttribute="centerY" id="5br-u8-Obq"/>
+                        <constraint firstItem="VN9-oq-AkC" firstAttribute="leading" secondItem="L5R-2z-znf" secondAttribute="trailing" id="6US-lE-hUm"/>
+                        <constraint firstItem="2mO-7x-KYp" firstAttribute="top" secondItem="ReR-p1-2qf" secondAttribute="bottom" constant="15" id="7Jy-Aw-4dk"/>
+                        <constraint firstItem="TDF-4w-O6u" firstAttribute="top" secondItem="fgJ-5g-9oF" secondAttribute="top" constant="35" id="82u-Gv-py8"/>
+                        <constraint firstItem="GzM-vz-VOk" firstAttribute="top" secondItem="whM-83-X9n" secondAttribute="bottom" constant="8" id="CKQ-7s-JsC"/>
+                        <constraint firstItem="EPv-AC-Wfp" firstAttribute="centerX" secondItem="fgJ-5g-9oF" secondAttribute="centerX" id="CaI-oo-Jyj"/>
+                        <constraint firstItem="XBf-5q-rV3" firstAttribute="leading" secondItem="HMU-uG-Dcn" secondAttribute="trailing" constant="3" id="HOV-VL-YRz"/>
+                        <constraint firstItem="TDF-4w-O6u" firstAttribute="centerX" secondItem="fgJ-5g-9oF" secondAttribute="centerX" id="I3K-Dj-s6I"/>
+                        <constraint firstItem="ReR-p1-2qf" firstAttribute="top" secondItem="TDF-4w-O6u" secondAttribute="bottom" constant="20" id="ICz-wE-qAI"/>
+                        <constraint firstItem="uZw-Qw-d39" firstAttribute="leading" secondItem="VN9-oq-AkC" secondAttribute="trailing" id="JUg-SB-xhb"/>
+                        <constraint firstItem="L5R-2z-znf" firstAttribute="leading" secondItem="fgJ-5g-9oF" secondAttribute="leading" id="MGT-Of-FWx"/>
+                        <constraint firstItem="EPv-AC-Wfp" firstAttribute="leading" secondItem="XBf-5q-rV3" secondAttribute="trailing" constant="4" id="Mdr-AD-v3f"/>
+                        <constraint firstItem="17h-4Q-rf3" firstAttribute="centerY" secondItem="HMU-uG-Dcn" secondAttribute="centerY" id="NCk-8G-nKK"/>
+                        <constraint firstItem="ReR-p1-2qf" firstAttribute="centerX" secondItem="fgJ-5g-9oF" secondAttribute="centerX" id="Ned-W4-UOK"/>
+                        <constraint firstAttribute="bottom" secondItem="L5R-2z-znf" secondAttribute="bottom" id="Plu-r7-K2d"/>
+                        <constraint firstItem="uZw-Qw-d39" firstAttribute="height" secondItem="VN9-oq-AkC" secondAttribute="height" constant="-3" id="Qpn-IH-YHO"/>
+                        <constraint firstItem="HMU-uG-Dcn" firstAttribute="centerY" secondItem="EPv-AC-Wfp" secondAttribute="centerY" id="Rgu-2C-IWx"/>
+                        <constraint firstItem="FPe-NI-WlB" firstAttribute="leading" secondItem="EPv-AC-Wfp" secondAttribute="trailing" constant="8" id="Tz1-D9-Uka"/>
+                        <constraint firstItem="GzM-vz-VOk" firstAttribute="leading" secondItem="fgJ-5g-9oF" secondAttribute="leading" constant="40" id="Uyg-Mv-xQ2"/>
+                        <constraint firstAttribute="trailing" secondItem="uZw-Qw-d39" secondAttribute="trailing" id="VOG-EW-XfC"/>
+                        <constraint firstAttribute="width" constant="360" id="aEP-aK-cXj"/>
+                        <constraint firstItem="L5R-2z-znf" firstAttribute="height" secondItem="VN9-oq-AkC" secondAttribute="height" constant="-3" id="baW-VO-GUA"/>
+                        <constraint firstItem="whM-83-X9n" firstAttribute="top" secondItem="EPv-AC-Wfp" secondAttribute="bottom" constant="20" id="cfu-sy-rOt"/>
+                        <constraint firstItem="XBf-5q-rV3" firstAttribute="centerY" secondItem="HMU-uG-Dcn" secondAttribute="centerY" id="fnJ-wx-gHZ"/>
+                        <constraint firstItem="VN9-oq-AkC" firstAttribute="centerX" secondItem="fgJ-5g-9oF" secondAttribute="centerX" id="ina-y8-2Gu"/>
+                        <constraint firstItem="HMU-uG-Dcn" firstAttribute="leading" secondItem="17h-4Q-rf3" secondAttribute="trailing" constant="3" id="loi-e9-Epy"/>
+                        <constraint firstAttribute="bottom" secondItem="VN9-oq-AkC" secondAttribute="bottom" id="pCd-xz-Js7"/>
+                        <constraint firstItem="GzM-vz-VOk" firstAttribute="centerX" secondItem="fgJ-5g-9oF" secondAttribute="centerX" id="s63-81-AJx"/>
+                        <constraint firstAttribute="trailing" secondItem="ReR-p1-2qf" secondAttribute="trailing" constant="20" id="v45-PO-Fxg"/>
+                        <constraint firstAttribute="bottom" secondItem="uZw-Qw-d39" secondAttribute="bottom" id="yuj-bM-ao8"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="WD0-22-iSQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="HNF-F0-83C"/>
+                <constraint firstAttribute="bottom" secondItem="WD0-22-iSQ" secondAttribute="bottom" id="L1h-lM-Zgm"/>
+                <constraint firstItem="WD0-22-iSQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="d6D-J5-jk1"/>
+                <constraint firstItem="fgJ-5g-9oF" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ipt-YY-ogM"/>
+                <constraint firstItem="fgJ-5g-9oF" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="nEu-DA-UNQ"/>
+                <constraint firstAttribute="trailing" secondItem="WD0-22-iSQ" secondAttribute="trailing" id="w2f-aR-Vld"/>
+            </constraints>
+            <connections>
+                <outlet property="OKButton" destination="uZw-Qw-d39" id="BHN-Dg-dFT"/>
+                <outlet property="amountLabel" destination="HMU-uG-Dcn" id="wHL-91-NVL"/>
+                <outlet property="bidRateTextField" destination="EPv-AC-Wfp" id="W5l-UG-Toc"/>
+                <outlet property="cancelButton" destination="L5R-2z-znf" id="XSw-sL-GyI"/>
+                <outlet property="currentLowestRateLabel" destination="2mO-7x-KYp" id="UKm-Sf-xqH"/>
+                <outlet property="errorLabel" destination="GzM-vz-VOk" id="7H1-A6-P0Z"/>
+                <outlet property="rateStepper" destination="whM-83-X9n" id="gz0-Th-H2X"/>
+                <outlet property="wrapperView" destination="fgJ-5g-9oF" id="Vps-8S-DsD"/>
+            </connections>
+        </view>
+    </objects>
+</document>
