@@ -16,9 +16,7 @@
               <tr>
                 <th>Borrower</th>
                 <th>Lend ticket</th>
-                <th>Role</th>
                 <th>Status</th>
-                <th>Action</th>
               </tr>
               </thead>
               <tbody>
@@ -29,16 +27,14 @@
                   Credit Limit:{{credit.creditLimit}} VNDT
                 </td>
                 <td>Amount: {{credit.amount}} VNDT<br>
-                  Rate: {{credit.rate*100}} %/yr<br>
-                  Due Day after: {{credit.dueDay*100}} days
+                  Rate: {{credit.rate}} %/yr<br>
                 </td>
-                <td>Expired: {{credit.expiredTime | date:"MM/dd/yy"}} days</td>
                 <td>
                   <span class="badge badge-success">{{credit.status}}</span>
                 </td>
-                <td>
-                  <button class="btn btn-primary">Bid rate now!</button>
-                </td>
+                <!--<td>-->
+                <!--<button class="btn btn-primary">Bid rate now!</button>-->
+                <!--</td>-->
               </tr>
               </tbody>
             </table>

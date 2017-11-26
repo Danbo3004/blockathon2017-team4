@@ -20,12 +20,14 @@ export class WalletComponent implements OnInit{
   ngOnInit(): void {
     this.user = this.authenticationService.getUser();
     this.checkBalanceService.checkEthBalance(this.user.address, data => {
-        this.user.ethBalance = data.balance
-      /*if(data.balance.length > 18) {
-          this.user.ethBalance = data.balance.slice(0, data.balance.length - 18);
-      } else {
-        this.user.ethBalance = '0.' + data.balance.slice(0, data.balance.length - 18);
-      }*/
+        this.user.ethBalance = data.balance;
+        // const ethNumber =
+        if(data.balance.length > 16) {
+            this.user.ethBalance = data.balance.slice(0, data.balance.length - 16);
+        } else {
+          this.user.ethBalance = 0
+        }
+        this.user.ethBalance = (this.user.ethBalance / 100).toFixed(2);
       },
       err => console.error(err));
     this.checkBalanceService.checkTokenBalance(this.user.address, data => this.user.tokenBalance = data.balance,
@@ -148,6 +150,8 @@ export class WalletComponent implements OnInit{
     this.borrow['borrowerName'] = 0;
     this.creditService.createCredit(this.borrow, borrow => {
       console.log(borrow);
+      //refresh page
+      location.reload();
     }, err => {
       console.error(err);
     })

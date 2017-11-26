@@ -52,7 +52,7 @@
     },
     "status": {
       "type": "string",
-      "default": "created",
+      "default": "readyToBid",
       "description": "readyToBid | lending | pay | done"
     },
     "created": {

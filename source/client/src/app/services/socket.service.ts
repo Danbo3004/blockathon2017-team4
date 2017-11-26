@@ -4,8 +4,8 @@ import {OnDestroy} from '@angular/core';
 import * as io from 'socket.io-client/dist/socket.io';
 
 export class SocketService implements OnDestroy {
-  // private url = 'https://lalalendapi.clearsystems.asia';
-  private url = 'http://localhost:3000';
+  private url = 'https://lalalendapi.clearsystems.asia';
+  // private url = 'http://localhost:3000';
   private socket;
   constructor() {
     this.socket = io(this.url);

@@ -14,7 +14,7 @@ export class OpportunitiesComponent implements OnInit {
 
     this.creditService.getCredits({
       where: {
-        // status: 'lending'
+        status: 'readyToBid'
       }
     }, data => {
       this.listOpportunities = data;

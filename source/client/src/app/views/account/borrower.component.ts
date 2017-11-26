@@ -16,7 +16,7 @@ export class BorrowerComponent implements OnInit {
 
     this.creditService.getCredits({
       where: {
-        status: 'lending',
+        status: {neq: 'done'},
         lenderId: (currentUserId) ? currentUserId : 0
       }
     }, data => {
