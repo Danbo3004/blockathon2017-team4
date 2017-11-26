@@ -16,7 +16,7 @@ export class HistoryComponent implements OnInit {
 
     this.creditService.getCredits({
       where: {
-        status: {inq: ['pay', 'done']},
+        status: 'done',
         lenderId: (currentUserId) ? currentUserId : 0
       }
     }, data => {

@@ -16,7 +16,7 @@
               <tr>
                 <th>Borrower</th>
                 <th>Lend ticket</th>
-                <th>Role</th>
+                <th>Timeline</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -32,12 +32,11 @@
                   Rate: {{credit.rate}} %/yr<br>
                   Due Day after: {{credit.dueDay}} days
                 </td>
-                <td>Expired: {{credit.expiredTime | date:"MM/dd/yy"}} days</td>
+                <td>Expired after: {{credit.expiredTime | date:"MM/dd/yy"}}</td>
                 <td>
                   <span class="badge badge-success">{{credit.status}}</span>
                 </td>
                 <td>
-                  <!--<button class="btn btn-primary" (click)="open(content)">Bid rate now!</button>-->
                   <app-popup [credit]="credit"></app-popup>
                 </td>
               </tr>

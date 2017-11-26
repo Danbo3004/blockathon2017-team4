@@ -4,48 +4,43 @@
       <h3 style="color:#4e4b4b">Your investments</h3>
     </div>
   </div>
-<div class="animated fadeIn">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <h2 *ngIf="listBorrowers?.length==0" class="text-center">You have no investment now!</h2>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 *ngIf="listBorrowers?.length==0" class="text-center">You have no investment now!</h2>
 
-          <table class="table" *ngIf="listBorrowers?.length>0">
-            <thead>
-            <tr>
-              <th>Borrower</th>
-              <th>Lend ticket</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let credit of listBorrowers">
-              <td><strong>{{credit.borrowerName}}</strong><br>
-                CIC Rank: {{credit.cicRank}}<br>
-                LLLRank:{{credit.lllRank}}<br>
-                Credit Limit:{{credit.creditLimit}} VNDT
-              </td>
-              <td>Amount: {{credit.amount}} VNDT<br>
-                Rate: {{credit.rate*100}} %/yr<br>
-                Due Day after: {{credit.dueDay*100}} days
-              </td>
-              <td>Expired: {{credit.expiredTime | date:"MM/dd/yy"}} days</td>
-              <td>
-                <span class="badge badge-success">{{credit.status}}</span>
-              </td>
-              <td>
-                <button class="btn btn-primary">Bid rate now!</button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+            <table class="table" *ngIf="listBorrowers?.length>0">
+              <thead>
+              <tr>
+                <th>Borrower</th>
+                <th>Lend ticket</th>
+                <th>Timeline</th>
+                <th>Status</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let credit of listBorrowers">
+                <td><strong>{{credit.borrowerName}}</strong><br>
+                  CIC Rank: {{credit.cicRank}}<br>
+                  LLLRank:{{credit.lllRank}}<br>
+                  Credit Limit:{{credit.creditLimit}} VNDT
+                </td>
+                <td>Amount: {{credit.amount}} VNDT<br>
+                  Rate: {{credit.rate}} %/yr<br>
+                </td>
+                <td>Due Day: {{credit.dueDay | date:"MM/dd/yy"}}</td>
+                <td>
+                  <span class="badge badge-success">{{credit.status}}</span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 
