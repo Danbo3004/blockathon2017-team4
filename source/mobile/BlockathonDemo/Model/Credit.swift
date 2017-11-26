@@ -63,7 +63,16 @@ class Credit: BaseModel {
 				completion(nil);
 			}
 		}
-
 	}
 
+	func requestNewBidCredit(bidRate: Double, creditId: Int, completion:@escaping ((Error?) -> Void)) {
+		APIFoundation.requestNewBidCredit(param: BCJSONParams.NewBidCredit(creditId, bidRate)) { (json: JSON?, error: Error?) in
+			if let error = error {
+				completion(error)
+			} else if let json = json {
+				let message = json["message"].stringValue
+				completion(nil);
+			}
+		}
+	}
 }

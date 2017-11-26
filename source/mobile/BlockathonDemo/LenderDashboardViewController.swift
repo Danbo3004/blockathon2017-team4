@@ -173,22 +173,41 @@ class LenderDashboardViewController: UIViewController, UITableViewDelegate, UITa
 
 	func bidLoanOrderViewDidTapOK(bidLoanOrderView: BidLoanOrderView) {
 		let interestRateBid : Double = NSString(string: bidLoanOrderView.bidRateTextField.text!).doubleValue
-		if (interestRateBid < self.currentLowestBid) {
+		if (interestRateBid < bidLoanOrderView.currentLowestRate) {
 			DataManager.shared.currentUser = self.user
-
-			if let biddingCredit = bidLoanOrderView.credit {
-				biddingCredit.requestBidCredit(bidRate: interestRateBid, userAddess: biddingCredit.borrower!.address, completion: { (error) -> Void in
-					if let _ = error {
-						bidLoanOrderView.errorLabel.isHidden = false
-					} else {
-						bidLoanOrderView.errorLabel.isHidden = true
-						bidLoanOrderView.removeFromSuperview()
-						self.performSegue(withIdentifier: "LenderDashboardToHistorySegue", sender: self)
-					}
-				})
-			}
-
+			requestNewBidCredit(bidLoanOrderView: bidLoanOrderView)
 		}
 	}
+
+	func requestBidCredit(bidLoanOrderView: BidLoanOrderView) {
+		let interestRateBid : Double = NSString(string: bidLoanOrderView.bidRateTextField.text!).doubleValue
+		if let biddingCredit = bidLoanOrderView.credit {
+			biddingCredit.requestBidCredit(bidRate: interestRateBid, userAddess: biddingCredit.borrower!.address, completion: { (error) -> Void in
+				if let _ = error {
+					bidLoanOrderView.errorLabel.isHidden = false
+				} else {
+					bidLoanOrderView.errorLabel.isHidden = true
+					bidLoanOrderView.removeFromSuperview()
+					self.performSegue(withIdentifier: "LenderDashboardToHistorySegue", sender: self)
+				}
+			})
+		}
+	}
+
+	func requestNewBidCredit(bidLoanOrderView: BidLoanOrderView) {
+		let interestRateBid : Double = NSString(string: bidLoanOrderView.bidRateTextField.text!).doubleValue
+		if let biddingCredit = bidLoanOrderView.credit {
+			biddingCredit.requestNewBidCredit(bidRate: interestRateBid, creditId: biddingCredit.id, completion: { (error) -> Void in
+				if let _ = error {
+					bidLoanOrderView.errorLabel.isHidden = false
+				} else {
+					bidLoanOrderView.errorLabel.isHidden = true
+					bidLoanOrderView.removeFromSuperview()
+					self.performSegue(withIdentifier: "LenderDashboardToHistorySegue", sender: self)
+				}
+			})
+		}
+	}
+
 }
 

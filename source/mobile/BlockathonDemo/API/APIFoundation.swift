@@ -53,6 +53,13 @@ class APIFoundation {
 			self.processRequestResponse(response: response, error: error, completion: completion)
 		}
 	}
+
+	class func requestNewBidCredit(param: JSONParams, completion: ((JSON?, Error?) -> Void)?) {
+		HttpClient.request(url: Router.newBidCredit(param: param)) { (response: JSON?, error: Error?) in
+			self.processRequestResponse(response: response, error: error, completion: completion)
+		}
+	}
+
 }
 
 // MARK: - Response processor
